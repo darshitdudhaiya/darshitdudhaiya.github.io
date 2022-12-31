@@ -474,6 +474,11 @@ footer{
 
 .footer-part ul li{
   margin-bottom: 0.3rem;
+  cursor: pointer;
+}
+
+.footer-part ul li:hover >a{
+  color: #fdd428;
 }
 
 .footer-part ul li a{
@@ -499,6 +504,11 @@ footer{
 
 .copyright b{
   color: #FFF;
+  cursor: pointer;
+}
+
+.copyright b:hover{
+  color: #fdd428;
 }
 
 .copy-right-section ul{
@@ -508,9 +518,17 @@ footer{
 }
 
 .copy-right-section ul li{
-  border: 1px solid #fdd428;
+  border: 1px solid #f5f5f5;
   margin-left: 1rem;
   padding: 0.3rem 0.2rem;
+}
+
+.copy-right-section ul li:hover{
+  border: 1px solid #fdd428;
+}
+
+.copy-right-section ul li:hover >a{
+  color: #fdd428;
 }
 
 .copy-right-section ul li a{
