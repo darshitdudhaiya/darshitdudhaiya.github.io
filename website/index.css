@@ -274,6 +274,10 @@ section {
   gap: 1.8rem;
 }
 
+.organization-content-left-part{
+  float: right;
+}
+
 .organization-content-part img {
   width: 557px;
 }
