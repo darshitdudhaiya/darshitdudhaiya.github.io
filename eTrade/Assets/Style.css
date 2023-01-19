@@ -1416,6 +1416,7 @@ footer{
   margin-top: 1rem;
   padding: 2rem 7rem;
   display: flex;
+  justify-content:center;
 }
 
 .copyright ul{
