@@ -1266,13 +1266,13 @@ hr {
   margin-left: 1rem;
 }
 
-.email-address{
+.email-address {
   margin-top: 2rem;
   float: left;
   background-color: #fff;
 }
 
-.email-address input{
+.email-address input {
   padding: 1rem;
   margin-left: 2rem;
   border: none;
@@ -1284,7 +1284,7 @@ hr {
   line-height: 13.8px;
 }
 
-.newsletter button{
+.newsletter button {
   color: #fff;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
@@ -1299,26 +1299,26 @@ hr {
   height: 3.3rem;
 }
 
-.services-section{
+.services-section {
   margin-top: 1rem;
   padding: 2rem 7rem;
   display: flex;
   justify-content: center;
 }
 
-.services-grid{
+.services-grid {
   display: grid;
   grid-template-columns: 17.188rem 17.188rem 17.188rem 17.188rem;
   gap: 1rem;
 }
 
-.card-icon img{
+.card-icon img {
   height: 3rem;
   float: left;
   margin-right: 1rem;
 }
 
-.card-title{
+.card-title {
   color: #000;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
@@ -1326,7 +1326,7 @@ hr {
   line-height: 13.8px;
 }
 
-.card-text{
+.card-text {
   margin-top: 1rem;
   color: #636363;
   font-family: "DM Sans", sans-serif;
@@ -1335,22 +1335,21 @@ hr {
   line-height: 13.8px;
 }
 
-footer{
+footer {
   margin-top: 1rem;
   padding: 2rem 7rem;
   display: flex;
   justify-content: center;
 }
 
-.footer-grid{
+.footer-grid {
   display: grid;
   margin-top: 0rem;
   margin-bottom: 2rem;
   grid-template-columns: 17.875rem 17.875rem 17.875rem 17.875rem;
 }
 
-
-.footer-title{
+.footer-title {
   margin-bottom: 1.5rem;
   color: #000;
   font-family: "DM Sans", sans-serif;
@@ -1359,7 +1358,7 @@ footer{
   line-height: 13.8px;
 }
 
-.footer-text{
+.footer-text {
   color: #636363;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
@@ -1367,11 +1366,11 @@ footer{
   line-height: 27.2px;
 }
 
-.footer-part ul{
+.footer-part ul {
   list-style: none;
 }
 
-.footer-part ul li a{
+.footer-part ul li a {
   color: #636363;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
@@ -1380,7 +1379,7 @@ footer{
   line-height: 27.2px;
 }
 
-.footer-part ul li{
+.footer-part ul li {
   color: #636363;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
@@ -1390,63 +1389,85 @@ footer{
   margin-bottom: 0.7rem;
 }
 
-.footer-part ul li a:hover{
+.footer-part ul li a:hover {
   color: #000;
 }
 
-.footer-part ul li i{
+.footer-part ul li:hover {
+  color: #000;
+}
+
+.footer-part ul li i {
   margin-right: 10px;
 }
 
-.qr{
+.qr {
   margin-top: 1rem;
   float: left;
 }
 
-.app-download{
+.app-download {
   margin-top: 1rem;
 }
 
-.app-download img{
+.app-download img {
   margin-left: 1rem;
   margin-bottom: 0.7rem;
 }
 
-.copyright{
+.copyright {
   margin-top: 1rem;
   padding: 2rem 7rem;
   display: flex;
-  justify-content:center;
+  justify-content: center;
 }
 
-.copyright ul{
+.copyright ul {
   margin-top: -2rem;
   list-style: none;
   display: flex;
 }
 
-.social-media li{
+.social-media li {
+  color: #777;
   margin: 0rem 0.3rem;
-  padding: 0.5rem ;
+  padding: 0.5rem;
 }
 
-.social-media li:hover{
+.social-media li:hover {
   background-color: #ff497c;
   border-radius: 50%;
   color: #fff;
   transition: 0.4s;
 }
 
-.social-media{
+.social-media {
   float: left;
 }
 
-.copyright-text{
+.copyright-text {
+  color: #636363;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 13rem;
   margin-top: -1.5rem;
   float: left;
 }
 
-.payment-method{
-  margin-left: 30rem;
-  margin-top: -0.8rem;
+.payment-method {
+  color: #636363;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width: 20rem;
+  margin-left: 55rem;
+}
+
+.payment-method li {
+  margin-left: 1rem;
+}
+
+.payment-method li img {
+  height: 1.3rem;
 }
