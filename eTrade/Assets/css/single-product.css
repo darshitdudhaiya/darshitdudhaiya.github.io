@@ -110,6 +110,7 @@ header {
   margin-left: -5rem;
   height: 2.7rem;
   float: left;
+  outline:none;
   width: 2rem;
   background-color: #fff;
   border: 1px solid #ebebeb;
@@ -129,6 +130,7 @@ header {
 .menus input {
   margin-left: -2.5rem;
   margin-top: 10px;
+  outline:none;
   padding: 0rem 0.3rem;
   height: 2.7rem;
   font-family: "DM Sans", sans-serif;
@@ -513,6 +515,16 @@ header {
   font-family: "DM Sans", sans-serif;
 }
 
+.quentity li input{
+  color: #27272e;
+  text-align: center;
+  font-size: 20px;
+  width: 3rem;
+  line-height: 30px;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+}
+
 .quentity :first-child,
 .quentity :last-child {
   color: #27272e;
@@ -700,6 +712,7 @@ header {
 .flash-sales-title-section-buttons > button {
   padding: 0.8rem 1rem;
   border: none;
+  outline:none;
   border-radius: 5px;
   color: #b6b5b5;
   background-color: #f6f7fb;
@@ -962,6 +975,7 @@ header {
 }
 
 .email-address input {
+  outline:none;
   padding: 1rem;
   margin-left: 2rem;
   border: none;
@@ -974,6 +988,7 @@ header {
 }
 
 .newsletter button {
+  outline:none;
   color: #fff;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;

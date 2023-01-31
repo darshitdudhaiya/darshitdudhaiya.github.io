@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 26rem 56.938rem;
+}
+
+.first-part {
+  height: 900px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-image: url("../../Images/bg-image-9.jpg");
+}
+
+.logo {
+  margin-top: 3rem;
+  margin-left: 6rem;
+  height: 40px;
+  width: 157px;
+}
+
+.text {
+  padding: 7rem 5.5rem;
+  color: #292930;
+  font-size: 28px;
+  line-height: 36.4px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+}
+
+.right-text {
+  margin-left: 35rem;
+  margin-top: 4rem;
+  margin-right: 1rem;
+  float: left;
+  color: #292930;
+  font-size: 14px;
+  line-height: 23.8px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+}
+
+.second-part > button {
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  outline: none;
+  border: none;
+  background-color: #ff497c;
+  margin-top: 3rem;
+  float: left;
+  color: #fff;
+  border-radius: 7px;
+  font-size: 14px;
+  line-height: 23.8px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+}
+
+.form-title {
+  color: #292930;
+  margin-top: 13rem;
+  margin-left: 17rem;
+  font-size: 28px;
+  line-height: 36.4px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+}
+
+.form-small-title {
+  margin-top: 1rem;
+  color: #999fae;
+  margin-left: 17rem;
+  font-size: 14px;
+  line-height: 23.1px;
+  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
+}
+
+form > input[type="text"] {
+  margin-left: 17rem;
+  margin-top: 2rem;
+  background-color: #fff;
+  outline: none;
+  width: 20rem;
+  color: #292930;
+  font-size: 14px;
+  line-height: 60px;
+  font-weight: 400;
+  border: 1px solid #b6b5b5;
+  border-radius: 10px;
+  padding: 0rem 2rem;
+  font-family: "DM Sans", sans-serif;
+}
+
+form > button{
+    margin-left: 17rem;
+    padding: 1rem 2.5rem;
+    margin-top: 3rem;
+    letter-spacing: 1px;
+    outline: none;
+    border: none;
+    background-color: #3577f1;
+    color: #fff;
+    border-radius: 7px;
+    font-size: 14px;
+    line-height: 23.8px;
+    font-weight: 700;
+    font-family: "DM Sans", sans-serif;
+}
+
+form >a{
+    margin-left: 8rem;
+}

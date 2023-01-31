@@ -550,6 +550,17 @@ tr td img {
   font-family: "DM Sans", sans-serif;
 }
 
+.quentity li input{
+  color: #27272e;
+  text-align: center;
+  font-size: 20px;
+  width: 3rem;
+  line-height: 30px;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+}
+
+
 .subtotal-price {
   color: #292930;
   padding: 1rem 0rem;

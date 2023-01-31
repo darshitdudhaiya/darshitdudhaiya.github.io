@@ -106,6 +106,7 @@ header {
 }
 
 .search-btn {
+  outline:none;
   margin-top: 10px;
   margin-left: -5rem;
   height: 2.7rem;
@@ -130,6 +131,7 @@ header {
   margin-left: -2.5rem;
   margin-top: 10px;
   padding: 0rem 0.3rem;
+  outline:none;
   height: 2.7rem;
   font-family: "DM Sans", sans-serif;
   color: #c5c5c5;
@@ -498,6 +500,7 @@ header {
 }
 
 .flash-sales-title-section-buttons > button {
+  outline: none;
   padding: 0.8rem 1rem;
   border: none;
   border-radius: 5px;
@@ -698,6 +701,7 @@ hr {
 }
 
 .button-list button {
+  outline:none;
   background-color: #ff497c;
   color: #fff;
   padding: 0.7rem 1.3rem;
@@ -814,6 +818,7 @@ hr {
   margin-left: 2rem;
   border: none;
   width: 20rem;
+  outline:none;
   color: #000;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
@@ -827,6 +832,7 @@ hr {
   font-size: 16px;
   font-weight: 700;
   line-height: 13.8px;
+  outline:none;
   margin-top: 2rem;
   width: 10rem;
   border: none;
