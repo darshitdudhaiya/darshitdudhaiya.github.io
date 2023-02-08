@@ -378,7 +378,6 @@
               <li>0</li>
               <li>00</li>
               <li>00</li>
-              <li>00</li>
             </div>
             <div class="flash-sales-title-section-buttons">
               <button><i class="fa fa-arrow-left"></i></button>
@@ -387,71 +386,7 @@
           </div>
         </div>
         <br />
-        <div class="flash-sales-product-section">
-          <div class="product-card">
-            <div class="offer-tag">20% OFF</div>
-            <div class="product-img">
-              <img src="./Images/product-02.png" alt="" />
-              <div class="button-list">
-                <button><i class="fa-regular fa-heart"></i></button>
-                <button>Add to Cart</button>
-                <button><i class="fa fa-eye"></i></button>
-              </div>
-            </div>
-            <div class="product-name">Level 20 RGB Cherry</div>
-            <div class="product-price">
-              <div class="main-price">$80</div>
-              <div class="offer-price">$60</div>
-            </div>
-          </div>
-          <div class="product-card">
-            <div class="product-img">
-              <img src="./Images/product-19.png" alt="" />
-              <div class="button-list">
-                <button><i class="fa-regular fa-heart"></i></button>
-                <button>Add to Cart</button>
-                <button><i class="fa fa-eye"></i></button>
-              </div>
-            </div>
-            <div class="product-name">Sky Blue T-shirt</div>
-            <div class="product-price">
-              <div class="main-price">$40</div>
-              <div class="offer-price">$40</div>
-            </div>
-          </div>
-          <div class="product-card">
-            <div class="offer-tag">50% OFF</div>
-            <div class="product-img">
-              <img src="./Images/product-6.png" alt="" />
-              <div class="button-list">
-                <button><i class="fa-regular fa-heart"></i></button>
-                <button>Add to Cart</button>
-                <button><i class="fa fa-eye"></i></button>
-              </div>
-            </div>
-            <div class="product-name">Women's Stylish Hat</div>
-            <div class="product-price">
-              <div class="main-price">$30</div>
-              <div class="offer-price">$24</div>
-            </div>
-          </div>
-          <div class="product-card">
-            <div class="offer-tag">30% OFF</div>
-            <div class="product-img">
-              <img src="./Images/product-4.png" alt="" />
-              <div class="button-list">
-                <button><i class="fa-regular fa-heart"></i></button>
-                <button>Add to Cart</button>
-                <button><i class="fa fa-eye"></i></button>
-              </div>
-            </div>
-            <div class="product-name">Dimaond Ring</div>
-            <div class="product-price">
-              <div class="main-price">%50</div>
-              <div class="offer-price">$40</div>
-            </div>
-          </div>
-        </div>
+        <div id="productsgrid" class="flash-sales-product-section"></div>
       </div>
     </div>
     <div class="seprator">
@@ -1162,4 +1097,56 @@
       </div>
     </div>
   </body>
+  <script src="./Assets/js/index.js"></script>
+
+  <script>
+    let product = JSON.parse(localStorage.getItem("products"));
+
+    product.map(getProduct);
+
+    function getProduct(item, i) {
+      let singleproduct =
+        `
+        <div class="product-card">
+            <div class="offer-tag">20% OFF</div>
+            <div class="product-img">
+            <img src="` +
+        item.imgurl +
+        `" alt="" />
+            <div class="button-list">
+                <button><i class="fa-regular fa-heart"></i></button>
+                <button onclick="addcart(` +
+        i +
+        `)" >Add to Cart</button>
+                <button><i class="fa fa-eye"></i></button>
+            </div>
+        </div>
+        <div class="product-name">` +
+        item.pname +
+        `</div>
+            <div class="product-price">
+                <div class="main-price">` +
+        item.offerprice +
+        `</div>
+                <div class="offer-price">` +
+        item.price +
+        `</div>
+            </div>
+        </div>`;
+
+      document.getElementById("productsgrid").innerHTML += singleproduct;
+    }
+
+    getProduct();
+
+    function addcart(item) {
+      let cart = localStorage.getItem("cart")
+        ? JSON.parse(localStorage.getItem("cart"))
+        : [];
+
+      cart.push(product[item]);
+      localStorage.setItem("cart",JSON.stringify(cart));
+      console.log(JSON.parse(localStorage.getItem("cart")));       
+    }
+  </script>
 </html>

@@ -140,7 +140,7 @@
       <div>
         <div class="table-title">Your Cart</div>
         <div class="clear-cart-link">Clear Shopping Cart</div>
-        <table>
+        <table id = "cart-table">
           <tr>
             <th></th>
             <th>Product</th>
@@ -149,48 +149,8 @@
             <th>Quantity</th>
             <th>Sebtotal</th>
           </tr>
-          <tr>
-            <td><button>x</button></td>
-            <td><img src="../Images/product-01.png" alt="" /></td>
-            <td class="product-name">Wireless PS Handler</td>
-            <td class="product-price">$124.00</td>
-            <td class="product-stock">
-              <ul class="quentity">
-                <button onclick="sub('counter1')">-</button>
-                <li><input id="counter1" value="1" /></li>
-                <button onclick="add('counter1')">+</button>
-              </ul>
-            </td>
-            <td class="product-total">$275.00</td>
-          </tr>
-          <tr>
-            <td><button>x</button></td>
-            <td><img src="../Images/product-02.png" alt="" /></td>
-            <td class="product-name">Gradient Light Keyboard</td>
-            <td class="product-price">$124.00</td>
-            <td class="product-stock">
-              <ul class="quentity">
-                <button onclick="sub('counter1')">-</button>
-                <li><input id="counter1" value="1" /></li>
-                <button onclick="add('counter1')">+</button>
-              </ul>
-            </td>
-            <td class="product-total">$275.00</td>
-          </tr>
-          <tr>
-            <td><button>x</button></td>
-            <td><img src="../Images/product-03.png" alt="" /></td>
-            <td class="product-name">HD CC Camera</td>
-            <td class="product-price">$124.00</td>
-            <td class="product-stock">
-              <ul class="quentity">
-                <button onclick="sub('counter1')">-</button>
-                <li><input id="counter1" value="1" /></li>
-                <button onclick="add('counter1')">+</button>
-              </ul>
-            </td>
-            <td class="product-total">$275.00</td>
-          </tr>
+          
+          
         </table>
         <div class="seprator" style="margin-top: 2rem">
           <hr />
@@ -367,4 +327,32 @@
         </div>
       </div>
   </body>
+  <script>
+    let cartProduct = JSON.parse(localStorage.getItem('cart'));
+
+    cartProduct.map(getCartProducts);
+    function getCartProducts(item)
+    {
+      console.log(item.id)
+      let row = `<tr>
+            <td><button onclick="remove(this)">x</button></td>
+            <td><img src=".`+item.imgurl+`" alt="" /></td>
+            <td class="product-name">`+item.pname+`</td>
+            <td class="product-price">`+item.price+`</td>
+            <td class="product-stock">
+              <ul class="quentity">
+                <button onclick="sub('counter`+item.id+`')">-</button>
+                <li><input id="counter`+item.id+`" value="1" /></li>
+                <button onclick="add('counter`+item.id+`')">+</button>
+              </ul>
+            </td>
+            <td class="product-total" id="total`+item.id+`">`+item.price+`</td>
+          </tr>`;
+
+          document.getElementById("cart-table").innerHTML += row
+    }
+
+
+    getCartProducts();
+  </script>
 </html>
