@@ -1146,7 +1146,7 @@ hr {
   width: 3.75rem;
   padding: 0.15rem;
   position: relative;
-  background-image: url("../Images/image-1.png");
+  background-image: url("../../Images/image-1.png");
   border-radius: 5px;
   float: left;
   background-size: cover;
@@ -1174,11 +1174,11 @@ hr {
 }
 
 .img1 {
-  background-image: url("../Images/image-2.png");
+  background-image: url("../../Images/image-2.png");
 }
 
 .img2 {
-  background-image: url("../Images/image-3.png");
+  background-image: url("../../Images/image-3.png");
 }
 
 .border-radius {
@@ -1243,7 +1243,7 @@ hr {
 .newsletter-image {
   padding: 2rem 6rem;
   border-radius: 7px;
-  background-image: url("../Images/bg-image-12.jpg");
+  background-image: url("../../Images/bg-image-12.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -1272,7 +1272,7 @@ hr {
   content: "";
   position: absolute;
   background-color: #fff;
-  background: url("../Images/send-mail.png");
+  background: url("../../Images/send-mail.png");
   height: 1.5rem;
   width: 1.5rem;
   margin-top: 0.8rem;
