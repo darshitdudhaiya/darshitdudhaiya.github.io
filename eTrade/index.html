@@ -1125,10 +1125,10 @@
         item.pname +
         `</div>
             <div class="product-price">
-                <div class="main-price">` +
+                <div class="main-price">$` +
         item.offerprice +
         `</div>
-                <div class="offer-price">` +
+                <div class="offer-price">$` +
         item.price +
         `</div>
             </div>
@@ -1140,13 +1140,26 @@
     getProduct();
 
     function addcart(item) {
+      let productQuantity = true;
+      // parseInt(productQuantity);
       let cart = localStorage.getItem("cart")
         ? JSON.parse(localStorage.getItem("cart"))
         : [];
 
-      cart.push(product[item]);
-      localStorage.setItem("cart",JSON.stringify(cart));
-      console.log(JSON.parse(localStorage.getItem("cart")));       
+        
+        // console.log(pro)
+        let singleProduct = cart;
+        singleProduct.map((element) => {
+          if (product[item].id == element.id) {
+            element.quantity = element.quantity+1;
+            productQuantity = false
+          }
+        });
+        
+        productQuantity?singleProduct.push(product[item]):null;
+
+      localStorage.setItem("cart", JSON.stringify(singleProduct));
+      // console.log(JSON.parse(localStorage.getItem("cart")));
     }
   </script>
 </html>

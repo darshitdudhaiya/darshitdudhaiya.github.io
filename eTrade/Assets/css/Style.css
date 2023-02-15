@@ -289,8 +289,9 @@ nav {
 .category-menu-grid {
   padding: 0rem 0rem;
   display: grid;
-  grid-template-columns: 15.4rem 53.65rem;
-  /* grid-template-columns: 15.4rem 55rem; */
+  /* grid-template-columns: 15.4rem 53.65rem; */
+  grid-template-columns: 15.4rem 55rem;
+  margin-left: -0.3rem;
 }
 
 .category-main-menu {
