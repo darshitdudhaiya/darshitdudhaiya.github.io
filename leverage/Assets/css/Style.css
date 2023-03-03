@@ -153,6 +153,7 @@ section {
   border-radius: 0%;
   width: 360px;
   margin-top: 2rem;
+
 }
 
 .advertisement-body{
@@ -161,7 +162,7 @@ section {
 .card:hover{
   background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
   transform: translateY(-7.5px);
-  transition: 0.5s ease-in-out;
+  transition: 0.7 s ease-in-out;
 }
 
 .card:hover > .card-body{
@@ -206,6 +207,26 @@ section {
   margin-top: 163px;
   margin-left: 143px
 }
+
+.slider-header-discription{
+  color: #8E8E8E;
+  margin-top: 50px;
+}
+
+
+.testimonials-heading{
+  margin-top: 2rem;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 400;
+}
+
+.slider-header-discription{
+  font-size: 16px;
+  line-height: 24px;
+}
+
+
 /* 
 video > source{
   z-index: -9999;
@@ -252,6 +273,30 @@ video > source{
 
   .logo {
     display: none;
+  }
+
+  br{
+    display: none;
+  }
+
+  .testimonials{
+    margin: 0rem 2rem;
+  }
+
+  .testimonials-heading{
+    margin-top: 2rem;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 400;
+  }
+
+  .last-card{
+    margin-left: 10rem;
+  }
+
+  .slider-header-discription{
+    font-size: 16px;
+    line-height: 24px;
   }
 
 }
@@ -306,6 +351,11 @@ video > source{
     display: none;
   }
 
+  .last-card{
+    margin-left: 0rem;
+  }
+
+
   /* .advertisement-description { */
     /* text-align: center; */
   /* } */
@@ -325,6 +375,12 @@ video > source{
   }
 
 
+  .testimonials-heading{
+    margin-top: 2rem;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 400;
+  }
 
 }
 
@@ -350,5 +406,9 @@ video > source{
 
   .main-menu > div > button {
     margin-left: 10px;
+  }
+
+  br{
+    display: none;
   }
 }

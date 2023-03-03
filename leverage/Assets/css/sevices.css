@@ -1,0 +1,276 @@
+.text-custom {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.margin-top {
+  margin-top: 5rem;
+}
+
+.main-title {
+  color: #e0040b;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+.nav-btn,
+.advertisement-btn {
+  padding: 8px 25px;
+  border: 3px solid #e0040b;
+  background-color: #dd1e4b;
+  border-radius: 3px;
+}
+
+.divider {
+  height: 7rem;
+  width: 5px;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  margin-top: 6rem;
+}
+
+.nav-btn:hover {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  transition: 0.7s ease-in-out;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.main-link:hover > .dropdown {
+  display: block;
+}
+
+.main-link:hover > .child-dropdown {
+  display: block;
+}
+
+.dropdown {
+  position: absolute;
+  margin-left: -20px;
+  display: none;
+  background-color: white;
+  list-style: none;
+}
+
+.child-dropdown {
+  position: absolute;
+  margin-top: -40px;
+  margin-left: 150px;
+  display: none;
+  background-color: white;
+  list-style: none;
+}
+
+.dropdown-item {
+  color: #838482;
+}
+
+.dropdown-item:hover {
+  color: #e0040b;
+  background-color: transparent;
+}
+
+.mobile-main-menu {
+  background-color: #191919;
+}
+
+section {
+  padding: 0rem 3.5rem;
+}
+
+.navbar {
+  z-index: 9999;
+}
+
+.main-content{
+  padding-top: 10rem;
+}
+
+.main-image {
+  background-image: url("../images/bg-9.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 535px;
+  width: 100%;
+  background-position: center;
+}
+.main-color {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 96px;
+  line-height: 115.2px;
+  font-weight: 900;
+}
+
+.breadcrumb-item > a,
+.breadcrumb-item > span {
+  font-family: sans-serif;
+  color: #8e8e8e;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  color: #8e8e8e;
+}
+.section-header-animation {
+  height: 7px;
+  width: 4rem;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+}
+
+.heading {
+  font-size: 48px;
+  line-height: 57.6px;
+  font-weight: 600;
+  color: #2f323a;
+}
+
+.advertisement-description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6f6f6f;
+}
+
+.advertisement{
+  margin-top: 7rem;
+}
+
+.divider::before {
+  /* content: "-------------------------------------------------------------------------------------------------------------------------"; */
+}
+
+.advertisement-btn {
+  background-color: #dd1e4a;
+  border-radius: 5px;
+  margin-top: -3px;
+}
+
+.main-menu{
+  margin-left: 16rem;
+}
+
+.breadcrumb{
+  margin-top: 2rem;;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: block;
+    margin: 0%;
+  }
+
+  .advertisement{
+    margin: 5rem 2rem;
+  }
+
+
+  .desktop-nav{
+    display: none;
+  }
+
+  .main-image{
+    height: 270px;
+  }
+
+  .main-color{
+    font-size: 64px;
+  }
+
+  .main-content{
+    padding: 3rem;
+  }
+
+  .breadcrumb{
+    margin-top: 0.5rem;
+  }
+
+  
+  .heading{
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+
+  .divider{
+    margin-top: -3.8rem;
+    height: 6rem;
+  }
+
+  .cards{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 35px;
+    border: none;
+    border-radius: 2px;
+    background-color: var(--card-bg-color);
+    -webkit-box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
+    box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
+    transition-timing-function: cubic-bezier(.25, .25, .75, .75);
+    transition-duration: 0.4s;
+    transition-property: opacity, transform;
+  }
+}
+@media (max-width: 576px) {
+  .main-image{
+    width: 100%;
+  }
+  .main-color{
+    font-size: 56px;
+  }
+
+  .divider{
+    height: 5rem;
+  }
+
+  .advertisement-btn {
+    margin: 0%;
+    margin-top: 10px;
+    margin-right: 90px;
+    margin-top: 30px;
+  }
+
+  .section-header-animation{
+    display: none;
+  }
+
+}
+
+@media (max-width: 1024px) {
+  .nav-link {
+    margin: 0%;
+  }
+
+  section {
+    padding: 0%;
+  }
+
+  .nav-link i,
+  .social-icons {
+    display: none;
+  }
+
+  .main-menu {
+    justify-content: center;
+  }
+
+  .main-menu > div > button {
+    margin-left: 10px;
+  }
+
+  br {
+    display: none;
+  }
+}
+
+@media (max-width: 1044px){
+  .main-menu{
+    margin-left: 5rem;
+  }
+}
