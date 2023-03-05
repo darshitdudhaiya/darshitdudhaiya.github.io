@@ -211,6 +211,8 @@ section {
 .slider-header-discription{
   color: #8E8E8E;
   margin-top: 50px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 
@@ -221,10 +223,6 @@ section {
   font-weight: 400;
 }
 
-.slider-header-discription{
-  font-size: 16px;
-  line-height: 24px;
-}
 
 
 /* 
@@ -279,6 +277,10 @@ video > source{
     display: none;
   }
 
+  .last-card{
+    margin-left: 10rem;
+  }
+
   .testimonials{
     margin: 0rem 2rem;
   }
@@ -290,9 +292,6 @@ video > source{
     font-weight: 400;
   }
 
-  .last-card{
-    margin-left: 10rem;
-  }
 
   .slider-header-discription{
     font-size: 16px;
