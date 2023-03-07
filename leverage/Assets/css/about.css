@@ -246,7 +246,7 @@ ul {
   width: 555px;
 }
 
-.play-icon{
+.play-icon {
   margin-top: 24rem;
   margin-left: 23rem;
   border-radius: 50%;
@@ -255,18 +255,53 @@ ul {
   background-color: #e0040b;
 }
 
-.play-icon-background{
+.play-icon-background {
   height: 40rem;
   margin-top: 15rem;
   margin-left: 13rem;
   width: 40rem;
-  background-color: #dd1e4b; 
-  opacity: 0.3; 
+  background-color: #dd1e4b;
+  opacity: 0.3;
   border-radius: 50%;
 }
 
-.institutional-section-second-part{
+.institutional-section-second-part {
   padding: 2rem 4rem;
+}
+
+.institutional-list {
+  padding: 0rem 2rem;
+}
+
+.institutional-list > .list-group-item > h4 {
+  margin-left: 2rem;
+  margin-top: -1rem;
+}
+
+.institutional-list > .list-group-item > p {
+  margin-top: 1.5rem;
+  margin-left: -6rem;
+  padding: 0rem 0rem;
+}
+
+.footer-description{
+  font-size: 18px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  line-height: 29.6px;
+  color: #6f6f6f;
+  font-weight: 400;
+}
+
+.footer-list {
+  margin-top: 2.5rem;
+}
+
+.footer-list > .list-group-item{
+  font-size: 18px;
+  line-height: 29.6px;
+  color: #6f6f6f;
+  font-weight: 400;
 }
 
 @media (max-width: 768px) {
@@ -313,6 +348,33 @@ ul {
     margin: 0rem 1rem;
     margin-top: 3rem;
   }
+
+  .institutional {
+    width: 340px;
+    height: 484px;
+  }
+
+  .play-icon {
+    margin-top: 22rem;
+    margin-left: 13rem;
+  }
+
+  .play-icon-background {
+    margin-left: 5rem;
+  }
+
+  .institutional-list {
+    margin-top: 2rem;
+    padding: 0%;
+  }
+
+  .institutional-list > .list-group-item {
+    padding: 0%;
+  }
+
+  .institutional-list > .list-group-item > .content-description {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -342,6 +404,35 @@ ul {
 
   .content-second-section {
     margin: 0rem 0.3rem;
+  }
+
+  .institutional-section{
+    padding: 10rem 1rem;
+  }
+
+  .institutional {
+    width: 375px;
+    height: 375px;
+  }
+
+  .play-icon-background {
+    margin-top: 8rem;
+  }
+
+  .play-icon{
+    margin-top: 15rem;
+  }
+
+  .institutional-section-second-part{
+    text-align: center;
+  }
+
+  .institutional-list > .list-group-item{
+    margin: 1rem 0rem;
+  }
+
+  .institutional-list > .list-group-item > p{
+    margin-left: -9rem;
   }
 }
 
@@ -379,10 +470,19 @@ ul {
   br {
     display: none;
   }
+
+  .institutional-list > .list-group-item{
+    margin: 0rem;
+  }
+  
+  .institutional {
+    width: 500px;
+    height: 500px;
+  }
 }
 
-@media (max-width: 1044px) {
-  .main-menu {
-    margin-left: 5rem;
+@media (max-width: 1440px) {
+  section {
+    padding: 0rem 1.5rem;
   }
 }

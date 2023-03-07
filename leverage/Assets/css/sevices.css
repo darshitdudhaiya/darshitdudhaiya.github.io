@@ -356,10 +356,26 @@ section {
   }
 }
 
-@media (max-width: 1044px){
-  .main-menu{
-    margin-left: 5rem;
+@media (max-width: 1440px) {
+ 
+  .cards{
+    width: 516px;
   }
 
-  
+  .card-decoration-2{
+    margin-left: 12.3rem;
+  }
+
+  .cards:hover >.card-decoration{
+    width: 31.5rem;
+  }
+
+  .cards:hover >.card-decoration-2{
+    width: 31.8rem;
+  }
+
+  section{
+    padding: 0rem 1.5rem;
+  }
 }
+

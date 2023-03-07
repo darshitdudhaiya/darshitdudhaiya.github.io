@@ -28,45 +28,4 @@ function navbar() {
   }
 }
 
-document.onreadystatechange = () => {
-  var no = 0;
-  var no2 = 0;
-  var no3 = 0;
-  var no4 = 0;
-  var projects = 342;
-  var innovations = 128;
-  var coffee = 745;
-  var customers = 691;
 
-  setInterval(() => {
-    document.getElementById("counter").innerHTML = no;
-
-    if (no != projects) {
-      no++;
-    }
-  }, 5);
-
-  setInterval(() => {
-    document.getElementById("counte2").innerHTML = no2;
-
-    if (no2 != innovations) {
-      no2++;
-    }
-  }, 25);
-
-  setInterval(() => {
-    document.getElementById("counte3").innerHTML = no3;
-
-    if (no3 != coffee) {
-      no3++;
-    }
-  }, 0.3);
-
-  setInterval(() => {
-    document.getElementById("counte4").innerHTML = no4;
-
-    if (no4 != customers) {
-      no4++;
-    }
-  }, 0.1);
-};
