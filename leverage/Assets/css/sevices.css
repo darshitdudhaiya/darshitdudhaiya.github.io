@@ -12,10 +12,6 @@
   color: #e0040b;
 }
 
-.mobile-nav {
-  display: none;
-}
-
 .nav-btn,
 .advertisement-btn {
   padding: 8px 25px;
@@ -31,53 +27,6 @@
   margin-top: 6rem;
 }
 
-.nav-btn:hover {
-  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
-  transition: 0.7s ease-in-out;
-}
-
-.nav-link {
-  cursor: pointer;
-}
-
-.main-link:hover > .dropdown {
-  display: block;
-}
-
-.main-link:hover > .child-dropdown {
-  display: block;
-}
-
-.dropdown {
-  position: absolute;
-  margin-left: -20px;
-  display: none;
-  background-color: white;
-  list-style: none;
-}
-
-.child-dropdown {
-  position: absolute;
-  margin-top: -40px;
-  margin-left: 150px;
-  display: none;
-  background-color: white;
-  list-style: none;
-}
-
-.dropdown-item {
-  color: #838482;
-}
-
-.dropdown-item:hover {
-  color: #e0040b;
-  background-color: transparent;
-}
-
-.mobile-main-menu {
-  background-color: #191919;
-}
-
 section {
   padding: 0rem 3.5rem;
 }
@@ -86,7 +35,7 @@ section {
   z-index: 9999;
 }
 
-.main-content{
+.main-content {
   padding-top: 10rem;
 }
 
@@ -135,47 +84,47 @@ section {
   color: #6f6f6f;
 }
 
-.card-decoration{
+.card-decoration {
   position: absolute;
   height: 12rem;
   width: 18.3rem;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   z-index: -9999;
   margin-top: -43px;
-  margin-left: -43px
+  margin-left: -43px;
 }
 
-.card-decoration-2{
+.card-decoration-2 {
   position: absolute;
   height: 12rem;
   width: 18.3rem;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   z-index: -9999;
   margin-top: 82px;
-  margin-left: 240px
+  margin-left: 240px;
 }
 
-.cards:hover{
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+.cards:hover {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   transform: translateY(-7.5px);
   color: white;
   transition: 0.7 s ease-in-out;
 }
 
-.cards:hover > .card-body{
+.cards:hover > .card-body {
   color: white;
   transition: 0.5s ease-in-out;
 }
 
-.cards:hover > .card-decoration{
+.cards:hover > .card-decoration {
   background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   height: 18.5rem;
   width: 34.5rem;
-  opacity: 0.5;  
+  opacity: 0.5;
   transition: 0.5s ease-in-out;
 }
 
-.cards:hover > .card-decoration-2{
+.cards:hover > .card-decoration-2 {
   background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   opacity: 0.5;
   height: 18.5rem;
@@ -185,7 +134,7 @@ section {
   transition: 0.5s ease-in-out;
 }
 
-.advertisement{
+.advertisement {
   margin-top: 7rem;
 }
 
@@ -199,24 +148,10 @@ section {
   margin-top: -3px;
 }
 
-.main-menu{
-  margin-left: 16rem;
-}
-
-
-
-
-#nav{
-  background-color: transparent;
-  position: absolute;
-  z-index: 0;
-  width: 100%;
-}
-
-.cards{
+.cards {
   position: relative;
   padding: 35px;
-  width: 560px;
+  width: 555px;
   height: 300px;
   border: none;
   border-radius: 2px;
@@ -225,76 +160,69 @@ section {
   box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
 }
 
-.cards-section{
-  padding: 0rem 12rem ;
+.cards-section {
+  padding: 0rem 12rem;
 }
 
 @media (max-width: 768px) {
-  .mobile-nav {
-    display: block;
-    margin: 0%;
-  }
-
-  .advertisement{
+  .advertisement {
     margin: 5rem 2rem;
   }
 
-
-  .desktop-nav{
-    display: none;
-  }
-
-  .main-image{
+  .main-image {
     height: 270px;
   }
 
-  .main-color{
+  .main-color {
     font-size: 64px;
   }
 
-  .main-content{
+  .main-content {
     padding: 3rem;
   }
 
-  .breadcrumb{
+  .breadcrumb {
     margin-top: 0.5rem;
   }
 
-  
-  .heading{
+  .heading {
     font-size: 40px;
     line-height: 48px;
     font-weight: 600;
     text-align: center;
   }
 
-
-  .divider{
+  .divider {
     margin-top: -3.8rem;
     height: 6rem;
   }
 
-  .cards{
+  .cards {
     width: 348px;
   }
 
-  .cards-section{
+  .cards-section {
     padding: 0%;
   }
 
-  .card-decoration,.card-decoration-2{
+  .card-decoration,
+  .card-decoration-2 {
     display: none;
   }
 }
 @media (max-width: 576px) {
-  .main-image{
+  .cards {
+    width: 370px;
+    margin-left: 2rem;
+  }
+  .main-image {
     width: 100%;
   }
-  .main-color{
+  .main-color {
     font-size: 56px;
   }
 
-  .divider{
+  .divider {
     height: 5rem;
   }
 
@@ -305,32 +233,27 @@ section {
     margin-top: 30px;
   }
 
-  .section-header-animation{
+  .section-header-animation {
     display: none;
   }
 
-  .cards{
-    margin-left: 2rem;
-    width: 370px;
-  }
-
-  
-  .cards-section{
+  .cards-section {
     padding: 0%;
   }
 
-  .card-decoration,.card-decoration-2{
+  .card-decoration,
+  .card-decoration-2 {
     display: none;
   }
 }
 
 @media (max-width: 1024px) {
-  .nav-link {
-    margin: 0%;
-  }
-
   section {
     padding: 0%;
+  }
+
+  .cards{
+    width: 468px;
   }
 
   .nav-link i,
@@ -338,44 +261,33 @@ section {
     display: none;
   }
 
-  .main-menu {
-    justify-content: center;
-  }
-
-  .main-menu > div > button {
-    margin-left: 10px;
-  }
-
   br {
     display: none;
   }
 
-  
-  .cards-section{
+  .cards-section {
     padding: 0%;
   }
 }
 
-@media (max-width: 1440px) {
- 
-  .cards{
+@media screen and (max-width: 1440px) {
+  .cards {
     width: 516px;
   }
 
-  .card-decoration-2{
+  .card-decoration-2 {
     margin-left: 12.3rem;
   }
 
-  .cards:hover >.card-decoration{
+  .cards:hover > .card-decoration {
     width: 31.5rem;
   }
 
-  .cards:hover >.card-decoration-2{
+  .cards:hover > .card-decoration-2 {
     width: 31.8rem;
   }
 
-  section{
+  section {
     padding: 0rem 1.5rem;
   }
 }
-

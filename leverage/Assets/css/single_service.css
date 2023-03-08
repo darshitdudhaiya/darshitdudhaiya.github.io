@@ -40,7 +40,7 @@ section {
 }
 
 .main-image {
-  background-image: url("../images/bg-4.jpg");
+  background-image: url("../images/bg-1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 535px;
@@ -58,8 +58,9 @@ section {
 
 .breadcrumb-item > a,
 .breadcrumb-item > span {
+  text-decoration: none;
   font-family: sans-serif;
-  color: #8e8e8e;
+  color: #dd1e4b;
 }
 .breadcrumb-item + .breadcrumb-item::before {
   color: #8e8e8e;
@@ -97,6 +98,7 @@ section {
 .list-group-item {
   padding: 2rem 0rem;
   font-size: 19.2px;
+  background-color: transparent;
   line-height: 23.4px;
   font-weight: 600;
 }
@@ -105,121 +107,34 @@ ul {
   margin-left: -1rem;
 }
 
-.card {
-  border-radius: 0px;
-  border: none;
-  width: 18rem;
-  height: 330px;
-  text-align: center;
-  margin-top: 2rem;
-  padding: 1.5rem 1rem;
-  background-color: #e5e5e5;
-}
-
-.card:hover {
-  background: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
-  color: white;
-}
-
-.card:hover .star {
-  color: white;
-}
-
-.card-text {
-  margin-top: 2rem;
-}
-
-.employee {
-  width: 100%;
-  max-width: 100px;
-  border-radius: 100%;
-}
-
-.star {
-  color: #e0040b;
-  margin: 0.5rem 0rem 2rem 0rem;
-}
-
 .content-second-section {
   margin-left: 5rem;
 }
 
-.testimonials {
-  padding: 2rem 0rem;
+.institutional-video-section {
+  padding: 0rem 12rem;
 }
 
-.testimonials-heading {
-  margin-top: 2rem;
-  font-size: 48px;
-  line-height: 57.6px;
-  color: white;
-  font-weight: 600;
-}
-
-.slider-header-discription {
-  color: #8e8e8e;
-  margin-top: 1.5rem;
-  font-size: 18px;
-  line-height: 24px;
-}
-
-.fanfact-counts {
-  margin: 5rem 0rem;
-}
-
-.fanfact-counts > div {
-  transition: 0.7s ease-in;
-}
-
-.institutional-section {
-  padding: 10rem 0rem;
-}
-
-.institutional {
-  overflow: hidden;
-  background-image: url("../images/about-5.jpg");
+.institutional-video-img {
+  background-image: url("../images/news-4.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  height: 555px;
-  width: 555px;
+  opacity: 0.75;
+  height: 434px;
+  width: 941px;
+}
+
+.institutional-video-img:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
 
 .play-icon {
-  margin-top: 24rem;
-  margin-left: 23rem;
-  border-radius: 50%;
-  justify-content: center;
-  display: flex;
-  background-color: #e0040b;
-}
-
-.play-icon-background {
-  height: 40rem;
-  margin-top: 15rem;
-  margin-left: 13rem;
-  width: 40rem;
-  background-color: #dd1e4b;
-  opacity: 0.3;
-  border-radius: 50%;
-}
-
-.institutional-section-second-part {
-  padding: 2rem 4rem;
-}
-
-.institutional-list {
-  padding: 0rem 2rem;
-}
-
-.institutional-list > .list-group-item > h4 {
-  margin-left: 2rem;
-  margin-top: -1rem;
-}
-
-.institutional-list > .list-group-item > p {
-  margin-top: 1.5rem;
-  margin-left: -6rem;
-  padding: 0rem 0rem;
+  font-size: 100px;
+  color: #dd1e4b;
+  margin-top: 9.3rem;
+  margin-left: -5rem;
+  z-index: 9999;
 }
 
 @media (max-width: 768px) {
@@ -258,31 +173,18 @@ ul {
     margin-top: 3rem;
   }
 
-  .institutional {
-    width: 340px;
-    height: 484px;
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 314px;
+    width: 716px;
+    margin-left: -0.5rem;
   }
 
   .play-icon {
-    margin-top: 22rem;
-    margin-left: 13rem;
-  }
-
-  .play-icon-background {
-    margin-left: 5rem;
-  }
-
-  .institutional-list {
-    margin-top: 2rem;
-    padding: 0%;
-  }
-
-  .institutional-list > .list-group-item {
-    padding: 0%;
-  }
-
-  .institutional-list > .list-group-item > .content-description {
-    font-size: 16px;
+    margin: 4.5rem -1rem 0rem -4.3rem;
   }
 }
 
@@ -315,33 +217,18 @@ ul {
     margin: 0rem 0.3rem;
   }
 
-  .institutional-section {
-    padding: 10rem 1rem;
+  .institutional-video-section {
+    padding: 0%;
   }
 
-  .institutional {
-    width: 375px;
-    height: 375px;
-  }
-
-  .play-icon-background {
-    margin-top: 8rem;
+  .institutional-video-img {
+    height: 164px;
+    width: 376px;
+    margin-left: -0.5rem;
   }
 
   .play-icon {
-    margin-top: 15rem;
-  }
-
-  .institutional-section-second-part {
-    text-align: center;
-  }
-
-  .institutional-list > .list-group-item {
-    margin: 1rem 0rem;
-  }
-
-  .institutional-list > .list-group-item > p {
-    margin-left: -9rem;
+    margin: 0.5rem -1rem 0rem -4.3rem;
   }
 }
 
@@ -363,13 +250,18 @@ ul {
     display: none;
   }
 
-  .institutional-list > .list-group-item {
-    margin: 0rem;
+  .institutional-video-section {
+    padding: 0%;
   }
 
-  .institutional {
-    width: 500px;
-    height: 500px;
+  .institutional-video-img {
+    height: 403px;
+    width: 960px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 7.5rem -1rem 0rem -4.3rem;
   }
 }
 

@@ -1,12 +1,12 @@
 /* background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); */
 
-.text-custom{
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+.text-custom {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.margin-top{
+.margin-top {
   margin-top: 5rem;
 }
 
@@ -18,68 +18,25 @@
   display: none;
 }
 
-.nav-btn,.advertisement-btn {
+.nav-btn,
+.advertisement-btn {
   padding: 8px 25px;
   border: 3px solid #e0040b;
   background-color: transparent;
 }
 
-.nav-btn:hover{
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+.nav-btn:hover {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   transition: 0.7s ease-in-out;
-}
-
-.nav-link {
-  cursor: pointer;
-}
-
-.main-link:hover > .dropdown{
-  display: block;
-}
-
-.main-link:hover > .child-dropdown{
-  display: block;
-}
-
-
-.dropdown {
-  position: absolute;
-  margin-left: -20px;
-  display: none;
-  background-color: #191919;
-  list-style: none;
-}
-
-.child-dropdown {
-  position: absolute;
-  margin-top: -40px;
-  margin-left: 150px;
-  display: none;
-  background-color: #191919;
-  list-style: none;
-}
-
-.dropdown-item{
-  color: #838482;
-}
-
-.dropdown-item:hover{
-  color: #e0040b;
-  background-color: transparent;
-}
-
-.mobile-main-menu {
-  background-color: #191919;
 }
 
 section {
   padding: 0rem 3.5rem;
 }
 
-
-.main-color{
+.main-color {
   margin-top: 5rem;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 96px;
@@ -87,98 +44,99 @@ section {
   font-weight: 900;
 }
 
-.main-description{
-  color: #8E8E8E;
+.main-description {
+  color: #8e8e8e;
   letter-spacing: 0.5px;
   font-size: 21.2px;
   line-height: 28.8px;
   font-weight: 400;
 }
 
-.main-second-part{
+.main-second-part {
   margin-left: 25px;
   background-image: url("../images/hero-8.jpg");
-  background-size: 80% 100% ;
+  background-size: 80% 100%;
   background-repeat: no-repeat;
   height: 610px;
   width: 30px;
 }
 
-.divider{
-  height:7rem;
+.divider {
+  height: 7rem;
   width: 5px;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   margin-top: -30px;
-  
 }
 
-.card-description{
+.card-description {
   color: #8e8e8e;
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
-  font-family: Poppins , sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
-.section-header-animation{
+
+.section-header-animation {
   height: 7px;
   width: 4rem;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
 }
 
-.heading{
+.heading {
   font-size: 48px;
   line-height: 57.6px;
   font-weight: 600;
 }
 
-.advertisement-description{
+.advertisement-description {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
 }
 
-.divider::before{
+.divider::before {
   /* content: "-------------------------------------------------------------------------------------------------------------------------"; */
 }
 
-.advertisement-btn{
-  background-color: #dd1e4a; border-radius: 5px;margin-top: -3px;
+.advertisement-btn {
+  background-color: #dd1e4a;
+  border-radius: 5px;
+  margin-top: -3px;
 }
 
-.card{
+.card {
   background-color: #191919;
   color: #8e8e8e;
   padding: 2rem;
   border-radius: 0%;
   width: 360px;
   margin-top: 2rem;
-
 }
 
-.advertisement-body{
+.advertisement-body {
 }
 
-.card:hover{
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+.card:hover {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   transform: translateY(-7.5px);
   transition: 0.7 s ease-in-out;
 }
 
-.card:hover > .card-body{
+.card:hover > .card-body {
   color: white;
   transition: 0.5s ease-in-out;
 }
 
-.card:hover > .card-decoration{
+.card:hover > .card-decoration {
   background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   height: 25.5rem;
   width: 22.3rem;
-  opacity: 0.5;  
+  opacity: 0.5;
   transition: 0.5s ease-in-out;
 }
 
-.card:hover > .card-decoration-2{
+.card:hover > .card-decoration-2 {
   background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   opacity: 0.5;
   margin-top: -1.2rem;
@@ -188,42 +146,39 @@ section {
   transition: 0.5s ease-in-out;
 }
 
-.card-decoration{
+.card-decoration {
   position: absolute;
   height: 14rem;
   width: 12rem;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   z-index: -9999;
   margin-top: -43px;
-  margin-left: -43px
+  margin-left: -43px;
 }
 
-.card-decoration-2{
+.card-decoration-2 {
   position: absolute;
   height: 14rem;
   width: 12rem;
-  background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
   z-index: -9999;
   margin-top: 163px;
-  margin-left: 143px
+  margin-left: 143px;
 }
 
-.slider-header-discription{
-  color: #8E8E8E;
+.slider-header-discription {
+  color: #8e8e8e;
   margin-top: 50px;
   font-size: 16px;
   line-height: 24px;
 }
 
-
-.testimonials-heading{
+.testimonials-heading {
   margin-top: 2rem;
   font-size: 40px;
   line-height: 48px;
   font-weight: 400;
 }
-
-
 
 /* 
 video > source{
@@ -234,30 +189,26 @@ video > source{
 
 /*------------------------------------tablet-------------------------------------*/
 @media (max-width: 768px) {
-  .mobile-nav {
-    display: block;
-    margin: 0%;
-  }
-
-  .advertisement{
+  .advertisement {
     margin: 0rem 2rem;
   }
 
-  .card-decoration,.card-decoration-2{
+  .card-decoration,
+  .card-decoration-2 {
     display: none;
   }
 
-  .card{
+  .card {
     width: 350px;
   }
 
-  .row{
+  .row {
     margin: 0rem 1rem;
   }
 
-  .main-color{
+  .main-color {
     margin-top: 5rem;
-    background-image: linear-gradient(45deg,#e0040b 15%,#dd1e4b 65%); 
+    background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 64px;
@@ -265,101 +216,87 @@ video > source{
     font-weight: 900;
   }
 
-  .desktop-nav{
+  br {
     display: none;
   }
 
-  .logo {
-    display: none;
-  }
-
-  br{
-    display: none;
-  }
-
-  .last-card{
+  .last-card {
     margin-left: 10rem;
   }
 
-  .testimonials{
+  .testimonials {
     margin: 0rem 2rem;
   }
 
-  .testimonials-heading{
+  .testimonials-heading {
     margin-top: 2rem;
     font-size: 40px;
     line-height: 48px;
     font-weight: 400;
   }
 
-
-  .slider-header-discription{
+  .slider-header-discription {
     font-size: 16px;
     line-height: 24px;
   }
-
 }
-
-  
 
 /*------------------------------------mobile-------------------------------------*/
 
 @media (max-width: 576px) {
-  
-  .main-second-part{
+  .main-second-part {
     margin-top: 1rem;
     z-index: -9999;
     position: absolute;
-    background-size: 100% 100% ;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 610px;
     width: 240px;
   }
 
-  .main-text{
+  .main-text {
     text-align: center;
   }
 
-  .main-color{
+  .main-color {
     font-size: 48px;
     line-height: 57.6px;
     font-weight: 900;
   }
 
-  .main-description{
+  .main-description {
     line-height: 21.2px;
     font-size: 18.2px;
   }
 
-  .divider{
+  .divider {
     margin-top: 0%;
   }
-  .card-description{
+  .card-description {
     color: #8e8e8e;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
-    font-family: Poppins , sans-serif;
+    font-family: Poppins, sans-serif;
   }
-  
-  br{
+
+  br {
     display: none;
   }
 
-  .section-header-animation{
+  .section-header-animation {
     display: none;
   }
 
-  .last-card{
+  .last-card {
     margin-left: 0rem;
   }
 
-
   /* .advertisement-description { */
-    /* text-align: center; */
+  /* text-align: center; */
   /* } */
 
-  .heading{
+  .heading {
     font-size: 40px;
     line-height: 48px;
     font-weight: 600;
@@ -373,23 +310,17 @@ video > source{
     margin-top: 30px;
   }
 
-
-  .testimonials-heading{
+  .testimonials-heading {
     margin-top: 2rem;
     font-size: 40px;
     line-height: 48px;
     font-weight: 400;
   }
-
 }
 
 /*------------------------------------tablet(large)-------------------------------------*/
 
 @media (max-width: 1024px) {
-  .nav-link {
-    margin: 0%;
-  }
-
   section {
     padding: 0%;
   }
@@ -407,7 +338,7 @@ video > source{
     margin-left: 10px;
   }
 
-  br{
+  br {
     display: none;
   }
 }

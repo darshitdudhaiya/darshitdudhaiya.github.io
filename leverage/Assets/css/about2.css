@@ -40,7 +40,7 @@ section {
 }
 
 .main-image {
-  background-image: url("../images/bg-4.jpg");
+  background-image: url("../images/bg-5.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 535px;
@@ -69,115 +69,13 @@ section {
   margin-top: 2rem;
 }
 
-.section-header-animation {
-  height: 7px;
-  width: 4rem;
-  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
-}
-
-.content-section {
-  margin-top: 7rem;
-}
-
-.content-description,
-.content-section > ul > li {
-  font-size: 18px;
-  margin-bottom: 2rem;
-  line-height: 24px;
-  color: #6f6f6f;
-  font-weight: 400;
-}
-
-.content-title {
-  font-size: 48px;
-  line-height: 56.6px;
-  font-weight: 600;
-}
-
-.list-group-item {
-  padding: 2rem 0rem;
-  font-size: 19.2px;
-  line-height: 23.4px;
-  font-weight: 600;
-}
-
-ul {
-  margin-left: -1rem;
-}
-
-.card {
-  border-radius: 0px;
-  border: none;
-  width: 18rem;
-  height: 330px;
-  text-align: center;
-  margin-top: 2rem;
-  padding: 1.5rem 1rem;
-  background-color: #e5e5e5;
-}
-
-.card:hover {
-  background: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
-  color: white;
-}
-
-.card:hover .star {
-  color: white;
-}
-
-.card-text {
-  margin-top: 2rem;
-}
-
-.employee {
-  width: 100%;
-  max-width: 100px;
-  border-radius: 100%;
-}
-
-.star {
-  color: #e0040b;
-  margin: 0.5rem 0rem 2rem 0rem;
-}
-
-.content-second-section {
-  margin-left: 5rem;
-}
-
-.testimonials {
-  padding: 2rem 0rem;
-}
-
-.testimonials-heading {
-  margin-top: 2rem;
-  font-size: 48px;
-  line-height: 57.6px;
-  color: white;
-  font-weight: 600;
-}
-
-.slider-header-discription {
-  color: #8e8e8e;
-  margin-top: 1.5rem;
-  font-size: 18px;
-  line-height: 24px;
-}
-
-.fanfact-counts {
-  margin: 5rem 0rem;
-}
-
-.fanfact-counts > div {
-  transition: 0.7s ease-in;
-}
-
 .institutional-section {
   padding: 10rem 0rem;
 }
 
 .institutional {
   overflow: hidden;
-  background-image: url("../images/about-5.jpg");
+  background-image: url("../images/about-4.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 555px;
@@ -185,12 +83,11 @@ ul {
 }
 
 .play-icon {
-  margin-top: 24rem;
-  margin-left: 23rem;
-  border-radius: 50%;
-  justify-content: center;
-  display: flex;
-  background-color: #e0040b;
+  font-size: 100px;
+  color: #dd1e4b;
+  margin-top: 9.3rem;
+  margin-left: -5rem;
+  z-index: 9999;
 }
 
 .play-icon-background {
@@ -220,6 +117,59 @@ ul {
   margin-top: 1.5rem;
   margin-left: -6rem;
   padding: 0rem 0rem;
+}
+
+.section-header-animation {
+  height: 7px;
+  width: 4rem;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+}
+
+.content-description,
+.content-section > ul > li {
+  font-size: 18px;
+  margin-bottom: 2rem;
+  line-height: 24px;
+  color: #6f6f6f;
+  font-weight: 400;
+}
+
+.content-title {
+  font-size: 48px;
+  line-height: 56.6px;
+  font-weight: 600;
+}
+
+.card-description {
+  color: #8e8e8e;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: Poppins, sans-serif;
+}
+
+.institutional-video-section {
+  padding: 0rem 12rem;
+}
+
+.institutional-video-img {
+  background-image: url("../images/news-4.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.75;
+  height: 434px;
+  width: 941px;
+}
+
+.institutional-video-img:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.content-title {
+  font-size: 48px;
+  line-height: 56.6px;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
@@ -284,6 +234,20 @@ ul {
   .institutional-list > .list-group-item > .content-description {
     font-size: 16px;
   }
+
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 314px;
+    width: 716px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 4.5rem -1rem 0rem -4.3rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -343,6 +307,28 @@ ul {
   .institutional-list > .list-group-item > p {
     margin-left: -9rem;
   }
+
+  .card-description {
+    color: #8e8e8e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    font-family: Poppins, sans-serif;
+  }
+
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 164px;
+    width: 376px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 0.5rem -1rem 0rem -4.3rem;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -370,6 +356,20 @@ ul {
   .institutional {
     width: 500px;
     height: 500px;
+  }
+
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 403px;
+    width: 960px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 7.5rem -1rem 0rem -4.3rem;
   }
 }
 

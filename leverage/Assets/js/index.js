@@ -28,4 +28,10 @@ function navbar() {
   }
 }
 
-
+function playIconZoom(){
+  document.getElementById('play-icon').style.transform = "scale(1.2)";
+  document.getElementById('play-icon').style.transition = "0.5s";
+}
+function playIconZoomOut() {
+  document.getElementById('play-icon').style.transform = "scale(1)";
+}
