@@ -1,0 +1,393 @@
+.text-custom {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.margin-top {
+  margin-top: 5rem;
+}
+
+.main-title {
+  color: #e0040b;
+}
+
+.nav-btn,
+.advertisement-btn {
+  padding: 8px 25px;
+  border: 3px solid #e0040b;
+  background-color: #dd1e4b;
+  border-radius: 3px;
+}
+
+.divider {
+  height: 7rem;
+  width: 5px;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  margin-top: 6rem;
+}
+
+section {
+  padding: 0rem 3.5rem;
+}
+
+.navbar {
+  z-index: 9999;
+}
+
+.main-content {
+  position: relative;
+  padding-top: 10rem;
+}
+
+.main {
+  position: relative;
+  background-color: black;
+  height: 535px;
+}
+
+.main-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.3;
+  background-image: url("../images/bg-5.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 535px;
+  width: 100%;
+  background-position: center;
+}
+.main-color {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 96px;
+  line-height: 115.2px;
+  font-weight: 900;
+}
+
+.breadcrumb-item > a,
+.breadcrumb-item > span {
+  font-family: sans-serif;
+  color: #8e8e8e;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  color: #8e8e8e;
+}
+
+.breadcrumb {
+  margin-top: 2rem;
+}
+
+.institutional-section {
+  padding: 10rem 0rem;
+}
+
+.institutional {
+  overflow: hidden;
+  background-image: url("../images/about-4.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 555px;
+  width: 555px;
+}
+
+.play-icon {
+  font-size: 100px;
+  color: #dd1e4b;
+  margin-top: 9.3rem;
+  margin-left: -5rem;
+  z-index: 9999;
+}
+
+.play-icon-background {
+  height: 40rem;
+  margin-top: 15rem;
+  margin-left: 13rem;
+  width: 40rem;
+  background-color: #dd1e4b;
+  opacity: 0.3;
+  border-radius: 50%;
+}
+
+.institutional-section-second-part {
+  padding: 2rem 4rem;
+}
+
+.institutional-list {
+  padding: 0rem 2rem;
+}
+
+.institutional-list > .list-group-item > h4 {
+  margin-left: 2rem;
+  margin-top: -1rem;
+}
+
+.institutional-list > .list-group-item > p {
+  margin-top: 1.5rem;
+  margin-left: -6rem;
+  padding: 0rem 0rem;
+}
+
+.section-header-animation {
+  height: 7px;
+  width: 4rem;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+}
+
+.content-description,
+.content-section > ul > li {
+  font-size: 18px;
+  margin-bottom: 2rem;
+  line-height: 24px;
+  color: #6f6f6f;
+  font-weight: 400;
+}
+
+.content-title {
+  font-size: 48px;
+  line-height: 56.6px;
+  font-weight: 600;
+}
+
+.card-description {
+  color: #8e8e8e;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: Poppins, sans-serif;
+}
+
+.institutional-video-section {
+  padding: 0rem 12rem;
+}
+
+.institutional-video-img {
+  background-image: url("../images/news-4.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.75;
+  height: 434px;
+  width: 941px;
+}
+
+.institutional-video-img:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.content-title {
+  font-size: 48px;
+  line-height: 56.6px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .advertisement {
+    margin: 5rem 2rem;
+  }
+
+  .main-image {
+    height: 270px;
+  }
+
+  .main-color {
+    font-size: 64px;
+  }
+
+  .main-content {
+    padding: 3rem;
+  }
+
+  .breadcrumb {
+    margin-top: 0.5rem;
+  }
+
+  .divider {
+    margin-top: -3.8rem;
+    height: 6rem;
+  }
+
+  .section-header-animation {
+    display: none;
+  }
+
+  .content-second-section,
+  .content-section {
+    margin: 0rem 1rem;
+    margin-top: 3rem;
+  }
+
+  .institutional {
+    width: 340px;
+    height: 484px;
+  }
+
+  .play-icon {
+    margin-top: 22rem;
+    margin-left: 13rem;
+  }
+
+  .play-icon-background {
+    margin-left: 5rem;
+  }
+
+  .institutional-list {
+    margin-top: 2rem;
+    padding: 0%;
+  }
+
+  .institutional-list > .list-group-item {
+    padding: 0%;
+  }
+
+  .institutional-list > .list-group-item > .content-description {
+    font-size: 16px;
+  }
+
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 314px;
+    width: 716px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 4.5rem -1rem 0rem -4.3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-header-animation {
+    display: none;
+  }
+
+  .main-image {
+    width: 100%;
+  }
+
+  .content-section {
+    margin: 2.5rem 0.3rem;
+  }
+
+  .card {
+    width: 25rem;
+  }
+
+  .main-color {
+    font-size: 56px;
+  }
+
+  .divider {
+    height: 5rem;
+  }
+
+  .content-second-section {
+    margin: 0rem 0.3rem;
+  }
+
+  .institutional-section {
+    padding: 10rem 1rem;
+  }
+
+  .institutional {
+    width: 375px;
+    height: 375px;
+  }
+
+  .play-icon-background {
+    margin-top: 8rem;
+  }
+
+  .play-icon {
+    margin-top: 15rem;
+  }
+
+  .institutional-section-second-part {
+    text-align: center;
+  }
+
+  .institutional-list > .list-group-item {
+    margin: 1rem 0rem;
+  }
+
+  .institutional-list > .list-group-item > p {
+    margin-left: -9rem;
+  }
+
+  .card-description {
+    color: #8e8e8e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    font-family: Poppins, sans-serif;
+  }
+
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 164px;
+    width: 376px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 0.5rem -1rem 0rem -4.3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  ul {
+    margin: 0%;
+  }
+
+  .card {
+    width: 14rem;
+    padding: 1.5rem 0.2rem;
+  }
+
+  section {
+    padding: 0%;
+  }
+
+  br {
+    display: none;
+  }
+
+  .institutional-list > .list-group-item {
+    margin: 0rem;
+  }
+
+  .institutional {
+    width: 500px;
+    height: 500px;
+  }
+
+  .institutional-video-section {
+    padding: 0%;
+  }
+
+  .institutional-video-img {
+    height: 403px;
+    width: 960px;
+    margin-left: -0.5rem;
+  }
+
+  .play-icon {
+    margin: 7.5rem -1rem 0rem -4.3rem;
+  }
+}
+
+@media (max-width: 1440px) {
+  section {
+    padding: 0rem 1.5rem;
+  }
+}
