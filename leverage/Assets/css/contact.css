@@ -53,7 +53,7 @@ section {
   left: 0;
   right: 0;
   opacity: 0.3;
-  background-image: url("../images/bg-1.jpg");
+  background-image: url("../images/bg-4.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 535px;
@@ -83,71 +83,106 @@ section {
   margin-top: 2rem;
 }
 
+.advertisement-description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.advertisement-btn {
+  background-color: #dd1e4a;
+  border-radius: 5px;
+  margin-top: -3px;
+}
+
 .section-header-animation {
   height: 7px;
   width: 4rem;
   background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
 }
 
-.content-section {
-  margin-top: 7rem;
+.card {
+  background-color: white;
+  color: #8e8e8e;
+  padding: 2rem;
+  border-radius: 0%;
+  width: 360px;
+  border: none;
+  margin-top: 2rem;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 }
 
-.content-description,
-.content-section > ul > li {
+.card-description {
+  color: #8e8e8e;
   font-size: 18px;
-  margin-bottom: 2rem;
-  line-height: 24px;
-  color: #6f6f6f;
   font-weight: 400;
+  line-height: 24px;
+  font-family: Poppins, sans-serif;
 }
 
-.content-title {
-  font-size: 48px;
-  line-height: 56.6px;
-  font-weight: 600;
+.card:hover {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  transform: translateY(-7.5px);
+  transition: 0.7 s ease-in-out;
+  transition: 0.5s ease-in-out;
+
 }
 
-.list-group-item {
-  padding: 2rem 0rem;
-  font-size: 19.2px;
-  background-color: transparent;
-  line-height: 23.4px;
-  font-weight: 600;
+.card:hover > .card-body {
+  color: white;
+  transition: 0.5s ease-in-out;
 }
 
-ul {
-  margin-left: -1rem;
-}
-
-.content-second-section {
-  margin-left: 5rem;
-}
-
-.institutional-video-section {
-  padding: 0rem 12rem;
-}
-
-.institutional-video-img {
-  background-image: url("../images/news-4.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  opacity: 0.75;
-  height: 434px;
-  width: 941px;
-}
-
-.institutional-video-img:hover {
+.card:hover > .card-decoration {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  height: 15.5rem;
+  width: 22.3rem;
   opacity: 0.5;
-  cursor: pointer;
+  transition: 0.5s ease-in-out;
 }
 
-.play-icon {
-  font-size: 100px;
-  color: #dd1e4b;
-  margin-top: 9.3rem;
-  margin-left: -5rem;
-  z-index: 9999;
+.card:hover > .card-decoration-2 {
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  opacity: 0.5;
+  margin-top: -1.2rem;
+  margin-left: -1.2rem;
+  height: 16.3rem;
+  width: 22.3rem;
+  transition: 0.5s ease-in-out;
+}
+
+.card-decoration {
+  position: absolute;
+  height: 8rem;
+  width: 12rem;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  z-index: -9999;
+  margin-top: -43px;
+  margin-left: -43px;
+}
+
+.card-decoration-2 {
+  position: absolute;
+  height: 8.5rem;
+  width: 12.3rem;
+  background-image: linear-gradient(45deg, #e0040b 15%, #dd1e4b 65%);
+  z-index: -9999;
+  margin-top: 105px;
+  margin-left: 140px;
+}
+
+.card:hover >.card-description,.card:hover >.card-heading,.card:hover >.card-icon{
+  color: white;
+  transition: 0.5s ease-in-out;
+
+}
+
+.card-heading {
+  color: black;
+}
+
+.card-icon{
+  margin-left: 8rem;
 }
 
 @media (max-width: 768px) {
@@ -176,48 +211,20 @@ ul {
     height: 6rem;
   }
 
-  .section-header-animation {
+  .card-decoration,
+  .card-decoration-2 {
     display: none;
-  }
-
-  .content-second-section,
-  .content-section {
-    margin: 0rem 1rem;
-    margin-top: 3rem;
-  }
-
-  .institutional-video-section {
-    padding: 0%;
-  }
-
-  .institutional-video-img {
-    height: 314px;
-    width: 716px;
-    margin-left: -0.5rem;
-  }
-
-  .play-icon {
-    margin: 4.5rem -1rem 0rem -4.3rem;
   }
 }
 
 @media (max-width: 576px) {
-  .section-header-animation {
-    display: none;
+  .cards {
+    width: 370px;
+    margin-left: 2rem;
   }
-
   .main-image {
     width: 100%;
   }
-
-  .content-section {
-    margin: 2.5rem 0.3rem;
-  }
-
-  .card {
-    width: 25rem;
-  }
-
   .main-color {
     font-size: 56px;
   }
@@ -226,55 +233,17 @@ ul {
     height: 5rem;
   }
 
-  .content-second-section {
-    margin: 0rem 0.3rem;
-  }
-
-  .institutional-video-section {
-    padding: 0%;
-  }
-
-  .institutional-video-img {
-    height: 164px;
-    width: 376px;
-    margin-left: -0.5rem;
-  }
-
-  .play-icon {
-    margin: 0.5rem -1rem 0rem -4.3rem;
+  .advertisement-btn {
+    margin: 0%;
+    margin-top: 10px;
+    margin-right: 90px;
+    margin-top: 30px;
   }
 }
 
 @media (max-width: 1024px) {
-  ul {
-    margin: 0%;
-  }
-
-  .card {
-    width: 14rem;
-    padding: 1.5rem 0.2rem;
-  }
-
   section {
     padding: 0%;
-  }
-
-  br {
-    display: none;
-  }
-
-  .institutional-video-section {
-    padding: 0%;
-  }
-
-  .institutional-video-img {
-    height: 403px;
-    width: 960px;
-    margin-left: -0.5rem;
-  }
-
-  .play-icon {
-    margin: 7.5rem -1rem 0rem -4.3rem;
   }
 }
 

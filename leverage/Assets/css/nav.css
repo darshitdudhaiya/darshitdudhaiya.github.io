@@ -55,8 +55,11 @@
 
 #nav {
   background-color: transparent;
-  position: absolute;
-  z-index: 0;
+  position: fixed;
+  z-index: 99;
+  margin-top: 0rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
   width: 100%;
 }
 

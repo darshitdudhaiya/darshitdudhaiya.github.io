@@ -36,10 +36,23 @@ section {
 }
 
 .main-content {
+  position: relative;
   padding-top: 10rem;
 }
 
+.main {
+  position: relative;
+  background-color: black;
+  height: 535px;
+}
+
 .main-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.3;
   background-image: url("../images/bg-9.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -61,6 +74,11 @@ section {
   font-family: sans-serif;
   color: #8e8e8e;
 }
+
+.breadcrumb-item {
+  margin-top: 3rem;
+}
+
 .breadcrumb-item + .breadcrumb-item::before {
   color: #8e8e8e;
 }
@@ -252,7 +270,7 @@ section {
     padding: 0%;
   }
 
-  .cards{
+  .cards {
     width: 468px;
   }
 
