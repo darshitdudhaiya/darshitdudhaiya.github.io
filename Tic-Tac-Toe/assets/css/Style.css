@@ -1,0 +1,16 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
+
+.title{
+    font-family: 'Alkatra', cursive;    
+}
+
+#alert{
+    transition: 0.7s ease-in-out;
+    display: none;
+}
+
+#toast-simple{
+    visibility: hidden;
+}
