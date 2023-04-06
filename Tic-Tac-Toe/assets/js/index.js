@@ -79,12 +79,14 @@ function move(e) {
       e.innerHTML = player1
       chooseWinner(e);
       turn++;
+      console.log(turn)
       _$(e.id).style.pointerEvents = "none";
     }
     else if (turn % 2 != 0 && turn != 9) {
       e.innerHTML = player2
       chooseWinner(e);
       turn++;
+      console.log(turn)
       _$(e.id).style.pointerEvents = "none";
     }
 
@@ -103,6 +105,8 @@ function isSubset(array1, array2) {
   return incCount >= 3 ? true : false;
 }
 
+let Winner = null;
+
 function chooseWinner(e) {
   if (turn % 2 == 0 && e.innerHTML != null) {
     p1.push(parseInt(e.id));
@@ -114,19 +118,21 @@ function chooseWinner(e) {
   for (let index = 0; index < win_comb.length; index++) {
     if (turn % 2 == 0) {
       if (isSubset(p1, win_comb[index]) == true) {
+        Winner = player1;
         _$("toast-interactive").style.visibility = "visible";
         _$("winner_name").innerHTML = `Congratulations! <p class="text-blue-500 text-xl">Player 1 ${player1}</p> you win this match.....`;
+      }
+      if (turn == 8 && isSubset(p1, win_comb[index]) == false && isSubset(p2, win_comb[index]) == false){
+        _$("toast-interactive").style.visibility = "visible";
+        _$("winner_name").innerHTML = `Sorry! This match is <p class="text-blue-500 text-xl">Drawed</p> better luck for next game ..... `;
       }
     }
     else if (turn % 2 != 0) {
       if (isSubset(p2, win_comb[index]) == true) {
+        Winner = player2;
         _$("toast-interactive").style.visibility = "visible";
         _$("winner_name").innerHTML = `Congratulations! <p class="text-blue-500 text-xl">Player 2 ${player2}</p> you win this match.....`;
       }
-    }
-    else {
-      _$("toast-interactive").style.visibility = "visible";
-      _$("winner_name").innerText = `Sorry! This match was tied.....`;
     }
   }
 }
