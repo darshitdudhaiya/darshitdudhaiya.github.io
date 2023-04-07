@@ -117,7 +117,6 @@ function isSubset(array1, array2) {
       incCount++;
     }
   }
-  
   return incCount >= 3 ? true : false;
 }
 
@@ -133,7 +132,6 @@ function chooseWinner(e) {
 
   for (let index = 0; index < win_comb.length; index++) {
     if (turn % 2 == 0) {
-      
       if (isSubset(p1, win_comb[index]) == true) {
         Winner = player1;
         _$("toast-interactive").style.visibility = "visible";
