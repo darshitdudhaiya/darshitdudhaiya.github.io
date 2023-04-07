@@ -77,10 +77,18 @@ _$("toast-interactive").style.visibility = "hidden";
 var turn = 0;
 
 function move(e) {
-  if (player1 == null && player2 == null || player1 != null && player2 == null || player1 == null && player2 != null) {
-    _$("alert").style.display = "block";
+  if (player1 == null && player2 == null || player1 == null && player2 != null) {
+    _$("toast-warning").style.visibility = "visible";
+    _$("selectSign").innerText = "Click a sign button for the select sign for the player 1";
     setTimeout(() => {
-      _$("alert").style.display = "none";
+      _$("toast-warning").style.visibility = "hidden";
+    }, 2000);
+  }
+  else if (player1 != null && player2 == null) {
+    _$("toast-warning").style.visibility = "visible";
+    _$("selectSign").innerText = "Click a sign button for the select sign for the player 2";
+    setTimeout(() => {
+      _$("toast-warning").style.visibility = "hidden";
     }, 2000);
   }
   else if (player1 != null && player2 != null) {
