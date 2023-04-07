@@ -10,6 +10,15 @@ function _$tag(string) {
   return document.getElementsByTagName(string);
 }
 
+function multiPlayer() {
+  _$("choose_game").style.visibility = "hidden";
+}
+
+function singlePlayer() {
+  _$("choose_game").style.visibility = "hidden";
+
+}
+
 var arr = [
   [],
   [],
@@ -79,14 +88,12 @@ function move(e) {
       e.innerHTML = player1
       chooseWinner(e);
       turn++;
-      console.log(turn)
       _$(e.id).style.pointerEvents = "none";
     }
     else if (turn % 2 != 0 && turn != 9) {
       e.innerHTML = player2
       chooseWinner(e);
       turn++;
-      console.log(turn)
       _$(e.id).style.pointerEvents = "none";
     }
 
@@ -102,6 +109,7 @@ function isSubset(array1, array2) {
       incCount++;
     }
   }
+  console.log("inCount", incCount);
   return incCount >= 3 ? true : false;
 }
 
@@ -117,12 +125,16 @@ function chooseWinner(e) {
 
   for (let index = 0; index < win_comb.length; index++) {
     if (turn % 2 == 0) {
+      console.log("Turn :", turn);
+      console.log("pattern : ", win_comb[index]);
+      console.log("p1 ", p1);
       if (isSubset(p1, win_comb[index]) == true) {
         Winner = player1;
         _$("toast-interactive").style.visibility = "visible";
         _$("winner_name").innerHTML = `Congratulations! <p class="text-blue-500 text-xl">Player 1 ${player1}</p> you win this match.....`;
       }
-      if (turn == 8 && isSubset(p1, win_comb[index]) == false && isSubset(p2, win_comb[index]) == false){
+      else if (turn == 8 && Winner == null) {
+        console.log(isSubset(p1, win_comb[index]));
         _$("toast-interactive").style.visibility = "visible";
         _$("winner_name").innerHTML = `Sorry! This match is <p class="text-blue-500 text-xl">Drawed</p> better luck for next game ..... `;
       }
