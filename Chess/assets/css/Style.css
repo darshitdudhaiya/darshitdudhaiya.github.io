@@ -3,3 +3,7 @@
 .title{
     font-family: 'Nunito', sans-serif; 
 }
+
+#toast-warning{
+    visibility: hidden;
+}
