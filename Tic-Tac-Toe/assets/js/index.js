@@ -1,23 +1,3 @@
-function _$(string) {
-  return document.getElementById(string);
-}
-
-function _$class(string) {
-  return document.getElementsByClassName(string);
-}
-
-function _$tag(string) {
-  return document.getElementsByTagName(string);
-}
-
-function multiPlayer() {
-  _$("choose_game").style.visibility = "hidden";
-}
-
-function singlePlayer() {
-  _$("choose_game").style.visibility = "hidden";
-
-}
 
 var arr = [
   [],
@@ -39,9 +19,36 @@ const win_comb = [
 var p1 = [];
 var p2 = [];
 
+let Winner = null;
 
+var player1 = null;
+var player2 = null;
+
+var turn = 0;
 
 let id = 0;
+
+_$("toast-interactive").style.visibility = "hidden";
+
+function _$(string) {
+  return document.getElementById(string);
+}
+
+function _$class(string) {
+  return document.getElementsByClassName(string);
+}
+
+function _$tag(string) {
+  return document.getElementsByTagName(string);
+}
+
+function multiPlayer() {
+  _$("choose_game").style.visibility = "hidden";
+}
+
+function singlePlayer() {
+  _$("choose_game").style.visibility = "hidden";
+}
 
 for (let index = 0; index < arr.length; index++) {
   _$(
@@ -57,9 +64,6 @@ for (let index = 0; index < arr.length; index++) {
     </tr>`;
 }
 
-var player1 = null;
-var player2 = null;
-
 function selectSign(e) {
   if (player1 == null) {
     player1 = e.value;
@@ -69,12 +73,6 @@ function selectSign(e) {
     _$("player2-text").innerText += ` = ${player2}`;
   }
 }
-
-
-
-_$("toast-interactive").style.visibility = "hidden";
-
-var turn = 0;
 
 function move(e) {
   if (player1 == null && player2 == null || player1 == null && player2 != null) {
@@ -120,8 +118,6 @@ function isSubset(array1, array2) {
   return incCount >= 3 ? true : false;
 }
 
-let Winner = null;
-
 function chooseWinner(e) {
   if (turn % 2 == 0 && e.innerHTML != null) {
     p1.push(parseInt(e.id));
@@ -136,6 +132,11 @@ function chooseWinner(e) {
         Winner = player1;
         _$("toast-interactive").style.visibility = "visible";
         _$("winner_name").innerHTML = `Congratulations! <p class="text-blue-500 text-xl">Player 1 ${player1}</p> you win this match.....`;
+        for (i = 0; i < 8; i++) {
+          if (_$(`${i}`).style.pointerEvents != "none") {
+            _$(`${i}`).style.pointerEvents = "none";
+          }
+        }
       }
       else if (turn == 8 && Winner == null) {
         console.log(isSubset(p1, win_comb[index]));
@@ -148,7 +149,13 @@ function chooseWinner(e) {
         Winner = player2;
         _$("toast-interactive").style.visibility = "visible";
         _$("winner_name").innerHTML = `Congratulations! <p class="text-blue-500 text-xl">Player 2 ${player2}</p> you win this match.....`;
+        for (i = 0; i < 8; i++) {
+          if (_$(`${i}`).style.pointerEvents != "none") {
+            _$(`${i}`).style.pointerEvents = "none";
+          }
+        }
       }
+
     }
   }
 }
