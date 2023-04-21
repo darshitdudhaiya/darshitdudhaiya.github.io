@@ -121,6 +121,18 @@ for (let index = 0; index < arr.length; index++) {
       </tr>`;
 }
 
+function compare(pathOfPiece) {
+    white_icon.forEach(element => {
+        if (pathOfPiece == element || pathOfPiece == "./images/White_soldier.png") {
+            return "White";
+        }
+    });
+    icon.forEach(element => {
+        if (pathOfPiece == element || pathOfPiece == "./images/soldier.png") {
+            return "Black";
+        }
+    });
+}
 
 function move(e) {
     if (selection == null) {
@@ -151,7 +163,12 @@ function move(e) {
                 }
             }
         }
-        let piece = _$(e.id).children[0].getAttribute("src").replace("./images/","").replace(".png","");
+
+
+        let piece = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+        let piecePath = _$(e.id).children[0].getAttribute("src");
+
+
         if (piece == "soldier" || piece == "White_soldier") {
             if (piece == "soldier" && turn == "Black") {
                 id = parseInt(e.id);
@@ -176,84 +193,118 @@ function move(e) {
                 selection = e.id;
                 possibleMoves.push(id - 8);
                 possibleMoves.push(id - 8 - 8);
+
             }
         }
 
         else if (piece == "rook" || piece == "White_rook") {
             if (piece == "rook" && turn == "Black") {
                 id = parseInt(e.id);
-                _$(id + 8).style.backgroundColor = "#90EE90";
-                _$(id + 8).style.border = "1px solid #013220";
-                _$(id + 8).style.borderRadius = "5px";
-                _$(id + 8 + 8).style.backgroundColor = "#90EE90";
-                _$(id + 8 + 8).style.border = "1px solid #013220";
-                _$(id + 8 + 8).style.borderRadius = "5px";
-                _$(id + 8 + 8 + 8).style.backgroundColor = "#90EE90";
-                _$(id + 8 + 8 + 8).style.border = "1px solid #013220";
-                _$(id + 8 + 8 + 8).style.borderRadius = "5px";
-                selection = e.id;
-                possibleMoves.push(id + 8);
-                possibleMoves.push(id + 8 + 8);
-                possibleMoves.push(id + 8 + 8 + 8);
+                if (_$(id + 8).innerHTML == "") {
+                    if (_$(id + 8).innerHTML == "") {
+                        _$(id + 8).style.backgroundColor = "#90EE90";
+                        _$(id + 8).style.border = "1px solid #013220";
+                        _$(id + 8).style.borderRadius = "5px";
+                        possibleMoves.push(id + 8);
+                    }
+                    if (_$(id + 8 + 8).innerHTML == "") {
+                        _$(id + 8 + 8).style.backgroundColor = "#90EE90";
+                        _$(id + 8 + 8).style.border = "1px solid #013220";
+                        _$(id + 8 + 8).style.borderRadius = "5px";
+                        possibleMoves.push(id + 8 + 8);
+                    }
+                    if (_$(id + 8 + 8 + 8).innerHTML == "") {
+                        _$(id + 8 + 8 + 8).style.backgroundColor = "#90EE90";
+                        _$(id + 8 + 8 + 8).style.border = "1px solid #013220";
+                        _$(id + 8 + 8 + 8).style.borderRadius = "5px";
+                        possibleMoves.push(id + 8 + 8 + 8);
+                    }
+                    selection = e.id;
+                }
             }
-            // else if (e.id == 7 && turn == "Black") {
-            //     id = parseInt(e.id);
-            //     _$(id + 8).style.backgroundColor = "#90EE90";
-            //     _$(id + 8).style.border = "1px solid #013220";
-            //     _$(id + 8).style.borderRadius = "5px";
-            //     _$(id + 8 + 8).style.backgroundColor = "#90EE90";
-            //     _$(id + 8 + 8).style.border = "1px solid #013220";
-            //     _$(id + 8 + 8).style.borderRadius = "5px";
-            //     _$(id + 8 + 8 + 8).style.backgroundColor = "#90EE90";
-            //     _$(id + 8 + 8 + 8).style.border = "1px solid #013220";
-            //     _$(id + 8 + 8 + 8).style.borderRadius = "5px";
-            //     selection = e.id;
-            //     possibleMoves.push(id + 8);
-            //     possibleMoves.push(id + 8 + 8);
-            //     possibleMoves.push(id + 8 + 8 + 8);
-            // }
+
             else if (piece == "White_rook" && turn == "White") {
                 id = parseInt(e.id);
-                _$(id - 8).style.backgroundColor = "#90EE90";
-                _$(id - 8).style.border = "1px solid #013220";
-                _$(id - 8).style.borderRadius = "5px";
-                _$(id - 8 - 8).style.backgroundColor = "#90EE90";
-                _$(id - 8 - 8).style.border = "1px solid #013220";
-                _$(id - 8 - 8).style.borderRadius = "5px";
-                _$(id - 8 - 8 - 8).style.backgroundColor = "#90EE90";
-                _$(id - 8 - 8 - 8).style.border = "1px solid #013220";
-                _$(id - 8 - 8 - 8).style.borderRadius = "5px";
-                selection = e.id;
-                possibleMoves.push(id - 8);
-                possibleMoves.push(id - 8 - 8);
-                possibleMoves.push(id - 8 - 8 - 8);
-                console.log("piece :",id);
-                
+                if (_$(id - 8).innerHTML == "") {
+                    if (_$(id - 8).innerHTML == "") {
+                        _$(id - 8).style.backgroundColor = "#90EE90";
+                        _$(id - 8).style.border = "1px solid #013220";
+                        _$(id - 8).style.borderRadius = "5px";
+                        possibleMoves.push(id - 8);
+                    }
+                    if (_$(id - 8 - 8).innerHTML == "") {
+                        _$(id - 8 - 8).style.backgroundColor = "#90EE90";
+                        _$(id - 8 - 8).style.border = "1px solid #013220";
+                        _$(id - 8 - 8).style.borderRadius = "5px";
+                        possibleMoves.push(id - 8 - 8);
+                    }
+                    if (_$(id - 8 - 8 - 8).innerHTML == "") {
+                        _$(id - 8 - 8 - 8).style.backgroundColor = "#90EE90";
+                        _$(id - 8 - 8 - 8).style.border = "1px solid #013220";
+                        _$(id - 8 - 8 - 8).style.borderRadius = "5px";
+                        possibleMoves.push(id - 8 - 8 - 8);
+                    }
+                    selection = e.id;
+                }
             }
-            // else if (e.id == 63 && turn == "White") {
-            //     id = parseInt(e.id);
-            //     _$(id - 8).style.backgroundColor = "#90EE90";
-            //     _$(id - 8).style.border = "1px solid #013220";
-            //     _$(id - 8).style.borderRadius = "5px";
-            //     _$(id - 8 - 8).style.backgroundColor = "#90EE90";
-            //     _$(id - 8 - 8).style.border = "1px solid #013220";
-            //     _$(id - 8 - 8).style.borderRadius = "5px";
-            //     _$(id - 8 - 8 - 8).style.backgroundColor = "#90EE90";
-            //     _$(id - 8 - 8 - 8).style.border = "1px solid #013220";
-            //     _$(id - 8 - 8 - 8).style.borderRadius = "5px";
-            //     selection = e.id;
-            //     possibleMoves.push(id + 8);
-            //     possibleMoves.push(id + 8 + 8);
-            //     possibleMoves.push(id + 8 + 8 + 8);
-            // }
+
         }
-        else {
+
+        else if (piece == "horse" || piece == "White_horse") {
+            if (piece == "horse" && turn == "Black") {
+                id = parseInt(e.id);
+                _$(id + 8 + 8 - 1).style.background = "#90EE90";
+                _$(id + 8 + 8 - 1).style.border = "1px solid #013220";
+                _$(id + 8 + 8 - 1).style.borderRadius = "5px";
+                possibleMoves.push(id + 8 + 8 - 1);
+
+                _$(id + 8 + 8 + 1).style.background = "#90EE90";
+                _$(id + 8 + 8 + 1).style.border = "1px solid #013220";
+                _$(id + 8 + 8 + 1).style.borderRadius = "5px";
+                possibleMoves.push(id + 8 + 8 + 1);
+
+                selection = e.id;
+
+            }
+
+            else if (piece == "White_horse" && turn == "White") {
+                id = parseInt(e.id);
+                _$(id - 8 - 8 - 1).style.background = "#90EE90";
+                _$(id - 8 - 8 - 1).style.border = "1px solid #013220";
+                _$(id - 8 - 8 - 1).style.borderRadius = "5px";
+                possibleMoves.push(id - 8 - 8 - 1);
+
+                _$(id - 8 - 8 + 1).style.background = "#90EE90";
+                _$(id - 8 - 8 + 1).style.border = "1px solid #013220";
+                _$(id - 8 - 8 + 1).style.borderRadius = "5px";
+                possibleMoves.push(id - 8 - 8 + 1);
+
+                selection = e.id;
+
+            }
+
+        }
+
+
+
+        else if (compare(_$(e.id).children[0].getAttribute("src")) != turn) {
             _$("toast-warning").style.visibility = "visible";
             _$("warningText").innerHTML = `Sorry ! It's <p class="text-green-500 text-xl">${turn} Team's</p> Turn..`
             setTimeout(() => {
                 _$("toast-warning").style.visibility = "hidden";
             }, 2000);
         }
+
+        // else if (trun == "White") {
+        //     _$("toast-warning").style.visibility = "visible";
+        //     _$("warningText").innerHTML = `Sorry ! It's <p class="text-green-500 text-xl">${turn} Team's</p> Turn..`
+        //     setTimeout(() => {
+        //         _$("toast-warning").style.visibility = "hidden";
+        //     }, 2000);
+        // }
+
+
+
     }
     else {
         let image = _$(selection).children[0].getAttribute("src");
@@ -273,8 +324,16 @@ function move(e) {
             else if (selection == 56 || selection == 63) {
                 turn = "Black";
             }
+            else if (selection == 1 || selection == 6) {
+                turn = "White";
+            }
+            else if (selection == 57 || selection == 62) {
+                turn = "Black";
+            }
+
             selection = null;
             possibleMoves = [];
+            console.log(turn);
         }
         else {
             _$("toast-warning").style.visibility = "visible";
@@ -314,4 +373,3 @@ function move(e) {
         }
     }
 }
-
