@@ -16,9 +16,7 @@ let selection = null;
 
 let possibleMoves = [];
 
-let firstMoveofBlackSoldier = false;
 
-let firstMoveofWhiteSoldier = false;
 
 let turn = "Black";
 
@@ -168,10 +166,10 @@ function move(e) {
             }
         }
 
-
         let piece = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "") : null;
         let piecePath = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src") : null;
         let pieceVrient = piece ? piece.replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : turn;
+
 
         if (piece == "Black_soldier" || piece == "White_soldier") {
             if (piece == "Black_soldier" && turn == "Black") {
@@ -179,30 +177,28 @@ function move(e) {
                 _$(id + 8).style.backgroundColor = "#90EE90";
                 _$(id + 8).style.border = "1px solid #013220";
                 _$(id + 8).style.borderRadius = "5px";
-                if(firstMoveofBlackSoldier != true){
+                if (id >= 8 && id <= 15) {
                     _$(id + 16).style.backgroundColor = "#90EE90";
                     _$(id + 16).style.border = "1px solid #013220";
                     _$(id + 16).style.borderRadius = "5px";
-                    firstMoveofBlackSoldier = true;
+                    possibleMoves.push(id + 16);
                 }
                 selection = e.id;
                 possibleMoves.push(id + 8);
-                possibleMoves.push(id + 16);
             }
             else if (piece == "White_soldier" && turn == "White") {
                 id = parseInt(e.id);
                 _$(id - 8).style.backgroundColor = "#90EE90";
                 _$(id - 8).style.border = "1px solid #013220";
                 _$(id - 8).style.borderRadius = "5px";
-                if(firstMoveofWhiteSoldier != true){
+                if (id >= 48 && id <= 55) {
                     _$(id - 16).style.backgroundColor = "#90EE90";
                     _$(id - 16).style.border = "1px solid #013220";
                     _$(id - 16).style.borderRadius = "5px";
-                    firstMoveofWhiteSoldier = true;
+                    possibleMoves.push(id - 16);
                 }
                 selection = e.id;
                 possibleMoves.push(id - 8);
-                possibleMoves.push(id - 16);
 
             }
         }
@@ -210,20 +206,25 @@ function move(e) {
         if (piece == "Black_rook" || piece == "White_rook") {
             if (piece == "Black_rook" && turn == "Black") {
                 id = parseInt(e.id);
-                if (_$(id + 8).innerHTML == "") {
-                    if (_$(id + 8).innerHTML == "") {
+                let firstPossibleMove = _$(id + 8).children[0] ? _$(id + 8).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
+                if (firstPossibleMove == ""|| firstPossibleMove == "White") {
+
+                    let secondPossibleMove = _$(id + 16).children[0] ? _$(id + 16).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
+                    let thirdPossibleMove = _$(id + 24).children[0] ? _$(id + 24).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
+
+                    if (firstPossibleMove == "White" || firstPossibleMove == "") {
                         _$(id + 8).style.backgroundColor = "#90EE90";
                         _$(id + 8).style.border = "1px solid #013220";
                         _$(id + 8).style.borderRadius = "5px";
                         possibleMoves.push(id + 8);
                     }
-                    if (_$(id + 16).innerHTML == "") {
+                    if (secondPossibleMove == "White" || secondPossibleMove == "") {
                         _$(id + 16).style.backgroundColor = "#90EE90";
                         _$(id + 16).style.border = "1px solid #013220";
                         _$(id + 16).style.borderRadius = "5px";
                         possibleMoves.push(id + 16);
                     }
-                    if (_$(id + 24).innerHTML == "") {
+                    if (thirdPossibleMove == "White" || thirdPossibleMove == "") {
                         _$(id + 24).style.backgroundColor = "#90EE90";
                         _$(id + 24).style.border = "1px solid #013220";
                         _$(id + 24).style.borderRadius = "5px";
@@ -235,20 +236,25 @@ function move(e) {
 
             else if (piece == "White_rook" && turn == "White") {
                 id = parseInt(e.id);
-                if (_$(id - 8).innerHTML == "") {
-                    if (_$(id - 8).innerHTML == "") {
+                let firstPossibleMove = _$(id - 8).children[0] ? _$(id - 8).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
+                if (firstPossibleMove == "" || firstPossibleMove == "Black") {
+
+                    let secondPossibleMove = _$(id - 16).children[0] ? _$(id - 16).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
+                    let thirdPossibleMove = _$(id - 24).children[0] ? _$(id - 24).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
+
+                    if (firstPossibleMove == "Black" || firstPossibleMove == "") {
                         _$(id - 8).style.backgroundColor = "#90EE90";
                         _$(id - 8).style.border = "1px solid #013220";
                         _$(id - 8).style.borderRadius = "5px";
                         possibleMoves.push(id - 8);
                     }
-                    if (_$(id - 16).innerHTML == "") {
+                    if (secondPossibleMove == "Black" || secondPossibleMove == "") {
                         _$(id - 16).style.backgroundColor = "#90EE90";
                         _$(id - 16).style.border = "1px solid #013220";
                         _$(id - 16).style.borderRadius = "5px";
                         possibleMoves.push(id - 16);
                     }
-                    if (_$(id - 24).innerHTML == "") {
+                    if (thirdPossibleMove == "Black" || thirdPossibleMove == "") {
                         _$(id - 24).style.backgroundColor = "#90EE90";
                         _$(id - 24).style.border = "1px solid #013220";
                         _$(id - 24).style.borderRadius = "5px";
@@ -278,8 +284,8 @@ function move(e) {
                     possibleMoves.push(id + 15);
                 }
 
-                if (id + 17 >= 0 && id + 17 <= 7 ||
-                    id + 17 >= 8 && id + 17 <= 15 ||
+                if ((id + 17 >= 0 && id + 17 <= 7) ||
+                    (id + 17 >= 8 && id + 17 <= 15) ||
                     (id + 17 >= 16 && id + 17 <= 23) ||
                     (id + 17 >= 24 && id + 17 <= 31) ||
                     (id + 17 >= 32 && id + 17 <= 39) ||
@@ -368,7 +374,6 @@ function move(e) {
             }
             selection = null;
             possibleMoves = [];
-            console.log(turn);
         }
         else {
             _$("toast-warning").style.visibility = "visible";
