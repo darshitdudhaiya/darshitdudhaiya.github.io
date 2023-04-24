@@ -43,79 +43,234 @@ for (let index = 0; index < arr.length; index++) {
 
     if (index == 0) {
         for (let j = 0; j < icon.length; j++) {
-            if (j % 2 == 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                id++;
-
+            if(j < 3){
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                    id++;
+                    
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                    id++;
+                    
+                }
             }
-            else if (j % 2 != 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                id++;
-
+            else if(j > 4){
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                    id++;
+                    
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                    id++;
+                    
+                }
+            }
+            else{
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                    id++;
+                    
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                    id++;
+                    
+                }
             }
         }
     }
     if (index == 1) {
         for (let j = 0; j < 8; j++) {
-            if (j % 2 == 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                id++;
+            if(j < 3)
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                    id++;
+                }
             }
-            else if (j % 2 != 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                id++;
+            else if(j > 4)
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                    id++;
+                }
+            }
+            else 
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                    id++;
+                }
             }
         }
     }
 
     if (index == 6) {
         for (let j = 0; j < icon.length; j++) {
-            if (j % 2 == 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                id++;
+            if(j < 3)
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                    id++;
+                }
             }
-            else if (j % 2 != 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                id++;
+            else if(j > 4)
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                    id++;
+                }
+            }
+            else
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                    id++;
+                }
             }
         }
     }
     if (index == 7) {
         for (let j = 0; j < 8; j++) {
-            if (j % 2 == 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                id++;
+            if(j < 3)
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                    id++;
+                }
             }
-            else if (j % 2 != 0) {
-                document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                id++;
+            else if(j > 4)
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                    id++;
+                }
+            }
+            else
+            {
+                if (j % 2 == 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                    id++;
+                }
+                else if (j % 2 != 0) {
+                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                    id++;
+                }
             }
         }
     }
     for (let i = 0; i < arr.length; i++) {
 
-        if (index % 2 == 0 && index >= 2 && index < 6) {
-            if (id % 2 == 0) {
-                _$(`row${index}`).innerHTML += `
-                <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                id++;
+        if(i < 3){
+            if (index % 2 == 0 && index >= 2 && index < 6) {
+                if (id % 2 == 0) {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
+                    id++;
+                }
+                else {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
+                    id++;
+                }
             }
-            else {
-                _$(`row${index}`).innerHTML += `
-                <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                id++;
+            else if (index % 2 != 0 && index >= 2 && index < 6) {
+                if (id % 2 == 0) {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
+                    id++;
+                }
+                else {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
+                    id++;
+                }
             }
         }
-        else if (index % 2 != 0 && index >= 2 && index < 6) {
-            if (id % 2 == 0) {
-                _$(`row${index}`).innerHTML += `
-                <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                id++;
+        else if(i > 4){
+            if (index % 2 == 0 && index >= 2 && index < 6) {
+                if (id % 2 == 0) {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    id++;
+                }
+                else {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    id++;
+                }
             }
-            else {
-                _$(`row${index}`).innerHTML += `
-                <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                id++;
+            else if (index % 2 != 0 && index >= 2 && index < 6) {
+                if (id % 2 == 0) {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    id++;
+                }
+                else {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    id++;
+                }
+            }
+        }
+        else{
+            if (index % 2 == 0 && index >= 2 && index < 6) {
+                if (id % 2 == 0) {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
+                    id++;
+                }
+                else {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
+                    id++;
+                }
+            }
+            else if (index % 2 != 0 && index >= 2 && index < 6) {
+                if (id % 2 == 0) {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
+                    id++;
+                }
+                else {
+                    _$(`row${index}`).innerHTML += `
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
+                    id++;
+                }
             }
         }
     }
@@ -207,7 +362,7 @@ function move(e) {
             if (piece == "Black_rook" && turn == "Black") {
                 id = parseInt(e.id);
                 let firstPossibleMove = _$(id + 8).children[0] ? _$(id + 8).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-                if (firstPossibleMove == ""|| firstPossibleMove == "White") {
+                if (firstPossibleMove == "" || firstPossibleMove == "White") {
 
                     let secondPossibleMove = _$(id + 16).children[0] ? _$(id + 16).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
                     let thirdPossibleMove = _$(id + 24).children[0] ? _$(id + 24).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
@@ -269,69 +424,112 @@ function move(e) {
         if (piece == "Black_horse" || piece == "White_horse") {
             if (piece == "Black_horse" && turn == "Black") {
                 id = parseInt(e.id);
+                console.log(id);
+                if (_$(id + 17).innerHTML == "" || _$(id + 15).innerHTML == "White" ) {
+                    if ((id + 17 >= 0 && id + 17 <= 7) && (id + 15 >= 0 && id + 15 <= 7)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+                        
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
 
-                if ((id + 15 >= 0 && id + 15 <= 7) ||
-                    (id + 15 >= 8 && id + 15 <= 15) ||
-                    (id + 15 >= 16 && id + 15 <= 23) ||
-                    (id + 15 >= 24 && id + 15 <= 31) ||
-                    (id + 15 >= 32 && id + 15 <= 39) ||
-                    (id + 15 >= 40 && id + 15 <= 47) ||
-                    (id + 15 >= 48 && id + 15 <= 55) ||
-                    (id + 15 >= 54 && id + 15 <= 63) && _$(id + 15).innerHTML == "") {
-                    _$(id + 15).style.background = "#90EE90";
-                    _$(id + 15).style.border = "1px solid #013220";
-                    _$(id + 15).style.borderRadius = "5px";
-                    possibleMoves.push(id + 15);
+                    }
+                    if ((id + 17 >= 8 && id + 17 <= 15) && (id + 15 >= 8 && id + 15 <= 15)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
+                    if ((id + 17 >= 16 && id + 17 <= 23) && (id + 15 >= 16 && id + 15 <= 23)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
+                    if ((id + 17 >= 24 && id + 17 <= 31) && (id + 15 >= 24 && id + 15 <= 31)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
+                    if ((id + 17 >= 32 && id + 17 <= 39) && (id + 15 >= 32 && id + 15 <= 39)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
+                    if ((id + 17 >= 40 && id + 17 <= 47) && (id + 15 >= 40 && id + 15 <= 47)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
+                    if ((id + 17 >= 48 && id + 17 <= 55) && (id + 15 >= 48 && id + 15 <= 55)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
+                    if ((id + 17 >= 56 && id + 17 <= 63) && (id + 15 >= 56 && id + 15 <= 63)) {
+                        _$(id + 17).style.backgroundColor = "#90EE90";
+                        _$(id + 17).style.border = "1px solid #013220";
+                        _$(id + 17).style.borderRadius = "5px";
+
+                        _$(id + 15).style.backgroundColor = "#90EE90";
+                        _$(id + 15).style.border = "1px solid #013220";
+                        _$(id + 15).style.borderRadius = "5px";
+                        possibleMoves.push(id + 17);
+                        possibleMoves.push(id + 15  );
+
+                    }
                 }
-
-                if ((id + 17 >= 0 && id + 17 <= 7) ||
-                    (id + 17 >= 8 && id + 17 <= 15) ||
-                    (id + 17 >= 16 && id + 17 <= 23) ||
-                    (id + 17 >= 24 && id + 17 <= 31) ||
-                    (id + 17 >= 32 && id + 17 <= 39) ||
-                    (id + 17 >= 40 && id + 17 <= 47) ||
-                    (id + 17 >= 48 && id + 17 <= 55) ||
-                    (id + 17 >= 54 && id + 17 <= 63) && _$(id + 17).innerHTML == "") {
-                    _$(id + 17).style.background = "#90EE90";
-                    _$(id + 17).style.border = "1px solid #013220";
-                    _$(id + 17).style.borderRadius = "5px";
-                    possibleMoves.push(id + 17);
-                }
-
                 selection = e.id;
 
             }
 
             else if (piece == "White_horse" && turn == "White") {
                 id = parseInt(e.id);
-
-                if ((id - 15 >= 0 && id - 15 <= 7) ||
-                    (id - 15 >= 8 && id - 15 <= 15) ||
-                    (id - 15 >= 16 && id - 15 <= 23) ||
-                    (id - 15 >= 24 && id - 15 <= 31) ||
-                    (id - 15 >= 32 && id - 15 <= 39) ||
-                    (id - 15 >= 40 && id - 15 <= 47) ||
-                    (id - 15 >= 48 && id - 15 <= 55) ||
-                    (id - 15 >= 54 && id - 15 <= 63) && _$(id - 15).innerHTML == "") {
-                    _$(id - 15).style.background = "#90EE90";
-                    _$(id - 15).style.border = "1px solid #013220";
-                    _$(id - 15).style.borderRadius = "5px";
-                    possibleMoves.push(id - 15);
-                }
-
-                if ((id - 17 >= 0 && id - 17 <= 7) ||
-                    (id - 17 >= 8 && id - 17 <= 15) ||
-                    (id - 17 >= 16 && id - 17 <= 23) ||
-                    (id - 17 >= 24 && id - 17 <= 31) ||
-                    (id - 17 >= 32 && id - 17 <= 39) ||
-                    (id - 17 >= 40 && id - 17 <= 47) ||
-                    (id - 17 >= 48 && id - 17 <= 55) ||
-                    (id - 17 >= 54 && id - 17 <= 63) && _$(id - 17).innerHTML == "") {
-                    _$(id - 17).style.background = "#90EE90";
-                    _$(id - 17).style.border = "1px solid #013220";
-                    _$(id - 17).style.borderRadius = "5px";
-                    possibleMoves.push(id - 17);
-                }
+                console.log(id);
 
                 selection = e.id;
             }
