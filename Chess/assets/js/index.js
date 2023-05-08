@@ -1,26 +1,25 @@
-var arr = [
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
+var board = [
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null]
 ];
 
 const icon = ["./images/Black_rook.png", "./images/Black_horse.png", "./images/Black_camel.png", "./images/Black_queen.png", "./images/Black_king.png", "./images/Black_camel.png", "./images/Black_horse.png", "./images/Black_rook.png"];
 const white_icon = ["./images/White_rook.png", "./images/White_horse.png", "./images/White_camel.png", "./images/White_queen.png", "./images/White_king.png", "./images/White_camel.png", "./images/White_horse.png", "./images/White_rook.png"];
 
-let selection = null;
+let id = 0;
+let idForInitializePiece = 0;
 
 let possibleMoves = [];
 
-
+let selection = null;
 
 let turn = "Black";
-
-let id = 0;
 
 function _$(string) {
     return document.getElementById(string);
@@ -34,8 +33,7 @@ function _$tag(string) {
     return document.getElementsByTagName(string);
 }
 
-
-for (let index = 0; index < arr.length; index++) {
+for (let index = 0; index < board.length; index++) {
     _$(
         "tiles"
     ).innerHTML += `<tr class="border-0 border-[#01eabb]" id="row${index}">
@@ -43,223 +41,83 @@ for (let index = 0; index < arr.length; index++) {
 
     if (index == 0) {
         for (let j = 0; j < icon.length; j++) {
-            if (j < 3) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                    id++;
-
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                    id++;
-
-                }
-            }
-            else if (j > 4) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                    id++;
-
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                    id++;
-
-                }
+            if (id % 2 == 0) {
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="dark"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                id++;
             }
             else {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                    id++;
-
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
-                    id++;
-
-                }
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="light"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${icon[j]}"/></td>`;
+                id++;
             }
         }
     }
-    if (index == 1) {
-        for (let j = 0; j < 8; j++) {
-            if (j < 3) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                    id++;
-                }
-            }
-            else if (j > 4) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                    id++;
-                }
-            }
-            else {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
-                    id++;
-                }
-            }
-        }
-    }
-
-    if (index == 6) {
+    else if (index == 1) {
         for (let j = 0; j < icon.length; j++) {
-            if (j < 3) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                    id++;
-                }
-            }
-            else if (j > 4) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                    id++;
-                }
+            if (id % 2 != 0) {
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="dark"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                id++;
             }
             else {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
-                    id++;
-                }
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="light"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/Black_soldier.png"/></td>`;
+                id++;
             }
         }
     }
-    if (index == 7) {
-        for (let j = 0; j < 8; j++) {
-            if (j < 3) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                    id++;
-                }
-            }
-            else if (j > 4) {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                    id++;
-                }
+    else if (index == 6) {
+        for (let j = 0; j < icon.length; j++) {
+            if (id % 2 == 0) {
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="dark"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                id++;
             }
             else {
-                if (j % 2 == 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                    id++;
-                }
-                else if (j % 2 != 0) {
-                    document.getElementById(`row${index}`).innerHTML += `<td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)" ><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
-                    id++;
-                }
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="light"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="./images/White_soldier.png"/></td>`;
+                id++;
             }
         }
     }
-    for (let i = 0; i < arr.length; i++) {
-
-        if (i < 3) {
-            if (index % 2 == 0 && index >= 2 && index < 6) {
-                if (id % 2 == 0) {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
-                    id++;
-                }
-                else {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
-                    id++;
-                }
+    else if (index == 7) {
+        for (let j = 0; j < icon.length; j++) {
+            if (id % 2 != 0) {
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="dark"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                id++;
             }
-            else if (index % 2 != 0 && index >= 2 && index < 6) {
-                if (id % 2 == 0) {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
-                    id++;
-                }
-                else {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="firstThree" onclick="move(this)"></td>`;
-                    id++;
-                }
+            else {
+                _$(`row${index}`).innerHTML += `
+                <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="light"  onclick="move(this)"><img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${white_icon[j]}"/></td>`;
+                id++;
             }
         }
-        else if (i > 4) {
-            if (index % 2 == 0 && index >= 2 && index < 6) {
+    }
+    else {
+        for (let i = 0; i < board[index].length; i++) {
+            if (index % 2 == 0) {
                 if (id % 2 == 0) {
                     _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="dark" onclick="move(this)"></td>`;
                     id++;
                 }
                 else {
                     _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="light" onclick="move(this)"></td>`;
                     id++;
                 }
             }
-            else if (index % 2 != 0 && index >= 2 && index < 6) {
+            else if (index % 2 != 0) {
                 if (id % 2 == 0) {
                     _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
+                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="light" onclick="move(this)"></td>`;
                     id++;
                 }
                 else {
                     _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-column="lastThree    " onclick="move(this)"></td>`;
-                    id++;
-                }
-            }
-        }
-        else {
-            if (index % 2 == 0 && index >= 2 && index < 6) {
-                if (id % 2 == 0) {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                    id++;
-                }
-                else {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                    id++;
-                }
-            }
-            else if (index % 2 != 0 && index >= 2 && index < 6) {
-                if (id % 2 == 0) {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#979740] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
-                    id++;
-                }
-                else {
-                    _$(`row${index}`).innerHTML += `
-                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" onclick="move(this)"></td>`;
+                    <td class="border-0 border-transperent bg-[#3b6749] xl:h-16 lg:h-16 md:h-16 h-12  xl:w-16 lg:w-16 md:w-16 w-12 text-center text-6xl font-black text-[#fffcc9] cursor-pointer tile" id="${id}" data-block="dark" onclick="move(this)"></td>`;
                     id++;
                 }
             }
@@ -269,22 +127,865 @@ for (let index = 0; index < arr.length; index++) {
       </tr>`;
 }
 
-function compare(pathOfPiece) {
-    white_icon.forEach(element => {
-        if (pathOfPiece == element || pathOfPiece == "./images/White_soldier.png") {
-            return "White";
+for (let index = 0; index < board.length; index++) {
+    for (let j = 0; j < board[index].length; j++) {
+        let piece = _$(idForInitializePiece).children[0] ? _$(idForInitializePiece).children[0].getAttribute("src").replace("./images/", "").replace(".png", "") : null
+        board[index][j] = idForInitializePiece;
+        idForInitializePiece++;
+    }
+}
+
+function possibleMovesForSoldiers(e) {
+    let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+
+    let id = parseInt(e.id);
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        loop2:
+        for (let i = 0; i < board[index].length; i++) {
+            if (board[index][i] == id) {
+                if (pieceType == "Black_soldier" && turn == "Black") {
+                    let firstPossibleDeath = _$(board[index + 1][i - 1]) ? _$(board[index + 1][i - 1]).children[0] ? _$(board[index + 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
+                    let secondPossibleDeath = _$(board[index + 1][i + 1]) ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
+
+                    if (_$(board[index + 1][i]).innerHTML == "" && (firstPossibleDeath == "" && secondPossibleDeath == "")) {
+                        _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i]);
+                    }
+                    if (id >= 8 && id <= 15) {
+                        _$(board[index + 2][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 2][i]).style.border = "1px solid #013220";
+                        _$(board[index + 2][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 2][i]);
+                    }
+                    if (firstPossibleDeath == "White") {
+                        _$(board[index + 1][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i - 1]);
+                    }
+                    if (secondPossibleDeath == "White") {
+                        _$(board[index + 1][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i + 1]);
+                    }
+                    break loop1;
+                }
+                else if (pieceType == "White_soldier" && turn == "White") {
+                    let firstPossibleDeath = _$(board[index - 1][i - 1]) ? _$(board[index - 1][i - 1]).children[0] ? _$(board[index - 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
+                    let secondPossibleDeath = _$(board[index - 1][i + 1]) ? _$(board[index - 1][i + 1]).children[0] ? _$(board[index - 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
+
+                    if (_$(board[index - 1][i]).innerHTML == "" && (firstPossibleDeath == "" && secondPossibleDeath == "")) {
+                        _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i]);
+                    }
+                    if (id >= 48 && id <= 55) {
+                        _$(board[index - 2][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 2][i]).style.border = "1px solid #013220";
+                        _$(board[index - 2][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 2][i]);
+                    }
+                    if (firstPossibleDeath == "Black") {
+                        _$(board[index - 1][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i - 1]);
+                    }
+                    if (secondPossibleDeath == "Black") {
+                        _$(board[index - 1][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i + 1]);
+                    }
+                    break loop1;
+                }
+            }
         }
-    });
-    icon.forEach(element => {
-        if (pathOfPiece == element || pathOfPiece == "./images/soldier.png") {
-            return "Black";
+    }
+}
+
+function possibleMovesForRooks(e) {
+    let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+
+    let id = parseInt(e.id);
+    let num = 1;
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        loop2:
+        for (let i = 0; i < board[index].length; i++) {
+            if (board[index][i] == id) {
+                let rightSidePossibleMove = board[index] ? board[index][i - num] ? _$(board[index][i - num]).children[0] ? _$(board[index][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let leftSidePossibleMove = board[index] ? board[index][i + num] ? _$(board[index][i + num]).children[0] ? _$(board[index][i + num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let downSidePossibleMove = board[index + num] ? board[index + num][i] ? _$(board[index + num][i]).children[0] ? _$(board[index + num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let upSidePossibleMove = board[index - num] ? board[index - num][i] ? _$(board[index - num][i]).children[0] ? _$(board[index - num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                if (pieceType == "Black_rook" && turn == "Black") {
+                    for (let j = index; j < board[index].length - 1; j++) {
+                        if (leftSidePossibleMove != "") {
+                            if (downSidePossibleMove == "Black") {
+                                break loop1;
+                            }
+                            if (downSidePossibleMove == null) {
+                                _$(board[index][i + num]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + num]).style.border = "1px solid #013220";
+                                _$(board[index][i + num]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + num]);
+                            }
+                            if (downSidePossibleMove == "White") {
+                                break loop1;
+                            }
+                        }
+
+                        if (rightSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i - num]).style.border = "1px solid #013220";
+                            _$(board[index][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i - num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i]).style.border = "1px solid #013220";
+                            _$(board[index + num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i]).style.border = "1px solid #013220";
+                            _$(board[index - num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+
+                        num++;
+                    }
+
+
+                }
+                else if (pieceType == "White_rook" && turn == "White") {
+                    for (let j = index; j < board[index].length; j++) {
+                        if (leftSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i + num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i + num]).style.border = "1px solid #013220";
+                            _$(board[index][i + num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i + num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (rightSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i - num]).style.border = "1px solid #013220";
+                            _$(board[index][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i - num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i]).style.border = "1px solid #013220";
+                            _$(board[index + num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upSidePossibleMove != "") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i]).style.border = "1px solid #013220";
+                            _$(board[index - num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+
+
+                        num++;
+
+                    }
+                }
+            }
         }
-    });
+    }
+}
+
+function possibleMovesForHorses(e) {
+    let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+
+    let id = parseInt(e.id);
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        loop2:
+        for (let i = 0; i < board[index].length; i++) {
+            if (board[index][i] == id) {
+                let firstPossiblemove = board[index + 2] ? board[index + 2][i + 1] ? _$(board[index + 2][i + 1]).children[0] ? _$(board[index + 2][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let secondPossiblemove = board[index + 2] ? board[index + 2][i - 1] ? _$(board[index + 2][i - 1]).children[0] ? _$(board[index + 2][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let thirdPossiblemove = board[index + 1] ? board[index + 1][i + 2] ? _$(board[index + 1][i + 2]).children[0] ? _$(board[index + 1][i + 2]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let fourthPossiblemove = board[index + 1] ? board[index + 1][i - 2] ? _$(board[index + 1][i - 2]).children[0] ? _$(board[index + 1][i - 2]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let fifthPossiblemove = board[index - 2] ? board[index - 2][i + 1] ? _$(board[index - 2][i + 1]).children[0] ? _$(board[index - 2][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let sixthPossiblemove = board[index - 2] ? board[index - 2][i - 1] ? _$(board[index - 2][i - 1]).children[0] ? _$(board[index - 2][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let seventhPossiblemove = board[index - 1] ? board[index - 1][i + 2] ? _$(board[index - 1][i + 2]).children[0] ? _$(board[index - 1][i + 2]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let eighthPossiblemove = board[index - 1] ? board[index - 1][i - 2] ? _$(board[index - 1][i - 2]).children[0] ? _$(board[index - 1][i - 2]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                if (pieceType == "Black_horse" && turn == "Black") {
+                    if (firstPossiblemove == null || firstPossiblemove == "White") {
+                        _$(board[index + 2][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 2][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index + 2][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 2][i + 1]);
+                    }
+                    if (secondPossiblemove == null || secondPossiblemove == "White") {
+                        _$(board[index + 2][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 2][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index + 2][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 2][i - 1]);
+                    }
+                    if (thirdPossiblemove == null || thirdPossiblemove == "White") {
+                        _$(board[index + 1][i + 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i + 2]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i + 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i + 2]);
+                    }
+                    if (fourthPossiblemove == null || fourthPossiblemove == "White") {
+                        _$(board[index + 1][i - 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i - 2]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i - 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i - 2]);
+                    }
+                    if (fifthPossiblemove == null || fifthPossiblemove == "White") {
+                        _$(board[index - 2][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 2][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index - 2][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 2][i + 1]);
+                    }
+                    if (sixthPossiblemove == null || sixthPossiblemove == "White") {
+                        _$(board[index - 2][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 2][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index - 2][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 2][i - 1]);
+                    }
+                    if (seventhPossiblemove == null || seventhPossiblemove == "White") {
+                        _$(board[index - 1][i + 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i + 2]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i + 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i + 2]);
+                    }
+                    if (eighthPossiblemove == null || eighthPossiblemove == "White") {
+                        _$(board[index - 1][i - 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i - 2]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i - 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i - 2]);
+                    }
+                    break loop1;
+                }
+                else if (pieceType == "White_horse" && turn == "White") {
+                    if (firstPossiblemove == null || firstPossiblemove == "Black") {
+                        _$(board[index + 2][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 2][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index + 2][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 2][i + 1]);
+                    }
+                    if (secondPossiblemove == null || secondPossiblemove == "Black") {
+                        _$(board[index + 2][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 2][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index + 2][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 2][i - 1]);
+                    }
+                    if (thirdPossiblemove == null || thirdPossiblemove == "Black") {
+                        _$(board[index + 1][i + 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i + 2]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i + 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i + 2]);
+                    }
+                    if (fourthPossiblemove == null || fourthPossiblemove == "Black") {
+                        _$(board[index + 1][i - 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i - 2]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i - 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i - 2]);
+                    }
+                    if (fifthPossiblemove == null || fifthPossiblemove == "Black") {
+                        _$(board[index - 2][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 2][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index - 2][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 2][i + 1]);
+                    }
+                    if (sixthPossiblemove == null || sixthPossiblemove == "Black") {
+                        _$(board[index - 2][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 2][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index - 2][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 2][i - 1]);
+                    }
+                    if (seventhPossiblemove == null || seventhPossiblemove == "Black") {
+                        _$(board[index - 1][i + 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i + 2]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i + 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i + 2]);
+                    }
+                    if (eighthPossiblemove == null || eighthPossiblemove == "Black") {
+                        _$(board[index - 1][i - 2]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i - 2]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i - 2]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i - 2]);
+                    }
+                    break loop1;
+                }
+            }
+        }
+    }
+}
+
+function possibleMovesForCamels(e) {
+    let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+
+    let id = parseInt(e.id);
+    let num = 1;
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        loop2:
+        for (let i = 0; i < board[index].length; i++) {
+            if (board[index][i] == id) {
+                let downLeftSidePossibleMove = board[index + num] ? board[index + num][num + i] ? _$(board[index + num][num + i]).children[0] ? _$(board[index + num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let downRightSidePossibleMove = board[index + num] ? board[index + num][i - num] ? _$(board[index + num][i - num]).children[0] ? _$(board[index + num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let upLeftSidePossibleMove = board[index - num] ? board[index - num][num + i] ? _$(board[index - num][num + i]).children[0] ? _$(board[index - num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let upRightSidePossibleMove = board[index - num] ? board[index - num][i - num] ? _$(board[index - num][i - num]).children[0] ? _$(board[index - num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                if (pieceType == "Black_camel" && turn == "Black") {
+                    for (let j = index; j < board[index].length; j++) {
+                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "White" || downLeftSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index + num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][num + i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "White" || downRightSidePossibleMove == "Black") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index + num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i - num]);
+                            // if (downRightSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "White" || upLeftSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index - num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][num + i]);
+                            //  if (downLeftSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "White" || upRightSidePossibleMove == "Black") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index - num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i - num]);
+                            //  if (downRightSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        num++;
+                    }
+
+
+                }
+                else if (pieceType == "White_camel" && turn == "White") {
+                    for (let j = index; j < board[index].length; j++) {
+                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "Black" || downLeftSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index + num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][num + i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "Black" || downRightSidePossibleMove == "White") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index + num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i - num]);
+                            // if (downRightSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "Black" || upLeftSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index - num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][num + i]);
+                            //  if (downLeftSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "Black" || upRightSidePossibleMove == "White") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index - num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i - num]);
+                            //  if (downRightSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        num++;
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+function possibleMovesForQueens(e) {
+    let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+
+    let id = parseInt(e.id);
+    let num = 1;
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        loop2:
+        for (let i = 0; i < board[index].length; i++) {
+            if (board[index][i] == id) {
+                let rightSidePossibleMove = board[index] ? board[index][i - num] ? _$(board[index][i - num]).children[0] ? _$(board[index][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let leftSidePossibleMove = board[index] ? board[index][i + num] ? _$(board[index][i + num]).children[0] ? _$(board[index][i + num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let downSidePossibleMove = board[index + num] ? board[index + num][i] ? _$(board[index + num][i]).children[0] ? _$(board[index + num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let downLeftSidePossibleMove = board[index + num] ? board[index + num][num + i] ? _$(board[index + num][num + i]).children[0] ? _$(board[index + num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let downRightSidePossibleMove = board[index + num] ? board[index + num][i - num] ? _$(board[index + num][i - num]).children[0] ? _$(board[index + num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let upSidePossibleMove = board[index - num] ? board[index - num][i] ? _$(board[index - num][i]).children[0] ? _$(board[index - num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let upLeftSidePossibleMove = board[index - num] ? board[index - num][num + i] ? _$(board[index - num][num + i]).children[0] ? _$(board[index - num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let upRightSidePossibleMove = board[index - num] ? board[index - num][i - num] ? _$(board[index - num][i - num]).children[0] ? _$(board[index - num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                if (pieceType == "Black_queen" && turn == "Black") {
+                    for (let j = index; j < board[index].length; j++) {
+                        if (leftSidePossibleMove == null || leftSidePossibleMove == "White" || leftSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i + num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i + num]).style.border = "1px solid #013220";
+                            _$(board[index][i + num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i + num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (rightSidePossibleMove == null || rightSidePossibleMove == "White" || rightSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i - num]).style.border = "1px solid #013220";
+                            _$(board[index][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i - num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downSidePossibleMove == null || downSidePossibleMove == "White" || downSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i]).style.border = "1px solid #013220";
+                            _$(board[index + num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "White" || downLeftSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index + num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][num + i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "White" || downRightSidePossibleMove == "Black") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index + num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i - num]);
+                            // if (downRightSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upSidePossibleMove == null || upSidePossibleMove == "White" || upSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i]).style.border = "1px solid #013220";
+                            _$(board[index - num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "White" || upLeftSidePossibleMove == "Black") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index - num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][num + i]);
+                            //  if (downLeftSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "White" || upRightSidePossibleMove == "Black") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index - num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i - num]);
+                            //  if (downRightSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        num++;
+                    }
+
+
+                }
+                else if (pieceType == "White_queen" && turn == "White") {
+                    for (let j = index; j < board[index].length; j++) {
+                        if (leftSidePossibleMove == null || leftSidePossibleMove == "Black" || leftSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i + num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i + num]).style.border = "1px solid #013220";
+                            _$(board[index][i + num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i + num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (rightSidePossibleMove == null || rightSidePossibleMove == "Black" || rightSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index][i - num]).style.border = "1px solid #013220";
+                            _$(board[index][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index][i - num]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downSidePossibleMove == null || downSidePossibleMove == "Black" || downSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i]).style.border = "1px solid #013220";
+                            _$(board[index + num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "Black" || downLeftSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index + num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][num + i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "Black" || downRightSidePossibleMove == "White") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index + num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index + num][i - num]);
+                            // if (downRightSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upSidePossibleMove == null || upSidePossibleMove == "Black" || upSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i]).style.border = "1px solid #013220";
+                            _$(board[index - num][i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i]);
+                            // if (downLeftSidePossibleMove == "White") {
+                            //     break loop1;
+                            // }
+                        }
+
+                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "Black" || upLeftSidePossibleMove == "White") {
+                            // if (downLeftSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
+                            _$(board[index - num][num + i]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][num + i]);
+                            //  if (downLeftSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "Black" || upRightSidePossibleMove == "White") {
+                            // if (downRightSidePossibleMove == "Black") {
+                            //     break loop1;
+                            // }
+                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
+                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
+                            _$(board[index - num][i - num]).style.borderRadius = "5px";
+                            possibleMoves.push(board[index - num][i - num]);
+                            //  if (downRightSidePossibleMove == "White") {
+                            //      break loop1;
+                            //  }
+                        }
+
+                        num++;
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+function possibleMovesForKings(e) {
+    let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
+
+    let id = parseInt(e.id);
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        loop2:
+        for (let i = 0; i < board[index].length; i++) {
+            if (board[index][i] == id) {
+                let firstPossibleDeath = board[index - 1] ? board[index - 1][i - 1] ? _$(board[index - 1][i - 1]).children[0] ? _$(board[index - 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let secondPossibleDeath = board[index - 1] ? board[index - 1][i] ? _$(board[index - 1][i]).children[0] ? _$(board[index - 1][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let thirdPossibleDeath = board[index - 1] ? board[index - 1][i + 1] ? _$(board[index - 1][i + 1]).children[0] ? _$(board[index - 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let fourthPossibleDeath = board[index] ? board[index][i - 1] ? _$(board[index][i - 1]).children[0] ? _$(board[index][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let fifthPossibleDeath = board[index] ? board[index][i + 1] ? _$(board[index][i + 1]).children[0] ? _$(board[index][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let sixthPossibleDeath = board[index + 1] ? board[index + 1][i - 1] ? _$(board[index + 1][i - 1]).children[0] ? _$(board[index + 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let seventhPossibleDeath = board[index + 1] ? board[index + 1][i] ? _$(board[index + 1][i]).children[0] ? _$(board[index + 1][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                let eighthPossibleDeath = board[index + 1] ? board[index + 1][i + 1] ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+
+                if (pieceType == "Black_king" && turn == "Black") {
+                    if (firstPossibleDeath != "") {
+                        _$(board[index - 1][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i - 1]);
+                    }
+                    if (secondPossibleDeath != "") {
+                        _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i]);
+                    }
+                    if (thirdPossibleDeath != "") {
+                        _$(board[index - 1][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i + 1]);
+                    }
+                    if (fourthPossibleDeath != "") {
+                        _$(board[index][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index][i - 1]);
+                    }
+                    if (fifthPossibleDeath != "") {
+                        _$(board[index][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index][i + 1]);
+                    }
+                    if (sixthPossibleDeath != "") {
+                        _$(board[index + 1][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i - 1]);
+                    }
+                    if (seventhPossibleDeath != "") {
+                        _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i]);
+                    }
+                    if (eighthPossibleDeath != "") {
+                        _$(board[index + 1][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i + 1]);
+                    }
+
+                    break loop1;
+                }
+                else if (pieceType == "White_king" && turn == "White") {
+                    if (firstPossibleDeath != "") {
+                        _$(board[index - 1][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i - 1]);
+                    }
+                    if (secondPossibleDeath != "") {
+                        _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i]);
+                    }
+                    if (thirdPossibleDeath != "") {
+                        _$(board[index - 1][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index - 1][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index - 1][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index - 1][i + 1]);
+                    }
+                    if (fourthPossibleDeath != "") {
+                        _$(board[index][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index][i - 1]);
+                    }
+                    if (fifthPossibleDeath != "") {
+                        _$(board[index][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index][i + 1]);
+                    }
+                    if (sixthPossibleDeath != "") {
+                        _$(board[index + 1][i - 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i - 1]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i - 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i - 1]);
+                    }
+                    if (seventhPossibleDeath != "") {
+                        _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i]);
+                    }
+                    if (eighthPossibleDeath != "") {
+                        _$(board[index + 1][i + 1]).style.backgroundColor = "#90EE90";
+                        _$(board[index + 1][i + 1]).style.border = "1px solid #013220";
+                        _$(board[index + 1][i + 1]).style.borderRadius = "5px";
+                        possibleMoves.push(board[index + 1][i + 1]);
+                    }
+                    break loop1;
+                }
+            }
+        }
+    }
 }
 
 function move(e) {
-    console.clear();
-
     if (selection == null) {
         for (i = 0; i < 64; i++) {
             rowIndex = parseInt(_$class("tile")[i].parentElement.id.replace("row", ""));
@@ -314,507 +1015,37 @@ function move(e) {
             }
         }
 
-        let piece = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "") : null;
-        let piecePath = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src") : null;
-        let pieceVrient = piece ? piece.replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : turn;
+        let piece = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("Black_", "").replace("White_", "") : null
+        let pieceVrient = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : turn;
 
-
-        if (piece == "Black_soldier" || piece == "White_soldier") {
-            
-            
-            if (piece == "Black_soldier" && turn == "Black") {
-                
-                id = parseInt(e.id);
-
-                let firstPossibleDeath = _$(id + 7).children[0]?_$(id + 7).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-                let secondPossibleDeath = _$(id + 9).children[0]?_$(id + 9).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-                
-                _$(id + 8).style.backgroundColor = "#90EE90";
-                _$(id + 8).style.border = "1px solid #013220";
-                _$(id + 8).style.borderRadius = "5px";
-                if (id >= 8 && id <= 15) {
-                    _$(id + 16).style.backgroundColor = "#90EE90";
-                    _$(id + 16).style.border = "1px solid #013220";
-                    _$(id + 16).style.borderRadius = "5px";
-                    possibleMoves.push(id + 16);
-                }
-                if (firstPossibleDeath == "White") {
-                    _$(id + 7).style.backgroundColor = "#90EE90";
-                    _$(id + 7).style.border = "1px solid #013220";
-                    _$(id + 7).style.borderRadius = "5px";
-                    possibleMoves.push(id + 7);
-                }
-                if (secondPossibleDeath == "White") {
-                    _$(id + 9).style.backgroundColor = "#90EE90";
-                    _$(id + 9).style.border = "1px solid #013220";
-                    _$(id + 9).style.borderRadius = "5px";
-                    possibleMoves.push(id + 9);
-                }
-                selection = e.id;
-                possibleMoves.push(id + 8);
-            }
-            else if (piece == "White_soldier" && turn == "White") {
-
-                id = parseInt(e.id);
-
-                let firstPossibleDeath = _$(id - 7).children[0]?_$(id - 7).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-                let secondPossibleDeath = _$(id - 9).children[0]?_$(id - 9).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-                
-                _$(id - 8).style.backgroundColor = "#90EE90";
-                _$(id - 8).style.border = "1px solid #013220";
-                _$(id - 8).style.borderRadius = "5px";
-                if (id >= 48 && id <= 55) {
-                    _$(id - 16).style.backgroundColor = "#90EE90";
-                    _$(id - 16).style.border = "1px solid #013220";
-                    _$(id - 16).style.borderRadius = "5px";
-                    possibleMoves.push(id - 16);
-                }
-                if (firstPossibleDeath == "Black") {
-                    _$(id - 7).style.backgroundColor = "#90EE90";
-                    _$(id - 7).style.border = "1px solid #013220";
-                    _$(id - 7).style.borderRadius = "5px";
-                    possibleMoves.push(id - 7);
-                }
-                if (secondPossibleDeath == "Black") {
-                    _$(id - 9).style.backgroundColor = "#90EE90";
-                    _$(id - 9).style.border = "1px solid #013220";
-                    _$(id - 9).style.borderRadius = "5px";
-                    possibleMoves.push(id - 9);
-                }
-                selection = e.id;
-                possibleMoves.push(id - 8);
-
-            }
+        if (piece == "soldier") {
+            selection = e.id;
+            possibleMovesForSoldiers(e);
         }
 
-        if (piece == "Black_rook" || piece == "White_rook") {
-            if (piece == "Black_rook" && turn == "Black") {
-                id = parseInt(e.id);
-                let lastPossibleMove = 8;
-                let sibilingPossibleMove = 1;
-                let firstPossibleMove = _$(id + 8).children[0] ? _$(id + 8).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-
-                if (firstPossibleMove == "" || firstPossibleMove == "White") {
-
-                    for (i = 0; i <= 7; i++) {
-                        let possibleMoveByLoop = _$(id + lastPossibleMove).children[0] ? _$(id + lastPossibleMove).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-
-                        if (_$(id + lastPossibleMove).innerHTML == "" || possibleMoveByLoop == "White") {
-                            _$(id + lastPossibleMove).style.backgroundColor = "#90EE90";
-                            _$(id + lastPossibleMove).style.border = "1px solid #013220";
-                            _$(id + lastPossibleMove).style.borderRadius = "5px";
-                            possibleMoves.push(id + lastPossibleMove);
-                            lastPossibleMove += 8;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "Black") {
-                            break;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "White") {
-                            break;
-                        }
-                    }
-
-                    for (i = 0; i <= 7; i++) {
-                        let possibleMoveByLoop = _$(id + sibilingPossibleMove).children[0] ? _$(id + sibilingPossibleMove).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-
-                        if (_$(id + sibilingPossibleMove).innerHTML == "" || possibleMoveByLoop == "White") {
-                            _$(id + sibilingPossibleMove).style.backgroundColor = "#90EE90";
-                            _$(id + sibilingPossibleMove).style.border = "1px solid #013220";
-                            _$(id + sibilingPossibleMove).style.borderRadius = "5px";
-                            possibleMoves.push(id + sibilingPossibleMove);
-                            sibilingPossibleMove++;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "Black") {
-                            break;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "White") {
-                            break;
-                        }
-                    }
-
-                    selection = e.id;
-                }
-            }
-
-            else if (piece == "White_rook" && turn == "White") {
-                id = parseInt(e.id);
-                let lastPossibleMove = 8;
-                let sibilingPossibleMove = 1;
-                let firstPossibleMove = _$(id - 8).children[0] ? _$(id - 8).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-                if (firstPossibleMove == "" || firstPossibleMove == "Black") {
-
-                    for (i = 0; i <= 7; i++) {
-                        let possibleMoveByLoop = _$(id - lastPossibleMove).children[0] ? _$(id - lastPossibleMove).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-
-                        if (_$(id - lastPossibleMove).innerHTML == "" || possibleMoveByLoop == "Black") {
-                            _$(id - lastPossibleMove).style.backgroundColor = "#90EE90";
-                            _$(id - lastPossibleMove).style.border = "1px solid #013220";
-                            _$(id - lastPossibleMove).style.borderRadius = "5px";
-                            possibleMoves.push(id - lastPossibleMove);
-                            lastPossibleMove += 8;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "White") {
-                            break;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "Black") {
-                            break;
-                        }
-                    }
-
-                    for (i = 0; i <= 7; i++) {
-                        let possibleMoveByLoop = _$(id - sibilingPossibleMove).children[0] ? _$(id - sibilingPossibleMove).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "";
-
-                        if (_$(id - sibilingPossibleMove).innerHTML == "" || possibleMoveByLoop == "Black") {
-                            _$(id - sibilingPossibleMove).style.backgroundColor = "#90EE90";
-                            _$(id - sibilingPossibleMove).style.border = "1px solid #013220";
-                            _$(id - sibilingPossibleMove).style.borderRadius = "5px";
-                            possibleMoves.push(id - sibilingPossibleMove);
-                            sibilingPossibleMove++;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "White") {
-                            break;
-                        }
-                        if (possibleMoveByLoop != "" && possibleMoveByLoop == "Black") {
-                            break;
-                        }
-                    }
-                    selection = e.id;
-                }
-            }
-
+        if (piece == "rook") {
+            selection = e.id;
+            possibleMovesForRooks(e);
         }
 
-        if (piece == "Black_horse" || piece == "White_horse") {
+        if (piece == "horse") {
+            selection = e.id;
+            possibleMovesForHorses(e);
+        }
 
-            let coloumnType = _$(e.id).getAttribute("data-column");
+        if (piece == "camel") {
+            selection = e.id;
+            possibleMovesForCamels(e);
+        }
 
-            if (piece == "Black_horse" && turn == "Black") {
-                id = parseInt(e.id);
-                if (id + 17 >= 0 && id + 17 <= 63) {
-                    if (_$(id + 17).innerHTML == "" || _$(id + 15).innerHTML == "White") {
-                        if (_$(id + 17).parentElement.id == _$(id + 15).parentElement.id) {
-                            _$(id + 17).style.backgroundColor = "#90EE90";
-                            _$(id + 17).style.border = "1px solid #013220";
-                            _$(id + 17).style.borderRadius = "5px";
+        if (piece == "queen") {
+            selection = e.id;
+            possibleMovesForQueens(e);
+        }
 
-                            _$(id + 15).style.backgroundColor = "#90EE90";
-                            _$(id + 15).style.border = "1px solid #013220";
-                            _$(id + 15).style.borderRadius = "5px";
-                            possibleMoves.push(id + 17);
-                            possibleMoves.push(id + 15);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id + 17).parentElement.id != _$(id + 15).parentElement.id && (_$(id + 17).innerHTML == "" || _$(id + 17).innerHTML == "White")) {
-                            _$(id + 17).style.backgroundColor = "#90EE90";
-                            _$(id + 17).style.border = "1px solid #013220";
-                            _$(id + 17).style.borderRadius = "5px";
-                            possibleMoves.push(id + 17);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id + 17).parentElement.id != _$(id + 15).parentElement.id && (_$(id + 15).innerHTML == "" || _$(id + 15).innerHTML == "White")) {
-                            _$(id + 15).style.backgroundColor = "#90EE90";
-                            _$(id + 15).style.border = "1px solid #013220";
-                            _$(id + 15).style.borderRadius = "5px";
-                            possibleMoves.push(id + 15);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id + 15).innerHTML == "" || _$(id + 15).innerHTML == "White") && (_$(id + 17).innerHTML == "" || _$(id + 17).innerHTML == "White")) {
-                            _$(id + 17).style.backgroundColor = "#90EE90";
-                            _$(id + 17).style.border = "1px solid #013220";
-                            _$(id + 17).style.borderRadius = "5px";
-                            possibleMoves.push(id + 17);
-
-                            _$(id + 15).style.backgroundColor = "#90EE90";
-                            _$(id + 15).style.border = "1px solid #013220";
-                            _$(id + 15).style.borderRadius = "5px";
-                            possibleMoves.push(id + 15);
-                        }
-                        console.log("BlackFirst", possibleMoves);
-                    }
-                }
-                if (id + 10 >= 0 && id + 10 <= 63) {
-                    if (_$(id + 10).innerHTML == "" || _$(id + 6).innerHTML == "White") {
-                        if (_$(id + 10).parentElement.id == _$(id + 6).parentElement.id) {
-                            _$(id + 10).style.backgroundColor = "#90EE90";
-                            _$(id + 10).style.border = "1px solid #013220";
-                            _$(id + 10).style.borderRadius = "5px";
-
-                            _$(id + 6).style.backgroundColor = "#90EE90";
-                            _$(id + 6).style.border = "1px solid #013220";
-                            _$(id + 6).style.borderRadius = "5px";
-                            possibleMoves.push(id + 10);
-                            possibleMoves.push(id + 6);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id + 10).parentElement.id != _$(id + 6).parentElement.id && (_$(id + 10).innerHTML == "" || _$(id + 10).innerHTML == "White")) {
-                            _$(id + 10).style.backgroundColor = "#90EE90";
-                            _$(id + 10).style.border = "1px solid #013220";
-                            _$(id + 10).style.borderRadius = "5px";
-                            possibleMoves.push(id + 10);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id + 10).parentElement.id != _$(id + 6).parentElement.id && (_$(id + 6).innerHTML == "" || _$(id + 6).innerHTML == "White")) {
-                            _$(id + 6).style.backgroundColor = "#90EE90";
-                            _$(id + 6).style.border = "1px solid #013220";
-                            _$(id + 6).style.borderRadius = "5px";
-                            possibleMoves.push(id + 6);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id + 6).innerHTML == "" || _$(id + 6).innerHTML == "White") && (_$(id + 10).innerHTML == "" || _$(id + 10).innerHTML == "White")) {
-                            _$(id + 6).style.backgroundColor = "#90EE90";
-                            _$(id + 6).style.border = "1px solid #013220";
-                            _$(id + 6).style.borderRadius = "5px";
-                            possibleMoves.push(id + 6);
-                        }
-                        console.log("BlackSecond", possibleMoves);
-                    }
-                }
-                if (id - 17 >= 0 && id - 17 <= 63) {
-                    if (_$(id - 17).innerHTML == "" || _$(id - 15).innerHTML == "White") {
-                        if (_$(id - 17).parentElement.id == _$(id - 15).parentElement.id) {
-                            _$(id - 17).style.backgroundColor = "#90EE90";
-                            _$(id - 17).style.border = "1px solid #013220";
-                            _$(id - 17).style.borderRadius = "5px";
-
-                            _$(id - 15).style.backgroundColor = "#90EE90";
-                            _$(id - 15).style.border = "1px solid #013220";
-                            _$(id - 15).style.borderRadius = "5px";
-                            possibleMoves.push(id - 17);
-                            possibleMoves.push(id - 15);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id - 17).parentElement.id != _$(id - 15).parentElement.id && (_$(id - 15).innerHTML == "" || _$(id - 15).innerHTML == "White")) {
-                            _$(id - 15).style.backgroundColor = "#90EE90";
-                            _$(id - 15).style.border = "1px solid #013220";
-                            _$(id - 15).style.borderRadius = "5px";
-                            possibleMoves.push(id - 15);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id - 17).parentElement.id != _$(id - 15).parentElement.id && (_$(id - 17).innerHTML == "" || _$(id - 17).innerHTML == "White")) {
-                            _$(id - 17).style.backgroundColor = "#90EE90";
-                            _$(id - 17).style.border = "1px solid #013220";
-                            _$(id - 17).style.borderRadius = "5px";
-                            possibleMoves.push(id - 17);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id - 17).innerHTML == "" || _$(id - 17).innerHTML == "White") && (_$(id - 15).innerHTML == "" || _$(id - 15).innerHTML == "White")) {
-                            _$(id - 15).style.backgroundColor = "#90EE90";
-                            _$(id - 15).style.border = "1px solid #013220";
-                            _$(id - 15).style.borderRadius = "5px";
-                            possibleMoves.push(id - 15);
-
-                            _$(id - 17).style.backgroundColor = "#90EE90";
-                            _$(id - 17).style.border = "1px solid #013220";
-                            _$(id - 17).style.borderRadius = "5px";
-                            possibleMoves.push(id - 15);
-                        }
-                        console.log("BlackThird", possibleMoves);
-                    }
-                }
-                if (id - 10 >= 0 && id - 10 <= 63) {
-                    if (_$(id - 10).innerHTML == "" || _$(id - 6).innerHTML == "White") {
-                        if (_$(id - 10).parentElement.id == _$(id - 6).parentElement.id) {
-                            _$(id - 10).style.backgroundColor = "#90EE90";
-                            _$(id - 10).style.border = "1px solid #013220";
-                            _$(id - 10).style.borderRadius = "5px";
-
-                            _$(id - 6).style.backgroundColor = "#90EE90";
-                            _$(id - 6).style.border = "1px solid #013220";
-                            _$(id - 6).style.borderRadius = "5px";
-                            possibleMoves.push(id - 10);
-                            possibleMoves.push(id - 6);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id - 10).parentElement.id != _$(id - 6).parentElement.id && (_$(id - 6).innerHTML == "" || _$(id - 6).innerHTML == "White")) {
-                            _$(id - 6).style.backgroundColor = "#90EE90";
-                            _$(id - 6).style.border = "1px solid #013220";
-                            _$(id - 6).style.borderRadius = "5px";
-                            possibleMoves.push(id - 6);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id - 10).parentElement.id != _$(id - 6).parentElement.id && (_$(id - 10).innerHTML == "" || _$(id - 10).innerHTML == "White")) {
-                            _$(id - 10).style.backgroundColor = "#90EE90";
-                            _$(id - 10).style.border = "1px solid #013220";
-                            _$(id - 10).style.borderRadius = "5px";
-                            possibleMoves.push(id - 10);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id - 10).innerHTML == "" || _$(id - 10).innerHTML == "White") && (_$(id - 10).innerHTML == "" || _$(id - 10).innerHTML == "White")) {
-                            _$(id - 6).style.backgroundColor = "#90EE90";
-                            _$(id - 6).style.border = "1px solid #013220";
-                            _$(id - 6).style.borderRadius = "5px";
-                            possibleMoves.push(id - 6);
-
-                            _$(id - 10).style.backgroundColor = "#90EE90";
-                            _$(id - 10).style.border = "1px solid #013220";
-                            _$(id - 10).style.borderRadius = "5px";
-                            possibleMoves.push(id - 10);
-                        }
-                        console.log("BlackFourth", possibleMoves);
-                    }
-                }
-                selection = e.id;
-
-            }
-
-            else if (piece == "White_horse" && turn == "White") {
-                id = parseInt(e.id);
-                if (id + 17 >= 0 && id + 17 <= 63) {
-                    if (_$(id + 17).innerHTML == "" || _$(id + 15).innerHTML == "Black") {
-                        if (_$(id + 17).parentElement.id == _$(id + 15).parentElement.id) {
-                            _$(id + 17).style.backgroundColor = "#90EE90";
-                            _$(id + 17).style.border = "1px solid #013220";
-                            _$(id + 17).style.borderRadius = "5px";
-
-                            _$(id + 15).style.backgroundColor = "#90EE90";
-                            _$(id + 15).style.border = "1px solid #013220";
-                            _$(id + 15).style.borderRadius = "5px";
-                            possibleMoves.push(id + 17);
-                            possibleMoves.push(id + 15);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id + 17).parentElement.id != _$(id + 15).parentElement.id && (_$(id + 17).innerHTML == "" || _$(id + 17).innerHTML == "Black")) {
-                            _$(id + 17).style.backgroundColor = "#90EE90";
-                            _$(id + 17).style.border = "1px solid #013220";
-                            _$(id + 17).style.borderRadius = "5px";
-                            possibleMoves.push(id + 17);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id + 17).parentElement.id != _$(id + 15).parentElement.id && (_$(id + 15).innerHTML == "" || _$(id + 15).innerHTML == "Black")) {
-                            _$(id + 15).style.backgroundColor = "#90EE90";
-                            _$(id + 15).style.border = "1px solid #013220";
-                            _$(id + 15).style.borderRadius = "5px";
-                            possibleMoves.push(id + 15);
-                        }
-
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id + 15).innerHTML == "" || _$(id + 15).innerHTML == "Black") && (_$(id + 17).innerHTML == "" || _$(id + 17).innerHTML == "Black")) {
-                            _$(id + 17).style.backgroundColor = "#90EE90";
-                            _$(id + 17).style.border = "1px solid #013220";
-                            _$(id + 17).style.borderRadius = "5px";
-                            possibleMoves.push(id + 17);
-
-                            _$(id + 15).style.backgroundColor = "#90EE90";
-                            _$(id + 15).style.border = "1px solid #013220";
-                            _$(id + 15).style.borderRadius = "5px";
-                            possibleMoves.push(id + 15);
-                        }
-                        console.log("WhiteFirst", possibleMoves);
-                    }
-                }
-                if (id + 10 >= 0 && id + 10 <= 63) {
-                    if (_$(id + 10).innerHTML == "" || _$(id + 6).innerHTML == "Black") {
-                        if (_$(id + 10).parentElement.id == _$(id + 6).parentElement.id) {
-                            _$(id + 10).style.backgroundColor = "#90EE90";
-                            _$(id + 10).style.border = "1px solid #013220";
-                            _$(id + 10).style.borderRadius = "5px";
-
-                            _$(id + 6).style.backgroundColor = "#90EE90";
-                            _$(id + 6).style.border = "1px solid #013220";
-                            _$(id + 6).style.borderRadius = "5px";
-                            possibleMoves.push(id + 10);
-                            possibleMoves.push(id + 6);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id + 10).parentElement.id != _$(id + 6).parentElement.id && (_$(id + 10).innerHTML == "" || _$(id + 10).innerHTML == "Black")) {
-                            _$(id + 10).style.backgroundColor = "#90EE90";
-                            _$(id + 10).style.border = "1px solid #013220";
-                            _$(id + 10).style.borderRadius = "5px";
-                            possibleMoves.push(id + 10);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id + 10).parentElement.id != _$(id + 6).parentElement.id && (_$(id + 6).innerHTML == "" || _$(id + 6).innerHTML == "Black")) {
-                            _$(id + 6).style.backgroundColor = "#90EE90";
-                            _$(id + 6).style.border = "1px solid #013220";
-                            _$(id + 6).style.borderRadius = "5px";
-                            possibleMoves.push(id + 6);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.idd && (_$(id + 6).innerHTML == "" || _$(id + 6).innerHTML == "Black") || (_$(id + 10).innerHTML == "" || _$(id + 10).innerHTML == "Black")) {
-                            _$(id + 10).style.backgroundColor = "#90EE90";
-                            _$(id + 10).style.border = "1px solid #013220";
-                            _$(id + 10).style.borderRadius = "5px";
-                            possibleMoves.push(id + 10);
-
-                            _$(id + 6).style.backgroundColor = "#90EE90";
-                            _$(id + 6).style.border = "1px solid #013220";
-                            _$(id + 6).style.borderRadius = "5px";
-                            possibleMoves.push(id + 6);
-                        }
-                        console.log("WhiteSecond", possibleMoves);
-                    }
-                }
-                if (id - 17 >= 0 && id - 17 <= 63) {
-                    if (_$(id - 17).innerHTML == "" || _$(id - 15).innerHTML == "Black") {
-                        if (_$(id - 17).parentElement.id == _$(id - 15).parentElement.id) {
-                            _$(id - 17).style.backgroundColor = "#90EE90";
-                            _$(id - 17).style.border = "1px solid #013220";
-                            _$(id - 17).style.borderRadius = "5px";
-
-                            _$(id - 15).style.backgroundColor = "#90EE90";
-                            _$(id - 15).style.border = "1px solid #013220";
-                            _$(id - 15).style.borderRadius = "5px";
-                            possibleMoves.push(id - 17);
-                            possibleMoves.push(id - 15);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id - 17).parentElement.id != _$(id - 15).parentElement.id && (_$(id - 15).innerHTML == "" || _$(id - 15).innerHTML == "Black")) {
-                            _$(id - 15).style.backgroundColor = "#90EE90";
-                            _$(id - 15).style.border = "1px solid #013220";
-                            _$(id - 15).style.borderRadius = "5px";
-                            possibleMoves.push(id - 15);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id - 17).parentElement.id != _$(id - 15).parentElement.id && (_$(id - 17).innerHTML == "" || _$(id - 17).innerHTML == "Black")) {
-                            _$(id - 17).style.backgroundColor = "#90EE90";
-                            _$(id - 17).style.border = "1px solid #013220";
-                            _$(id - 17).style.borderRadius = "5px";
-                            possibleMoves.push(id - 17);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id - 17).innerHTML == "" || _$(id - 17).innerHTML == "Black") && (_$(id - 15).innerHTML == "" || _$(id - 15).innerHTML == "Black")) {
-                            _$(id - 15).style.backgroundColor = "#90EE90";
-                            _$(id - 15).style.border = "1px solid #013220";
-                            _$(id - 15).style.borderRadius = "5px";
-                            possibleMoves.push(id - 15);
-
-                            _$(id - 17).style.backgroundColor = "#90EE90";
-                            _$(id - 17).style.border = "1px solid #013220";
-                            _$(id - 17).style.borderRadius = "5px";
-                            possibleMoves.push(id - 17);
-                        }
-                        console.log("WhiteThird", possibleMoves);
-                    }
-                }
-                if (id - 10 >= 0 && id - 10 <= 63) {
-                    if (_$(id - 10).innerHTML == "" || _$(id - 6).innerHTML == "Black") {
-                        if (_$(id - 10).parentElement.id == _$(id - 6).parentElement.id) {
-                            _$(id - 10).style.backgroundColor = "#90EE90";
-                            _$(id - 10).style.border = "1px solid #013220";
-                            _$(id - 10).style.borderRadius = "5px";
-
-                            _$(id - 6).style.backgroundColor = "#90EE90";
-                            _$(id - 6).style.border = "1px solid #013220";
-                            _$(id - 6).style.borderRadius = "5px";
-                            possibleMoves.push(id - 10);
-                            possibleMoves.push(id - 6);
-                        }
-                        else if (coloumnType == "firstThree" && _$(id - 10).parentElement.id != _$(id - 6).parentElement.id && (_$(id - 6).innerHTML == "" || _$(id - 6).innerHTML == "Black")) {
-                            _$(id - 6).style.backgroundColor = "#90EE90";
-                            _$(id - 6).style.border = "1px solid #013220";
-                            _$(id - 6).style.borderRadius = "5px";
-                            possibleMoves.push(id - 6);
-
-                        }
-                        else if (coloumnType == "lastThree" && _$(id - 10).parentElement.id != _$(id - 6).parentElement.id && (_$(id - 10).innerHTML == "" || _$(id - 10).innerHTML == "Black")) {
-                            _$(id - 10).style.backgroundColor = "#90EE90";
-                            _$(id - 10).style.border = "1px solid #013220";
-                            _$(id - 10).style.borderRadius = "5px";
-                            possibleMoves.push(id - 10);
-                        }
-                        else if ((coloumnType == "lastThree" || coloumnType == "firstThree") && _$(id + 17).parentElement.id == _$(id + 15).parentElement.id && (_$(id - 10).innerHTML == "" || _$(id - 10).innerHTML == "Black") && (_$(id - 6).innerHTML == "" || _$(id - 6).innerHTML == "Black")) {
-                            _$(id - 6).style.backgroundColor = "#90EE90";
-                            _$(id - 6).style.border = "1px solid #013220";
-                            _$(id - 6).style.borderRadius = "5px";
-                            possibleMoves.push(id - 6);
-
-                            _$(id - 10).style.backgroundColor = "#90EE90";
-                            _$(id - 10).style.border = "1px solid #013220";
-                            _$(id - 10).style.borderRadius = "5px";
-                            possibleMoves.push(id - 10);
-                        }
-                        console.log("WhiteFourth", possibleMoves);
-                    }
-                }
-                selection = e.id;
-            }
-
+        if (piece == "king") {
+            selection = e.id;
+            possibleMovesForKings(e);
         }
 
         if (pieceVrient != turn) {
@@ -824,18 +1055,12 @@ function move(e) {
                 _$("toast-warning").style.visibility = "hidden";
             }, 2000);
         }
-
-        if (piece == null) {
-            _$("toast-warning").style.visibility = "visible";
-            _$("warningText").innerHTML = `Please ! Select <p class="text-green-500 text-xl">${turn} Team's</p> Piece..`
-            setTimeout(() => {
-                _$("toast-warning").style.visibility = "hidden";
-            }, 2000);
-        }
     }
     else {
         let image = _$(selection).children[0].getAttribute("src");
         let pieceType = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "") : null;
+        let piece = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("Black_", "").replace("White_", "") : null
+
         if (possibleMoves.indexOf(parseInt(e.id)) !== -1) {
             _$(selection).innerHTML = "";
             _$(e.id).innerHTML = `<img class="h-8 w-20 md:h-12 md:w-20 lg:h-12 lg:w-20 xl:h-12 xl:w-20" src="${image}"/>`;
@@ -908,4 +1133,5 @@ function move(e) {
             }
         }
     }
+
 }
