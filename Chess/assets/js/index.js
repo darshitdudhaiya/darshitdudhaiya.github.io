@@ -19,7 +19,11 @@ let possibleMoves = [];
 
 let selection = null;
 
-let turn = "Black";
+let turn = null;
+
+let player1 = null;
+
+let player2 = null;
 
 function _$(string) {
     return document.getElementById(string);
@@ -31,6 +35,21 @@ function _$class(string) {
 
 function _$tag(string) {
     return document.getElementsByTagName(string);
+}
+
+function choosePlayer(e) {
+    if (e.value == "Black") {
+        player1 = e.value;
+        player2 = "White";
+        turn = player1;
+        _$("choosePlayer").style.visibility = "hidden";
+    }
+    else if (e.value == "White") {
+        player1 = e.value;
+        player2 = "Black";
+        turn = player1;
+        _$("choosePlayer").style.visibility = "hidden";
+    }
 }
 
 for (let index = 0; index < board.length; index++) {
@@ -144,6 +163,46 @@ for (let index = 0; index < board.length; index++) {
     }
 }
 
+function declareWinner(pieceType) {
+
+    let type1;
+    let type2;
+
+    if (pieceType.includes("Black") == true) {
+        type1 = "Black";
+        type2 = "White";
+    }
+
+    else if (pieceType.includes("White") == true) {
+        type1 = "White";
+        type2 = "Black";
+    }
+
+
+    isWinner = false;
+
+    loop1:
+    for (let index = 0; index < board.length; index++) {
+        for (let j = 0; j < board[index].length; j++) {
+            let block = board[index] ? board[index][j] ? _$(board[index][j]).children[0] ? _$(board[index][j]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+
+            if (block == type1 || block == null) {
+                isWinner = true;
+            }
+            if (block == type2) {
+                isWinner = false;
+                break loop1;
+            }
+
+        }
+    }
+
+    if (isWinner == true) {
+        _$("toast-interactive").style.visibility = "visible";
+        _$("winner_name").innerHTML = `Congratulations! <p class="text-blue-500 text-xl">${player1} Team</p> you win this match.....`;
+    }
+}
+
 function possibleMovesForSoldiers(e) {
     let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
 
@@ -158,7 +217,7 @@ function possibleMovesForSoldiers(e) {
                     let firstPossibleDeath = _$(board[index + 1][i - 1]) ? _$(board[index + 1][i - 1]).children[0] ? _$(board[index + 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
                     let secondPossibleDeath = _$(board[index + 1][i + 1]) ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
 
-                    if (_$(board[index + 1][i]).innerHTML == "" && (firstPossibleDeath == "" && secondPossibleDeath == "")) {
+                    if (_$(board[index + 1][i]).innerHTML == "" && ((firstPossibleDeath == "" && secondPossibleDeath == "") || (firstPossibleDeath == "Black" && secondPossibleDeath == "Black") || (firstPossibleDeath == "" && secondPossibleDeath == "Black") || (firstPossibleDeath == "Black" && secondPossibleDeath == ""))) {
                         _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
                         _$(board[index + 1][i]).style.border = "1px solid #013220";
                         _$(board[index + 1][i]).style.borderRadius = "5px";
@@ -188,7 +247,7 @@ function possibleMovesForSoldiers(e) {
                     let firstPossibleDeath = _$(board[index - 1][i - 1]) ? _$(board[index - 1][i - 1]).children[0] ? _$(board[index - 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
                     let secondPossibleDeath = _$(board[index - 1][i + 1]) ? _$(board[index - 1][i + 1]).children[0] ? _$(board[index - 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
 
-                    if (_$(board[index - 1][i]).innerHTML == "" && (firstPossibleDeath == "" && secondPossibleDeath == "")) {
+                    if (_$(board[index - 1][i]).innerHTML == "" && ((firstPossibleDeath == "" && secondPossibleDeath == "") || (firstPossibleDeath == "White" && secondPossibleDeath == "White") || (firstPossibleDeath == "" && secondPossibleDeath == "White") || (firstPossibleDeath == "White" && secondPossibleDeath == ""))) {
                         _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
                         _$(board[index - 1][i]).style.border = "1px solid #013220";
                         _$(board[index - 1][i]).style.borderRadius = "5px";
@@ -223,50 +282,25 @@ function possibleMovesForRooks(e) {
     let pieceType = _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "");
 
     let id = parseInt(e.id);
-    let num = 1;
 
     loop1:
     for (let index = 0; index < board.length; index++) {
         loop2:
         for (let i = 0; i < board[index].length; i++) {
             if (board[index][i] == id) {
-
                 if (pieceType == "Black_rook" && turn == "Black") {
                     loop3:
-                    // for (let j = 1, k = 6; ((j < board[index].length - 1) || (k > board[index].length - 1)); j++, k--) {
-                    for (let j = 1, k = 6,m = 6, n = 6 ;((j < board[index].length - 1) || (k > 0) || (m > 0) || (n > 0)); j < board[index].length - 1?j++:j, k>0?k--:k,m>0?m--:m,n>0?n--:n) {
+                    for (let j = 1, k = 1, m = 1, n = 1; ((j < board[index].length) || (k < board[index].length) || (m < board[index].length) || (n < board[index].length));) {
                         let leftSidePossibleMove = board[index] ? board[index][i - j] ? _$(board[index][i - j]).children[0] ? _$(board[index][i - j]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        let rightSidePossibleMove = board[index] ? board[index][i + j] ? _$(board[index][i + j]).children[0] ? _$(board[index][i + j]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        let downSidePossibleMove = board[index + j] ? board[index + j][i] ? _$(board[index + j][i]).children[0] ? _$(board[index + j][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        let upSidePossibleMove = board[index - j] ? board[index - j][i] ? _$(board[index - j][i]).children[0] ? _$(board[index - j][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        console.log("j :", j);
-                        console.log("k :", k);
-                        console.log("m :", m);
-                        console.log("n :", n);
+                        let rightSidePossibleMove = board[index] ? board[index][i + k] ? _$(board[index][i + k]).children[0] ? _$(board[index][i + k]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downSidePossibleMove = board[index + m] ? board[index + m][i] ? _$(board[index + m][i]).children[0] ? _$(board[index + m][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upSidePossibleMove = board[index - n] ? board[index - n][i] ? _$(board[index - n][i]).children[0] ? _$(board[index - n][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
-                        if (rightSidePossibleMove != "") {
-                             if (rightSidePossibleMove == "Black") {
-                                 j = board[index].length - 1;
-                             }
-                            if (rightSidePossibleMove == null) {
-                                _$(board[index][i + j]).style.backgroundColor = "#90EE90";
-                                _$(board[index][i + j]).style.border = "1px solid #013220";
-                                _$(board[index][i + j]).style.borderRadius = "5px";
-                                possibleMoves.push(board[index][i + j]);
-                            }
-                            if (rightSidePossibleMove == "White") {
-                                _$(board[index][i + j]).style.backgroundColor = "#90EE90";
-                                _$(board[index][i + j]).style.border = "1px solid #013220";
-                                _$(board[index][i + j]).style.borderRadius = "5px";
-                                possibleMoves.push(board[index][i + j]);
-
-                            }
-                        }
 
                         if (leftSidePossibleMove != "") {
-                            // if (leftSidePossibleMove == "Black") {
-                            //     // break loop1;
-                            // }
+                            if (leftSidePossibleMove == "Black") {
+                                j = board[index].length;
+                            }
                             if (leftSidePossibleMove == null) {
                                 _$(board[index][i - j]).style.backgroundColor = "#90EE90";
                                 _$(board[index][i - j]).style.border = "1px solid #013220";
@@ -278,118 +312,194 @@ function possibleMovesForRooks(e) {
                                 _$(board[index][i - j]).style.border = "1px solid #013220";
                                 _$(board[index][i - j]).style.borderRadius = "5px";
                                 possibleMoves.push(board[index][i - j]);
-                                // break loop1;
+                                j = board[index].length;
                             }
-
-                        }
-                        if (downSidePossibleMove != "") {
-                            // if (downSidePossibleMove == "Black") {
-                            //     // break loop1;
-                            // }
-                            if (downSidePossibleMove == null) {
-                                _$(board[index + j][i]).style.backgroundColor = "#90EE90";
-                                _$(board[index + j][i]).style.border = "1px solid #013220";
-                                _$(board[index + j][i]).style.borderRadius = "5px";
-                                possibleMoves.push(board[index + j][i]);
-                            }
-                            if (downSidePossibleMove == "White") {
-                                _$(board[index + j][i]).style.backgroundColor = "#90EE90";
-                                _$(board[index + j][i]).style.border = "1px solid #013220";
-                                _$(board[index + j][i]).style.borderRadius = "5px";
-                                possibleMoves.push(board[index + j][i]);
-                                // break loop1;
-                            }
+                            j < board[index].length ? j++ : j;
                         }
 
-                        if (upSidePossibleMove != "") {
-                            // if (upSidePossibleMove == "Black") {
-                            //     // break loop1;
-                            // }
-                            if (upSidePossibleMove == null) {
-                                _$(board[index - j][i]).style.backgroundColor = "#90EE90";
-                                _$(board[index - j][i]).style.border = "1px solid #013220";
-                                _$(board[index - j][i]).style.borderRadius = "5px";
-                                possibleMoves.push(board[index - j][i]);
-                            }
-                            if (upSidePossibleMove == "White") {
-                                _$(board[index - j][i]).style.backgroundColor = "#90EE90";
-                                _$(board[index - j][i]).style.border = "1px solid #013220";
-                                _$(board[index - j][i]).style.borderRadius = "5px";
-                                possibleMoves.push(board[index - j][i]);
-                                // break loop1
-                            }
-                        }
-
-
-                        num++;
-                    }
-                    // loop4:
-                    // for (let m = 0; m < board[index].length; m++) {
-                    //     console.log("m :", m);
-                    // }
-                }
-                else if (pieceType == "White_rook" && turn == "White") {
-                    for (let j = index; j < board[index].length; j++) {
-                        let rightSidePossibleMove = board[index] ? board[index][i - num] ? _$(board[index][i - num]).children[0] ? _$(board[index][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        let leftSidePossibleMove = board[index] ? board[index][i + num] ? _$(board[index][i + num]).children[0] ? _$(board[index][i + num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        let downSidePossibleMove = board[index + num] ? board[index + num][i] ? _$(board[index + num][i]).children[0] ? _$(board[index + num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        let upSidePossibleMove = board[index - num] ? board[index - num][i] ? _$(board[index - num][i]).children[0] ? _$(board[index - num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                        if (leftSidePossibleMove != "") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index][i + num]).style.backgroundColor = "#90EE90";
-                            _$(board[index][i + num]).style.border = "1px solid #013220";
-                            _$(board[index][i + num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index][i + num]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (leftSidePossibleMove == "") {
+                            j = board[index].length;
                         }
 
                         if (rightSidePossibleMove != "") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index][i - num]).style.border = "1px solid #013220";
-                            _$(board[index][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index][i - num]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                            if (rightSidePossibleMove == "Black") {
+                                k = board[index].length;
+                            }
+                            if (rightSidePossibleMove == null) {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                            }
+                            if (rightSidePossibleMove == "White") {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                                k = board[index].length;
+
+                            }
+                            k < board[index].length ? k++ : k;
+                        }
+
+                        if (rightSidePossibleMove == "") {
+                            k = board[index].length;
                         }
 
                         if (downSidePossibleMove != "") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i]).style.border = "1px solid #013220";
-                            _$(board[index + num][i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                            if (downSidePossibleMove == "Black") {
+                                m = board[index].length;
+                            }
+                            if (downSidePossibleMove == null) {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                            }
+                            if (downSidePossibleMove == "White") {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                                m = board[index].length;
+                            }
+                            m < board[index].length ? m++ : m;
+                        }
+
+                        if (downSidePossibleMove == "") {
+                            m = board[index].length;
                         }
 
                         if (upSidePossibleMove != "") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i]).style.border = "1px solid #013220";
-                            _$(board[index - num][i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                            if (upSidePossibleMove == "Black") {
+                                n = board[index].length;
+                            }
+                            if (upSidePossibleMove == null) {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                            }
+                            if (upSidePossibleMove == "White") {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                                n = board[index].length;
+                            }
+                            n < board[index].length ? n++ : n;
                         }
 
+                        if (upSidePossibleMove == "") {
+                            n = board[index].length;
+                        }
+                    }
+                }
+                else if (pieceType == "White_rook" && turn == "White") {
+                    loop3:
+                    for (let j = 1, k = 1, m = 1, n = 1; ((j < board[index].length) || (k < board[index].length) || (m < board[index].length) || (n < board[index].length));) {
+                        let leftSidePossibleMove = board[index] ? board[index][i - j] ? _$(board[index][i - j]).children[0] ? _$(board[index][i - j]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let rightSidePossibleMove = board[index] ? board[index][i + k] ? _$(board[index][i + k]).children[0] ? _$(board[index][i + k]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downSidePossibleMove = board[index + m] ? board[index + m][i] ? _$(board[index + m][i]).children[0] ? _$(board[index + m][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upSidePossibleMove = board[index - n] ? board[index - n][i] ? _$(board[index - n][i]).children[0] ? _$(board[index - n][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
 
-                        num++;
+                        if (leftSidePossibleMove != "") {
+                            if (leftSidePossibleMove == "White") {
+                                j = board[index].length;
+                            }
+                            if (leftSidePossibleMove == null) {
+                                _$(board[index][i - j]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i - j]).style.border = "1px solid #013220";
+                                _$(board[index][i - j]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i - j]);
+                            }
+                            if (leftSidePossibleMove == "Black") {
+                                _$(board[index][i - j]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i - j]).style.border = "1px solid #013220";
+                                _$(board[index][i - j]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i - j]);
+                                j = board[index].length;
+                            }
+                            j < board[index].length ? j++ : j;
+                        }
 
+                        if (leftSidePossibleMove == "") {
+                            j = board[index].length;
+                        }
+
+                        if (rightSidePossibleMove != "") {
+                            if (rightSidePossibleMove == "White") {
+                                k = board[index].length;
+                            }
+                            if (rightSidePossibleMove == null) {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                            }
+                            if (rightSidePossibleMove == "Black") {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                                k = board[index].length;
+
+                            }
+                            k < board[index].length ? k++ : k;
+                        }
+
+                        if (rightSidePossibleMove == "") {
+                            k = board[index].length;
+                        }
+
+                        if (downSidePossibleMove != "") {
+                            if (downSidePossibleMove == "White") {
+                                m = board[index].length;
+                            }
+                            if (downSidePossibleMove == null) {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                            }
+                            if (downSidePossibleMove == "Black") {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                                m = board[index].length;
+                            }
+                            m < board[index].length ? m++ : m;
+                        }
+
+                        if (downSidePossibleMove == "") {
+                            m = board[index].length;
+                        }
+
+                        if (upSidePossibleMove != "") {
+                            if (upSidePossibleMove == "White") {
+                                n = board[index].length;
+                            }
+                            if (upSidePossibleMove == null) {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                            }
+                            if (upSidePossibleMove == "Black") {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                                n = board[index].length;
+                            }
+                            n < board[index].length ? n++ : n;
+                        }
+
+                        if (upSidePossibleMove == "") {
+                            n = board[index].length;
+                        }
                     }
                 }
             }
@@ -533,125 +643,216 @@ function possibleMovesForCamels(e) {
         loop2:
         for (let i = 0; i < board[index].length; i++) {
             if (board[index][i] == id) {
-                let downLeftSidePossibleMove = board[index + num] ? board[index + num][num + i] ? _$(board[index + num][num + i]).children[0] ? _$(board[index + num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let downRightSidePossibleMove = board[index + num] ? board[index + num][i - num] ? _$(board[index + num][i - num]).children[0] ? _$(board[index + num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let upLeftSidePossibleMove = board[index - num] ? board[index - num][num + i] ? _$(board[index - num][num + i]).children[0] ? _$(board[index - num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let upRightSidePossibleMove = board[index - num] ? board[index - num][i - num] ? _$(board[index - num][i - num]).children[0] ? _$(board[index - num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
                 if (pieceType == "Black_camel" && turn == "Black") {
-                    for (let j = index; j < board[index].length; j++) {
-                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "White" || downLeftSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index + num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][num + i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                    loop3:
+                    for (let j = 1, k = 1, m = 1, n = 1; ((j < board[index].length) || (k < board[index].length) || (m < board[index].length) || (n < board[index].length));) {
+                        let downLeftSidePossibleMove = board[index + j] ? board[index + j][j + i] ? _$(board[index + j][j + i]).children[0] ? _$(board[index + j][j + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downRightSidePossibleMove = board[index + k] ? board[index + k][i - k] ? _$(board[index + k][i - k]).children[0] ? _$(board[index + k][i - k]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upLeftSidePossibleMove = board[index - m] ? board[index - m][m + i] ? _$(board[index - m][m + i]).children[0] ? _$(board[index - m][m + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upRightSidePossibleMove = board[index - n] ? board[index - n][i - n] ? _$(board[index - n][i - n]).children[0] ? _$(board[index - n][i - n]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+
+
+                        if (downLeftSidePossibleMove != "") {
+                            if (downLeftSidePossibleMove == "Black") {
+                                j = board[index].length;
+                            }
+                            if (downLeftSidePossibleMove == null) {
+                                _$(board[index + j][j + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + j][j + i]).style.border = "1px solid #013220";
+                                _$(board[index + j][j + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + j][j + i]);
+                            }
+                            if (downLeftSidePossibleMove == "White") {
+                                _$(board[index + j][j + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + j][j + i]).style.border = "1px solid #013220";
+                                _$(board[index + j][j + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + j][j + i]);
+                                j = board[index].length;
+                            }
+                            j < board[index].length ? j++ : j;
                         }
 
-                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "White" || downRightSidePossibleMove == "Black") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index + num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i - num]);
-                            // if (downRightSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (downLeftSidePossibleMove == "") {
+                            j = board[index].length;
                         }
 
-                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "White" || upLeftSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index - num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][num + i]);
-                            //  if (downLeftSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (downRightSidePossibleMove != "") {
+                            if (downRightSidePossibleMove == "Black") {
+                                k = board[index].length;
+                            }
+                            if (downRightSidePossibleMove == null) {
+                                _$(board[index + k][i - k]).style.backgroundColor = "#90EE90";
+                                _$(board[index + k][i - k]).style.border = "1px solid #013220";
+                                _$(board[index + k][i - k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + k][i - k]);
+                            }
+                            if (downRightSidePossibleMove == "White") {
+                                _$(board[index + k][i - k]).style.backgroundColor = "#90EE90";
+                                _$(board[index + k][i - k]).style.border = "1px solid #013220";
+                                _$(board[index + k][i - k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + k][i - k]);
+                                k = board[index].length;
+                            }
+                            k < board[index].length ? k++ : k;
                         }
 
-                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "White" || upRightSidePossibleMove == "Black") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index - num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i - num]);
-                            //  if (downRightSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (downRightSidePossibleMove == "") {
+                            k = board[index].length;
                         }
 
-                        num++;
+                        if (upLeftSidePossibleMove != "") {
+                            if (upLeftSidePossibleMove == "Black") {
+                                m = board[index].length;
+                            }
+                            if (upLeftSidePossibleMove == null) {
+                                _$(board[index - m][m + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - m][m + i]).style.border = "1px solid #013220";
+                                _$(board[index - m][m + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - m][m + i]);
+                            }
+                            if (upLeftSidePossibleMove == "White") {
+                                _$(board[index - m][m + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - m][m + i]).style.border = "1px solid #013220";
+                                _$(board[index - m][m + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - m][m + i]);
+                                m = board[index].length;
+                            }
+                            m < board[index].length ? m++ : m;
+                        }
+
+                        if (upLeftSidePossibleMove == "") {
+                            m = board[index].length;
+                        }
+
+                        if (upRightSidePossibleMove != "") {
+                            if (upRightSidePossibleMove == "Black") {
+                                n = board[index].length;
+                            }
+                            if (upRightSidePossibleMove == null) {
+                                _$(board[index - n][i - n]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i - n]).style.border = "1px solid #013220";
+                                _$(board[index - n][i - n]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i - n]);
+                            }
+                            if (upRightSidePossibleMove == "White") {
+                                _$(board[index - n][i - n]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i - n]).style.border = "1px solid #013220";
+                                _$(board[index - n][i - n]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i - n]);
+                                n = board[index].length;
+                            }
+                            n < board[index].length ? n++ : n;
+                        }
+
+                        if (upRightSidePossibleMove == "") {
+                            n = board[index].length;
+                        }
                     }
-
-
                 }
                 else if (pieceType == "White_camel" && turn == "White") {
-                    for (let j = index; j < board[index].length; j++) {
-                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "Black" || downLeftSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index + num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][num + i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                    loop3:
+                    for (let j = 1, k = 1, m = 1, n = 1; ((j < board[index].length) || (k < board[index].length) || (m < board[index].length) || (n < board[index].length));) {
+                        let downLeftSidePossibleMove = board[index + j] ? board[index + j][j + i] ? _$(board[index + j][j + i]).children[0] ? _$(board[index + j][j + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downRightSidePossibleMove = board[index + k] ? board[index + k][i - k] ? _$(board[index + k][i - k]).children[0] ? _$(board[index + k][i - k]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upLeftSidePossibleMove = board[index - m] ? board[index - m][m + i] ? _$(board[index - m][m + i]).children[0] ? _$(board[index - m][m + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upRightSidePossibleMove = board[index - n] ? board[index - n][i - n] ? _$(board[index - n][i - n]).children[0] ? _$(board[index - n][i - n]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+
+
+                        if (downLeftSidePossibleMove != "") {
+                            if (downLeftSidePossibleMove == "White") {
+                                j = board[index].length;
+                            }
+                            if (downLeftSidePossibleMove == null) {
+                                _$(board[index + j][j + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + j][j + i]).style.border = "1px solid #013220";
+                                _$(board[index + j][j + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + j][j + i]);
+                            }
+                            if (downLeftSidePossibleMove == "Black") {
+                                _$(board[index + j][j + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + j][j + i]).style.border = "1px solid #013220";
+                                _$(board[index + j][j + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + j][j + i]);
+                                j = board[index].length;
+                            }
+                            j < board[index].length ? j++ : j;
                         }
 
-                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "Black" || downRightSidePossibleMove == "White") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index + num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i - num]);
-                            // if (downRightSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (downLeftSidePossibleMove == "") {
+                            j = board[index].length;
                         }
 
-                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "Black" || upLeftSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index - num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][num + i]);
-                            //  if (downLeftSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (downRightSidePossibleMove != "") {
+                            if (downRightSidePossibleMove == "White") {
+                                k = board[index].length;
+                            }
+                            if (downRightSidePossibleMove == null) {
+                                _$(board[index + k][i - k]).style.backgroundColor = "#90EE90";
+                                _$(board[index + k][i - k]).style.border = "1px solid #013220";
+                                _$(board[index + k][i - k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + k][i - k]);
+                            }
+                            if (downRightSidePossibleMove == "Black") {
+                                _$(board[index + k][i - k]).style.backgroundColor = "#90EE90";
+                                _$(board[index + k][i - k]).style.border = "1px solid #013220";
+                                _$(board[index + k][i - k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + k][i - k]);
+                                k = board[index].length;
+                            }
+                            k < board[index].length ? k++ : k;
                         }
 
-                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "Black" || upRightSidePossibleMove == "White") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index - num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i - num]);
-                            //  if (downRightSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (downRightSidePossibleMove == "") {
+                            k = board[index].length;
                         }
 
-                        num++;
+                        if (upLeftSidePossibleMove != "") {
+                            if (upLeftSidePossibleMove == "White") {
+                                m = board[index].length;
+                            }
+                            if (upLeftSidePossibleMove == null) {
+                                _$(board[index - m][m + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - m][m + i]).style.border = "1px solid #013220";
+                                _$(board[index - m][m + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - m][m + i]);
+                            }
+                            if (upLeftSidePossibleMove == "Black") {
+                                _$(board[index - m][m + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - m][m + i]).style.border = "1px solid #013220";
+                                _$(board[index - m][m + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - m][m + i]);
+                                m = board[index].length;
+                            }
+                            m < board[index].length ? m++ : m;
+                        }
 
+                        if (upLeftSidePossibleMove == "") {
+                            m = board[index].length;
+                        }
+
+                        if (upRightSidePossibleMove != "") {
+                            if (upRightSidePossibleMove == "White") {
+                                n = board[index].length;
+                            }
+                            if (upRightSidePossibleMove == null) {
+                                _$(board[index - n][i - n]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i - n]).style.border = "1px solid #013220";
+                                _$(board[index - n][i - n]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i - n]);
+                            }
+                            if (upRightSidePossibleMove == "Black") {
+                                _$(board[index - n][i - n]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i - n]).style.border = "1px solid #013220";
+                                _$(board[index - n][i - n]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i - n]);
+                                n = board[index].length;
+                            }
+                            n < board[index].length ? n++ : n;
+                        }
+
+                        if (upRightSidePossibleMove == "") {
+                            n = board[index].length;
+                        }
                     }
                 }
             }
@@ -670,232 +871,402 @@ function possibleMovesForQueens(e) {
         loop2:
         for (let i = 0; i < board[index].length; i++) {
             if (board[index][i] == id) {
-                let rightSidePossibleMove = board[index] ? board[index][i - num] ? _$(board[index][i - num]).children[0] ? _$(board[index][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let leftSidePossibleMove = board[index] ? board[index][i + num] ? _$(board[index][i + num]).children[0] ? _$(board[index][i + num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let downSidePossibleMove = board[index + num] ? board[index + num][i] ? _$(board[index + num][i]).children[0] ? _$(board[index + num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let downLeftSidePossibleMove = board[index + num] ? board[index + num][num + i] ? _$(board[index + num][num + i]).children[0] ? _$(board[index + num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let downRightSidePossibleMove = board[index + num] ? board[index + num][i - num] ? _$(board[index + num][i - num]).children[0] ? _$(board[index + num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let upSidePossibleMove = board[index - num] ? board[index - num][i] ? _$(board[index - num][i]).children[0] ? _$(board[index - num][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let upLeftSidePossibleMove = board[index - num] ? board[index - num][num + i] ? _$(board[index - num][num + i]).children[0] ? _$(board[index - num][num + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
-                let upRightSidePossibleMove = board[index - num] ? board[index - num][i - num] ? _$(board[index - num][i - num]).children[0] ? _$(board[index - num][i - num]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
                 if (pieceType == "Black_queen" && turn == "Black") {
-                    for (let j = index; j < board[index].length; j++) {
-                        if (leftSidePossibleMove == null || leftSidePossibleMove == "White" || leftSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index][i + num]).style.backgroundColor = "#90EE90";
-                            _$(board[index][i + num]).style.border = "1px solid #013220";
-                            _$(board[index][i + num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index][i + num]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                    loop3:
+                    for (let j = 1, k = 1, m = 1, n = 1, l = 1, p = 1, q = 1, r = 1; ((j < board[index].length) || (k < board[index].length) || (m < board[index].length) || (n < board[index].length) || (l < board[index].length) || (p < board[index].length) || (q < board[index].length) || (r < board[index].length));) {
+                        let leftSidePossibleMove = board[index] ? board[index][i - j] ? _$(board[index][i - j]).children[0] ? _$(board[index][i - j]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let rightSidePossibleMove = board[index] ? board[index][i + k] ? _$(board[index][i + k]).children[0] ? _$(board[index][i + k]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downSidePossibleMove = board[index + m] ? board[index + m][i] ? _$(board[index + m][i]).children[0] ? _$(board[index + m][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upSidePossibleMove = board[index - n] ? board[index - n][i] ? _$(board[index - n][i]).children[0] ? _$(board[index - n][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downLeftSidePossibleMove = board[index + l] ? board[index + l][l + i] ? _$(board[index + l][l + i]).children[0] ? _$(board[index + l][l + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downRightSidePossibleMove = board[index + p] ? board[index + p][i - p] ? _$(board[index + p][i - p]).children[0] ? _$(board[index + p][i - p]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upLeftSidePossibleMove = board[index - q] ? board[index - q][q + i] ? _$(board[index - q][q + i]).children[0] ? _$(board[index - q][q + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upRightSidePossibleMove = board[index - r] ? board[index - r][i - r] ? _$(board[index - r][i - r]).children[0] ? _$(board[index - r][i - r]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+
+
+                        if (leftSidePossibleMove != "") {
+                            if (leftSidePossibleMove == "Black") {
+                                j = board[index].length;
+                            }
+                            if (leftSidePossibleMove == null) {
+                                _$(board[index][i - j]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i - j]).style.border = "1px solid #013220";
+                                _$(board[index][i - j]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i - j]);
+                            }
+                            if (leftSidePossibleMove == "White") {
+                                _$(board[index][i - j]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i - j]).style.border = "1px solid #013220";
+                                _$(board[index][i - j]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i - j]);
+                                j = board[index].length;
+                            }
+                            j < board[index].length ? j++ : j;
                         }
 
-                        if (rightSidePossibleMove == null || rightSidePossibleMove == "White" || rightSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index][i - num]).style.border = "1px solid #013220";
-                            _$(board[index][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index][i - num]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (leftSidePossibleMove == "") {
+                            j = board[index].length;
                         }
 
-                        if (downSidePossibleMove == null || downSidePossibleMove == "White" || downSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i]).style.border = "1px solid #013220";
-                            _$(board[index + num][i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (rightSidePossibleMove != "") {
+                            if (rightSidePossibleMove == "Black") {
+                                k = board[index].length;
+                            }
+                            if (rightSidePossibleMove == null) {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                            }
+                            if (rightSidePossibleMove == "White") {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                                k = board[index].length;
+
+                            }
+                            k < board[index].length ? k++ : k;
                         }
 
-                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "White" || downLeftSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index + num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][num + i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (rightSidePossibleMove == "") {
+                            k = board[index].length;
                         }
 
-                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "White" || downRightSidePossibleMove == "Black") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index + num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i - num]);
-                            // if (downRightSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (downSidePossibleMove != "") {
+                            if (downSidePossibleMove == "Black") {
+                                m = board[index].length;
+                            }
+                            if (downSidePossibleMove == null) {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                            }
+                            if (downSidePossibleMove == "White") {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                                m = board[index].length;
+                            }
+                            m < board[index].length ? m++ : m;
                         }
 
-                        if (upSidePossibleMove == null || upSidePossibleMove == "White" || upSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i]).style.border = "1px solid #013220";
-                            _$(board[index - num][i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (downSidePossibleMove == "") {
+                            m = board[index].length;
                         }
 
-                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "White" || upLeftSidePossibleMove == "Black") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index - num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][num + i]);
-                            //  if (downLeftSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (upSidePossibleMove != "") {
+                            if (upSidePossibleMove == "Black") {
+                                n = board[index].length;
+                            }
+                            if (upSidePossibleMove == null) {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                            }
+                            if (upSidePossibleMove == "White") {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                                n = board[index].length;
+                            }
+                            n < board[index].length ? n++ : n;
                         }
 
-                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "White" || upRightSidePossibleMove == "Black") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index - num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i - num]);
-                            //  if (downRightSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (upSidePossibleMove == "") {
+                            n = board[index].length;
                         }
 
-                        num++;
+                        if (downLeftSidePossibleMove != "") {
+                            if (downLeftSidePossibleMove == "Black") {
+                                l = board[index].length;
+                            }
+                            if (downLeftSidePossibleMove == null) {
+                                _$(board[index + l][l + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + l][l + i]).style.border = "1px solid #013220";
+                                _$(board[index + l][l + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + l][l + i]);
+                            }
+                            if (downLeftSidePossibleMove == "White") {
+                                _$(board[index + l][l + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + l][l + i]).style.border = "1px solid #013220";
+                                _$(board[index + l][l + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + l][l + i]);
+                                l = board[index].length;
+                            }
+                            l < board[index].length ? l++ : l;
+                        }
+
+                        if (downLeftSidePossibleMove == "") {
+                            l = board[index].length;
+                        }
+
+                        if (downRightSidePossibleMove != "") {
+                            if (downRightSidePossibleMove == "Black") {
+                                p = board[index].length;
+                            }
+                            if (downRightSidePossibleMove == null) {
+                                _$(board[index + p][i - p]).style.backgroundColor = "#90EE90";
+                                _$(board[index + p][i - p]).style.border = "1px solid #013220";
+                                _$(board[index + p][i - p]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + p][i - p]);
+                            }
+                            if (downRightSidePossibleMove == "White") {
+                                _$(board[index + p][i - p]).style.backgroundColor = "#90EE90";
+                                _$(board[index + p][i - p]).style.border = "1px solid #013220";
+                                _$(board[index + p][i - p]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + p][i - p]);
+                                p = board[index].length;
+                            }
+                            p < board[index].length ? p++ : p;
+                        }
+
+                        if (downRightSidePossibleMove == "") {
+                            p = board[index].length;
+                        }
+
+                        if (upLeftSidePossibleMove != "") {
+                            if (upLeftSidePossibleMove == "Black") {
+                                q = board[index].length;
+                            }
+                            if (upLeftSidePossibleMove == null) {
+                                _$(board[index - q][q + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - q][q + i]).style.border = "1px solid #013220";
+                                _$(board[index - q][q + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - q][q + i]);
+                            }
+                            if (upLeftSidePossibleMove == "White") {
+                                q = board[index].length;
+                            }
+                            q < board[index].length ? q++ : q;
+                        }
+
+                        if (upLeftSidePossibleMove == "") {
+                            q = board[index].length;
+                        }
+
+                        if (upRightSidePossibleMove != "") {
+                            if (upRightSidePossibleMove == "Black") {
+                                r = board[index].length;
+                            }
+                            if (upRightSidePossibleMove == null) {
+                                _$(board[index - r][i - r]).style.backgroundColor = "#90EE90";
+                                _$(board[index - r][i - r]).style.border = "1px solid #013220";
+                                _$(board[index - r][i - r]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - r][i - r]);
+                            }
+                            if (upRightSidePossibleMove == "White") {
+                                r = board[index].length;
+                            }
+                            r < board[index].length ? r++ : r;
+                        }
+
+                        if (upRightSidePossibleMove == "") {
+                            r = board[index].length;
+                        }
                     }
-
-
                 }
                 else if (pieceType == "White_queen" && turn == "White") {
-                    for (let j = index; j < board[index].length; j++) {
-                        if (leftSidePossibleMove == null || leftSidePossibleMove == "Black" || leftSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index][i + num]).style.backgroundColor = "#90EE90";
-                            _$(board[index][i + num]).style.border = "1px solid #013220";
-                            _$(board[index][i + num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index][i + num]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                    loop3:
+                    for (let j = 1, k = 1, m = 1, n = 1, l = 1, p = 1, q = 1, r = 1; ((j < board[index].length) || (k < board[index].length) || (m < board[index].length) || (n < board[index].length) || (l < board[index].length) || (p < board[index].length) || (q < board[index].length) || (r < board[index].length));) {
+                        let leftSidePossibleMove = board[index] ? board[index][i - j] ? _$(board[index][i - j]).children[0] ? _$(board[index][i - j]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let rightSidePossibleMove = board[index] ? board[index][i + k] ? _$(board[index][i + k]).children[0] ? _$(board[index][i + k]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downSidePossibleMove = board[index + m] ? board[index + m][i] ? _$(board[index + m][i]).children[0] ? _$(board[index + m][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upSidePossibleMove = board[index - n] ? board[index - n][i] ? _$(board[index - n][i]).children[0] ? _$(board[index - n][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downLeftSidePossibleMove = board[index + l] ? board[index + l][l + i] ? _$(board[index + l][l + i]).children[0] ? _$(board[index + l][l + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let downRightSidePossibleMove = board[index + p] ? board[index + p][i - p] ? _$(board[index + p][i - p]).children[0] ? _$(board[index + p][i - p]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upLeftSidePossibleMove = board[index - q] ? board[index - q][q + i] ? _$(board[index - q][q + i]).children[0] ? _$(board[index - q][q + i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                        let upRightSidePossibleMove = board[index - r] ? board[index - r][i - r] ? _$(board[index - r][i - r]).children[0] ? _$(board[index - r][i - r]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+
+
+                        if (leftSidePossibleMove != "") {
+                            if (leftSidePossibleMove == "White") {
+                                j = board[index].length;
+                            }
+                            if (leftSidePossibleMove == null) {
+                                _$(board[index][i - j]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i - j]).style.border = "1px solid #013220";
+                                _$(board[index][i - j]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i - j]);
+                            }
+                            if (leftSidePossibleMove == "Black") {
+                                _$(board[index][i - j]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i - j]).style.border = "1px solid #013220";
+                                _$(board[index][i - j]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i - j]);
+                                j = board[index].length;
+                            }
+                            j < board[index].length ? j++ : j;
                         }
 
-                        if (rightSidePossibleMove == null || rightSidePossibleMove == "Black" || rightSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index][i - num]).style.border = "1px solid #013220";
-                            _$(board[index][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index][i - num]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (leftSidePossibleMove == "") {
+                            j = board[index].length;
                         }
 
-                        if (downSidePossibleMove == null || downSidePossibleMove == "Black" || downSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i]).style.border = "1px solid #013220";
-                            _$(board[index + num][i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
-                        }
-                        if (downLeftSidePossibleMove == null || downLeftSidePossibleMove == "Black" || downLeftSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index + num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][num + i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (rightSidePossibleMove != "") {
+                            if (rightSidePossibleMove == "White") {
+                                k = board[index].length;
+                            }
+                            if (rightSidePossibleMove == null) {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                            }
+                            if (rightSidePossibleMove == "Black") {
+                                _$(board[index][i + k]).style.backgroundColor = "#90EE90";
+                                _$(board[index][i + k]).style.border = "1px solid #013220";
+                                _$(board[index][i + k]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index][i + k]);
+                                k = board[index].length;
+
+                            }
+                            k < board[index].length ? k++ : k;
                         }
 
-                        if (downRightSidePossibleMove == null || downRightSidePossibleMove == "Black" || downRightSidePossibleMove == "White") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index + num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index + num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index + num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index + num][i - num]);
-                            // if (downRightSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (rightSidePossibleMove == "") {
+                            k = board[index].length;
                         }
 
-                        if (upSidePossibleMove == null || upSidePossibleMove == "Black" || upSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i]).style.border = "1px solid #013220";
-                            _$(board[index - num][i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i]);
-                            // if (downLeftSidePossibleMove == "White") {
-                            //     break loop1;
-                            // }
+                        if (downSidePossibleMove != "") {
+                            if (downSidePossibleMove == "White") {
+                                m = board[index].length;
+                            }
+                            if (downSidePossibleMove == null) {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                            }
+                            if (downSidePossibleMove == "Black") {
+                                _$(board[index + m][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + m][i]).style.border = "1px solid #013220";
+                                _$(board[index + m][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + m][i]);
+                                m = board[index].length;
+                            }
+                            m < board[index].length ? m++ : m;
                         }
 
-                        if (upLeftSidePossibleMove == null || upLeftSidePossibleMove == "Black" || upLeftSidePossibleMove == "White") {
-                            // if (downLeftSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][num + i]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][num + i]).style.border = "1px solid #013220";
-                            _$(board[index - num][num + i]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][num + i]);
-                            //  if (downLeftSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (downSidePossibleMove == "") {
+                            m = board[index].length;
                         }
 
-                        if (upRightSidePossibleMove == null || upRightSidePossibleMove == "Black" || upRightSidePossibleMove == "White") {
-                            // if (downRightSidePossibleMove == "Black") {
-                            //     break loop1;
-                            // }
-                            _$(board[index - num][i - num]).style.backgroundColor = "#90EE90";
-                            _$(board[index - num][i - num]).style.border = "1px solid #013220";
-                            _$(board[index - num][i - num]).style.borderRadius = "5px";
-                            possibleMoves.push(board[index - num][i - num]);
-                            //  if (downRightSidePossibleMove == "White") {
-                            //      break loop1;
-                            //  }
+                        if (upSidePossibleMove != "") {
+                            if (upSidePossibleMove == "White") {
+                                n = board[index].length;
+                            }
+                            if (upSidePossibleMove == null) {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                            }
+                            if (upSidePossibleMove == "Black") {
+                                _$(board[index - n][i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - n][i]).style.border = "1px solid #013220";
+                                _$(board[index - n][i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - n][i]);
+                                n = board[index].length;
+                            }
+                            n < board[index].length ? n++ : n;
                         }
 
-                        num++;
+                        if (upSidePossibleMove == "") {
+                            n = board[index].length;
+                        }
 
+                        if (downLeftSidePossibleMove != "") {
+                            if (downLeftSidePossibleMove == "White") {
+                                l = board[index].length;
+                            }
+                            if (downLeftSidePossibleMove == null) {
+                                _$(board[index + l][l + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + l][l + i]).style.border = "1px solid #013220";
+                                _$(board[index + l][l + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + l][l + i]);
+                            }
+                            if (downLeftSidePossibleMove == "Black") {
+                                _$(board[index + l][l + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index + l][l + i]).style.border = "1px solid #013220";
+                                _$(board[index + l][l + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + l][l + i]);
+                                l = board[index].length;
+                            }
+                            l < board[index].length ? l++ : l;
+                        }
+
+                        if (downLeftSidePossibleMove == "") {
+                            l = board[index].length;
+                        }
+
+                        if (downRightSidePossibleMove != "") {
+                            if (downRightSidePossibleMove == "White") {
+                                p = board[index].length;
+                            }
+                            if (downRightSidePossibleMove == null) {
+                                _$(board[index + p][i - p]).style.backgroundColor = "#90EE90";
+                                _$(board[index + p][i - p]).style.border = "1px solid #013220";
+                                _$(board[index + p][i - p]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + p][i - p]);
+                            }
+                            if (downRightSidePossibleMove == "Black") {
+                                _$(board[index + p][i - p]).style.backgroundColor = "#90EE90";
+                                _$(board[index + p][i - p]).style.border = "1px solid #013220";
+                                _$(board[index + p][i - p]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index + p][i - p]);
+                                p = board[index].length;
+                            }
+                            p < board[index].length ? p++ : p;
+                        }
+
+                        if (downRightSidePossibleMove == "") {
+                            p = board[index].length;
+                        }
+
+                        if (upLeftSidePossibleMove != "") {
+                            if (upLeftSidePossibleMove == "White") {
+                                q = board[index].length;
+                            }
+                            if (upLeftSidePossibleMove == null) {
+                                _$(board[index - q][q + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - q][q + i]).style.border = "1px solid #013220";
+                                _$(board[index - q][q + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - q][q + i]);
+                            }
+                            if (upLeftSidePossibleMove == "Black") {
+                                q = board[index].length;
+                            }
+                            q < board[index].length ? q++ : q;
+                        }
+
+                        if (upLeftSidePossibleMove == "") {
+                            q = board[index].length;
+                        }
+
+                        if (upRightSidePossibleMove != "") {
+                            if (upRightSidePossibleMove == "White") {
+                                r = board[index].length;
+                            }
+                            if (upRightSidePossibleMove == null) {
+                                _$(board[index - r][i - r]).style.backgroundColor = "#90EE90";
+                                _$(board[index - r][i - r]).style.border = "1px solid #013220";
+                                _$(board[index - r][i - r]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - r][i - r]);
+                            }
+                            if (upRightSidePossibleMove == "Black") {
+                                r = board[index].length;
+                            }
+                            r < board[index].length ? r++ : r;
+                        }
+
+                        if (upRightSidePossibleMove == "") {
+                            r = board[index].length;
+                        }
                     }
                 }
             }
@@ -1037,7 +1408,7 @@ function selectPossibleMoves(e) {
         if (pieceVrient != selectedPieceVrient) {
             let image = _$(selection).children[0].getAttribute("src");
             let pieceType = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "") : null;
-            let piece = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("Black_", "").replace("White_", "") : null
+            let piece = _$(e.id).children[0] ? _$(e.id).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("White_", "").replace("White_", "") : null
 
             if (possibleMoves.indexOf(parseInt(e.id)) !== -1) {
                 _$(selection).innerHTML = "";
@@ -1066,6 +1437,8 @@ function selectPossibleMoves(e) {
                 }
                 selection = null;
                 possibleMoves = [];
+
+                declareWinner(pieceType);
             }
         }
     }
@@ -1173,6 +1546,8 @@ function place(e) {
         }
         selection = null;
         possibleMoves = [];
+
+        declareWinner(pieceType);
     }
 
     else if (pieceType == null) {
@@ -1227,4 +1602,8 @@ function place(e) {
         }
     }
 
+}
+
+function resetGame() {
+    window.location.reload();
 }
