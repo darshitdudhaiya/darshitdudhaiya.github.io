@@ -214,8 +214,8 @@ function possibleMovesForSoldiers(e) {
         for (let i = 0; i < board[index].length; i++) {
             if (board[index][i] == id) {
                 if (pieceType == "Black_soldier" && turn == "Black") {
-                    let firstPossibleDeath = _$(board[index + 1][i - 1]) ? _$(board[index + 1][i - 1]).children[0] ? _$(board[index + 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
-                    let secondPossibleDeath = _$(board[index + 1][i + 1]) ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
+                    let firstPossibleDeath = board[index + 1] ? board[index + 1][i - 1] ? _$(board[index + 1][i - 1]).children[0] ? _$(board[index + 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                    let secondPossibleDeath = board[index + 1] ? board[index + 1][i + 1] ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
                     if (_$(board[index + 1][i]).innerHTML == "" && ((firstPossibleDeath == "" && secondPossibleDeath == "") || (firstPossibleDeath == "Black" && secondPossibleDeath == "Black") || (firstPossibleDeath == "" && secondPossibleDeath == "Black") || (firstPossibleDeath == "Black" && secondPossibleDeath == ""))) {
                         _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
@@ -244,8 +244,8 @@ function possibleMovesForSoldiers(e) {
                     break loop1;
                 }
                 else if (pieceType == "White_soldier" && turn == "White") {
-                    let firstPossibleDeath = _$(board[index - 1][i - 1]) ? _$(board[index - 1][i - 1]).children[0] ? _$(board[index - 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
-                    let secondPossibleDeath = _$(board[index - 1][i + 1]) ? _$(board[index - 1][i + 1]).children[0] ? _$(board[index - 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : "" : "";
+                    let firstPossibleDeath = board[index - 1] ? board[index - 1][i - 1] ? _$(board[index - 1][i - 1]).children[0] ? _$(board[index - 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
+                    let secondPossibleDeath = board[index - 1] ? board[index - 1][i + 1] ? _$(board[index - 1][i + 1]).children[0] ? _$(board[index - 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
                     if (_$(board[index - 1][i]).innerHTML == "" && ((firstPossibleDeath == "" && secondPossibleDeath == "") || (firstPossibleDeath == "White" && secondPossibleDeath == "White") || (firstPossibleDeath == "" && secondPossibleDeath == "White") || (firstPossibleDeath == "White" && secondPossibleDeath == ""))) {
                         _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
@@ -1235,6 +1235,10 @@ function possibleMovesForQueens(e) {
                                 possibleMoves.push(board[index - q][q + i]);
                             }
                             if (upLeftSidePossibleMove == "Black") {
+                                _$(board[index - q][q + i]).style.backgroundColor = "#90EE90";
+                                _$(board[index - q][q + i]).style.border = "1px solid #013220";
+                                _$(board[index - q][q + i]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - q][q + i]);
                                 q = board[index].length;
                             }
                             q < board[index].length ? q++ : q;
@@ -1255,6 +1259,10 @@ function possibleMovesForQueens(e) {
                                 possibleMoves.push(board[index - r][i - r]);
                             }
                             if (upRightSidePossibleMove == "Black") {
+                                _$(board[index - r][i - r]).style.backgroundColor = "#90EE90";
+                                _$(board[index - r][i - r]).style.border = "1px solid #013220";
+                                _$(board[index - r][i - r]).style.borderRadius = "5px";
+                                possibleMoves.push(board[index - r][i - r]);
                                 r = board[index].length;
                             }
                             r < board[index].length ? r++ : r;
@@ -1290,49 +1298,49 @@ function possibleMovesForKings(e) {
                 let eighthPossibleDeath = board[index + 1] ? board[index + 1][i + 1] ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
                 if (pieceType == "Black_king" && turn == "Black") {
-                    if (firstPossibleDeath == null || firstPossibleDeath == "White" ) {
+                    if (firstPossibleDeath == null || firstPossibleDeath == "White") {
                         _$(board[index - 1][i - 1]).style.backgroundColor = "#90EE90";
                         _$(board[index - 1][i - 1]).style.border = "1px solid #013220";
                         _$(board[index - 1][i - 1]).style.borderRadius = "5px";
                         possibleMoves.push(board[index - 1][i - 1]);
                     }
-                    if (secondPossibleDeath == null || secondPossibleDeath == "White" ) {
+                    if (secondPossibleDeath == null || secondPossibleDeath == "White") {
                         _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
                         _$(board[index - 1][i]).style.border = "1px solid #013220";
                         _$(board[index - 1][i]).style.borderRadius = "5px";
                         possibleMoves.push(board[index - 1][i]);
                     }
-                    if (thirdPossibleDeath == null || thirdPossibleDeath == "White" ) {
+                    if (thirdPossibleDeath == null || thirdPossibleDeath == "White") {
                         _$(board[index - 1][i + 1]).style.backgroundColor = "#90EE90";
                         _$(board[index - 1][i + 1]).style.border = "1px solid #013220";
                         _$(board[index - 1][i + 1]).style.borderRadius = "5px";
                         possibleMoves.push(board[index - 1][i + 1]);
                     }
-                    if (fourthPossibleDeath == null || fourthPossibleDeath == "White" ) {
+                    if (fourthPossibleDeath == null || fourthPossibleDeath == "White") {
                         _$(board[index][i - 1]).style.backgroundColor = "#90EE90";
                         _$(board[index][i - 1]).style.border = "1px solid #013220";
                         _$(board[index][i - 1]).style.borderRadius = "5px";
                         possibleMoves.push(board[index][i - 1]);
                     }
-                    if (fifthPossibleDeath == null || fifthPossibleDeath == "White" ) {
+                    if (fifthPossibleDeath == null || fifthPossibleDeath == "White") {
                         _$(board[index][i + 1]).style.backgroundColor = "#90EE90";
                         _$(board[index][i + 1]).style.border = "1px solid #013220";
                         _$(board[index][i + 1]).style.borderRadius = "5px";
                         possibleMoves.push(board[index][i + 1]);
                     }
-                    if (sixthPossibleDeath == null || sixthPossibleDeath == "White" ) {
+                    if (sixthPossibleDeath == null || sixthPossibleDeath == "White") {
                         _$(board[index + 1][i - 1]).style.backgroundColor = "#90EE90";
                         _$(board[index + 1][i - 1]).style.border = "1px solid #013220";
                         _$(board[index + 1][i - 1]).style.borderRadius = "5px";
                         possibleMoves.push(board[index + 1][i - 1]);
                     }
-                    if (seventhPossibleDeath == null || seventhPossibleDeath == "White" ) {
+                    if (seventhPossibleDeath == null || seventhPossibleDeath == "White") {
                         _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
                         _$(board[index + 1][i]).style.border = "1px solid #013220";
                         _$(board[index + 1][i]).style.borderRadius = "5px";
                         possibleMoves.push(board[index + 1][i]);
                     }
-                    if (eighthPossibleDeath == null || eighthPossibleDeath == "White" ) {
+                    if (eighthPossibleDeath == null || eighthPossibleDeath == "White") {
                         _$(board[index + 1][i + 1]).style.backgroundColor = "#90EE90";
                         _$(board[index + 1][i + 1]).style.border = "1px solid #013220";
                         _$(board[index + 1][i + 1]).style.borderRadius = "5px";
