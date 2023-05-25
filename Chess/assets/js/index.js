@@ -42,12 +42,22 @@ function choosePlayer(e) {
         player1 = e.value;
         player2 = "White";
         turn = player1;
+        _$("player1").classList.add("bg-[url('./images/Black_king.png')]");
+        _$("player2").classList.add("bg-[url('./images/White_king.png')]");
+        _$("player1-text").innerHTML += '&nbsp;:&nbsp;<img src="./images/Black_king.png" class="h-5 w-5 mt-[5px]" alt="">';
+        _$("player2-text").innerHTML += '&nbsp;:&nbsp;<img src="./images/White_king.png" class="h-5 w-5 mt-[5px]" alt="">';
+        _$("player1").classList.remove("opacity-50");
         _$("choosePlayer").style.visibility = "hidden";
     }
     else if (e.value == "White") {
         player1 = e.value;
         player2 = "Black";
         turn = player1;
+        _$("player1").classList.add("bg-[url('./images/White_king.png')]");
+        _$("player2").classList.add("bg-[url('./images/Black_king.png')]");
+        _$("player1-text").innerHTML += '&nbsp;:&nbsp;<img src="./images/White_king.png" class="h-5 w-5 mt-[5px]" alt="">';
+        _$("player2-text").innerHTML += '&nbsp;:&nbsp;<img src="./images/Black_king.png" class="h-5 w-5 mt-[5px]" alt="">';
+        _$("player1").classList.remove("opacity-50");
         _$("choosePlayer").style.visibility = "hidden";
     }
 }
@@ -214,10 +224,11 @@ function possibleMovesForSoldiers(e) {
         for (let i = 0; i < board[index].length; i++) {
             if (board[index][i] == id) {
                 if (pieceType == "Black_soldier" && turn == "Black") {
+                    let firstPossibleMove = board[index + 1] ? board[index + 1][i] ? _$(board[index + 1][i]).children[0] ? _$(board[index + 1][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
                     let firstPossibleDeath = board[index + 1] ? board[index + 1][i - 1] ? _$(board[index + 1][i - 1]).children[0] ? _$(board[index + 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
                     let secondPossibleDeath = board[index + 1] ? board[index + 1][i + 1] ? _$(board[index + 1][i + 1]).children[0] ? _$(board[index + 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
-                    if (_$(board[index + 1][i]).innerHTML == "" && ((firstPossibleDeath == "" && secondPossibleDeath == "") || (firstPossibleDeath == "Black" && secondPossibleDeath == "Black") || (firstPossibleDeath == "" && secondPossibleDeath == "Black") || (firstPossibleDeath == "Black" && secondPossibleDeath == ""))) {
+                    if (firstPossibleMove != "" && ((firstPossibleDeath != "" && secondPossibleDeath != "") || (firstPossibleDeath == "Black" && secondPossibleDeath == "Black") || (firstPossibleDeath != "" && secondPossibleDeath == "Black") || (firstPossibleDeath == "Black" && secondPossibleDeath != ""))) {
                         _$(board[index + 1][i]).style.backgroundColor = "#90EE90";
                         _$(board[index + 1][i]).style.border = "1px solid #013220";
                         _$(board[index + 1][i]).style.borderRadius = "5px";
@@ -244,10 +255,11 @@ function possibleMovesForSoldiers(e) {
                     break loop1;
                 }
                 else if (pieceType == "White_soldier" && turn == "White") {
+                    let firstPossibleMove = board[index - 1] ? board[index - 1][i] ? _$(board[index - 1][i]).children[0] ? _$(board[index - 1][i]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
                     let firstPossibleDeath = board[index - 1] ? board[index - 1][i - 1] ? _$(board[index - 1][i - 1]).children[0] ? _$(board[index - 1][i - 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
                     let secondPossibleDeath = board[index - 1] ? board[index - 1][i + 1] ? _$(board[index - 1][i + 1]).children[0] ? _$(board[index - 1][i + 1]).children[0].getAttribute("src").replace("./images/", "").replace(".png", "").replace("_soldier", "").replace("_king", "").replace("_queen", "").replace("_horse", "").replace("_camel", "").replace("_rook", "") : null : "" : "";
 
-                    if (_$(board[index - 1][i]).innerHTML == "" && ((firstPossibleDeath == "" && secondPossibleDeath == "") || (firstPossibleDeath == "White" && secondPossibleDeath == "White") || (firstPossibleDeath == "" && secondPossibleDeath == "White") || (firstPossibleDeath == "White" && secondPossibleDeath == ""))) {
+                    if (firstPossibleMove != "" && ((firstPossibleDeath != "" && secondPossibleDeath != "") || (firstPossibleDeath == "White" && secondPossibleDeath == "White"))) {
                         _$(board[index - 1][i]).style.backgroundColor = "#90EE90";
                         _$(board[index - 1][i]).style.border = "1px solid #013220";
                         _$(board[index - 1][i]).style.borderRadius = "5px";
@@ -1442,6 +1454,15 @@ function selectPossibleMoves(e) {
                 selection = null;
                 possibleMoves = [];
 
+                if (turn == player1) {
+                    _$("player2").classList.add("opacity-50");
+                    _$("player1").classList.remove("opacity-50");
+                }
+                else if(turn == player2){
+                    _$("player1").classList.add("opacity-50");
+                    _$("player2").classList.remove("opacity-50");
+                }
+
                 declareWinner(pieceType);
             }
         }
@@ -1551,6 +1572,14 @@ function place(e) {
         selection = null;
         possibleMoves = [];
 
+        if (turn == player1) {
+            _$("player2").classList.add("opacity-50");
+            _$("player1").classList.remove("opacity-50");
+        }
+        else if(turn == player2){
+            _$("player1").classList.add("opacity-50");
+            _$("player2").classList.remove("opacity-50");
+        }
         declareWinner(pieceType);
     }
 
